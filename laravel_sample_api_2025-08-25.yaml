@@ -1,0 +1,317 @@
+type: collection.insomnia.rest/5.0
+name: laravel_sample_api
+meta:
+  id: wrk_963f7cf9e56a4a6b8f23ef62f598a2c4
+  created: 1756061515463
+  modified: 1756064592265
+collection:
+  - name: User
+    meta:
+      id: fld_34c0bf4fcac24fad865390652dbd74ac
+      created: 1756061515467
+      modified: 1756061515467
+      sortKey: -1743173372251
+    children:
+      - url: 127.0.0.1/laravel_sample_api/public/api/login
+        name: login
+        meta:
+          id: req_1ab36f65675246baa3b9f38b4b556e8d
+          created: 1756061515468
+          modified: 1756063629171
+          isPrivate: false
+          sortKey: -1743173385709
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "owner@gmail.com",
+            	"password": "12345678"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: 127.0.0.1/laravel_sample_api/public/api/register
+        name: Register
+        meta:
+          id: req_732c2d11465d442aa26e1d7e2338ff33
+          created: 1756061515468
+          modified: 1756064479644
+          isPrivate: false
+          sortKey: -1743173385609
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "adm64i4n@gmail3.com",
+            	"password": "12345678",
+            	"password_confirmation": "12345678",
+            	"employee_id": 1,
+            	"user_type_id": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+          - name: Accept
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: 127.0.0.1/laravel_sample_api/public/api/me
+        name: About Me
+        meta:
+          id: req_3e7037ec4cf2422dbaa8550f0cdd62ef
+          created: 1756061515471
+          modified: 1756064373751
+          isPrivate: false
+          sortKey: -1743173385659
+        method: GET
+        body:
+          mimeType: application/json
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: "{{ auth.bearerToken }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: 127.0.0.1/laravel_sample_api/public/api/logout
+        name: logout
+        meta:
+          id: req_9b3c1924832a44268a99bc702dbc8b9d
+          created: 1756061515474
+          modified: 1756064339956
+          isPrivate: false
+          sortKey: -1743173385684
+        method: POST
+        body:
+          mimeType: application/json
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: "{{ auth.bearerToken }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Employees
+    meta:
+      id: fld_470cf3a804164dd9a22baacfd30ef558
+      created: 1756061515502
+      modified: 1756061515502
+      sortKey: -1743248987054.5
+    children:
+      - url: 127.0.0.1/solid_gold/solid_gold_api/public/api/employees
+        name: Save Employee
+        meta:
+          id: req_52a701767be54bd1b0ec8f93bc6d60f4
+          created: 1756061515503
+          modified: 1756063790270
+          isPrivate: false
+          sortKey: -1743273963232
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "employeeName": "Sourav Ganguely 52",
+              "mobile": "12345657r870",
+              "email": "sach7i5n@gmaril.com",
+              "departmentId": 2,
+              "designationId": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+          - name: Accept
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{{ auth.bearerToken }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: 127.0.0.1/solid_gold/solid_gold_api/public/api/employees
+        name: Get all Employees
+        meta:
+          id: req_a5b3cee9c2a745219273a37d9f6f4def
+          created: 1756061515503
+          modified: 1756061515503
+          isPrivate: false
+          sortKey: -1743236551942.75
+        method: GET
+        body:
+          mimeType: application/json
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+          - name: Accept
+            value: application/json
+        authentication:
+          type: bearer
+          disabled: false
+          token: "{{ auth.bearerToken }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: 127.0.0.1/solid_gold/solid_gold_api/public/api/employees/2
+        name: Update Employee
+        meta:
+          id: req_41a9fea809b945c0b05d3f6f5739ea49
+          created: 1756061515504
+          modified: 1756061515504
+          isPrivate: false
+          sortKey: -1743249022372.5
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "employeeName": "Sourave Ganguly3 542",
+              "mobile": "6234565357870",
+              "email": "sach7ri345n@gmail.com",
+              "departmentId": 2,
+              "designationId": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+          - name: Accept
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{{ auth.bearerToken }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: 127.0.0.1/solid_gold/solid_gold_api/public/api/employees/5
+        name: Delete Employee
+        meta:
+          id: req_453abd79aeea4b66864ad6a2b054ddc9
+          created: 1756061515504
+          modified: 1756061515504
+          isPrivate: false
+          sortKey: -1743242787157.625
+        method: DELETE
+        body:
+          mimeType: application/json
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+          - name: Accept
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{{ auth.bearerToken }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: 127.0.0.1/solid_gold/solid_gold_api/public/api/employees/28
+        name: Get  Employees by ID
+        meta:
+          id: req_6c8d52a561c84879b295716e4c6cf531
+          created: 1756061515505
+          modified: 1756061515505
+          isPrivate: false
+          sortKey: -1743230316727.875
+        method: GET
+        body:
+          mimeType: application/json
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+          - name: Accept
+            value: application/json
+        authentication:
+          type: bearer
+          disabled: false
+          token: "{{ auth.bearerToken }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_ec009af9c3ca450ba56ff290ac97ba75
+    created: 1756061515466
+    modified: 1756061515466
+environments:
+  name: Base Environment
+  meta:
+    id: env_07f11f5134954432b9607473f91d34f3
+    created: 1756061515464
+    modified: 1756064438005
+    isPrivate: false
+  data:
+    auth:
+      bearerToken: 3|6BHTL0kyyIvMt6WvGkzhREgnNTjHMlKRukVKoPj9c6c05196
