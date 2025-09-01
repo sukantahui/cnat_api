@@ -14,12 +14,19 @@ class DatabaseOperationException extends RuntimeException
     public function __construct(QueryException $originalException)
     {
         $message = "Database operation failed: " . $originalException->getMessage();
-        parent::__construct($message, $originalException->getCode(), $originalException);
+
+        // Force cast code to int, defaulting to 0 if not numeric
+        $code = is_numeric($originalException->getCode())
+            ? (int) $originalException->getCode()
+            : 0;
+
+        parent::__construct($message, $code, $originalException);
 
         $this->query = $originalException->getSql();
         $this->bindings = $originalException->getBindings();
         $this->errorInfo = $originalException->errorInfo ?? null;
     }
+
 
     public function getQuery(): ?string
     {

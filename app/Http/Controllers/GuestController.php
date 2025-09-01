@@ -7,9 +7,11 @@ use App\Http\Requests\StoreGuestRequest;
 use App\Http\Requests\UpdateGuestRequest;
 use App\Helper\ResponseHelper;
 use App\Http\Resources\GuestResource;
+use App\Traits\HandlesTransactions;
 
 class GuestController extends Controller
 {
+    use HandlesTransactions;
     /**
      * Display a listing of the resource.
      */
@@ -36,14 +38,10 @@ class GuestController extends Controller
      */
     public function store(StoreGuestRequest $request)
     {
-        // The validated data comes automatically from StoreGuestRequest
-        $data = $request->validated();
-
-        // Create the guest
-        $guest = Guest::create($data);
-
-        // Return a response
-        return ResponseHelper::success("Guest created successfully", $guest);
+        return $this->executeInTransaction(function () use ($request) {
+            $guest = Guest::create($request->validated());
+            return ResponseHelper::success("Guest created successfully", $guest);
+        });
     }
 
     /**
