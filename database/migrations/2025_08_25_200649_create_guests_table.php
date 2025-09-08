@@ -13,14 +13,21 @@ return new class extends Migration
     {
         Schema::create('guests', function (Blueprint $table) {
             $table->id();
-            $table->string('guest_name'); // removed unique
-            $table->string('mobile')->unique();
-            $table->string('wp_number')->nullable(); // allow same as mobile or empty
-            $table->string('address')->nullable();   // optional
-            $table->string('email')->unique();
+            $table->string('guest_name', 100);
+            $table->string('mobile', 20);
+            $table->string('wp_number', 20)->nullable();
+            $table->string('address', 191)->nullable();
+            $table->string('email', 191);
             $table->foreignId('gender_id')->constrained('genders');
             $table->foreignId('food_preference_id')->constrained('food_preferences');
+            $table->unsignedBigInteger('previous_guest_id')->nullable();
+            $table->foreign('previous_guest_id')->references('id')->on('guests')->nullOnDelete();
             $table->timestamps();
+
+            // Composite unique constraints
+            $table->unique(['guest_name', 'mobile']);
+            $table->unique(['guest_name', 'wp_number']);
+            
         });
     }
 
