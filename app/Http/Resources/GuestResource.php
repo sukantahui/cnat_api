@@ -19,7 +19,9 @@ class GuestResource extends JsonResource
         return [
             'guestId' => $this->id,
             'guestName' => $this->guest_name,
+            'mobileMasked' => $this->maskMobile($this->mobile),
             'mobile' => $this->mobile,
+            'wpNumberMasked' => $this->maskMobile($this->wp_number),
             'wpNumber' => $this->wp_number,
             'address' => $this->address,
             'email' => $this->email,
@@ -30,5 +32,17 @@ class GuestResource extends JsonResource
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,   
         ];
+    }
+    private function maskMobile($mobile)
+    {
+        if (!$mobile || strlen($mobile) < 4) {
+            return $mobile; // fallback if invalid number
+        }
+
+        $firstTwo = substr($mobile, 0, 2);
+        $lastTwo  = substr($mobile, -2);
+        $masked   = str_repeat('X', strlen($mobile) - 4);
+
+        return $firstTwo . $masked . $lastTwo;
     }
 }
