@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\ConvertsCamelToSnake;
+use Illuminate\Validation\Rule;
 
 class StoreGuestRequest extends FormRequest
 {
@@ -25,14 +26,39 @@ class StoreGuestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'guest_name'          => 'required|string|max:200',
-            'mobile'              => 'required|string|max:20|unique:guests,mobile',
-            'wp_number'           => 'nullable|string|max:20|unique:guests,wp_number',
-            'address'             => 'nullable|string|max:255',
-            'email'               => 'nullable|email|unique:guests,email',
-            'gender_id'           => 'required|exists:genders,id',
-            'food_preference_id'  => 'required|exists:food_preferences,id',
-            'inforce'             => 'boolean',
+            'guest_name' => ['required', 'string', 'max:100'],
+
+            // must be unique in combination with guest_name
+            'mobile' => [
+                'required',
+                'string',
+                'max:20',
+                Rule::unique('guests')->where(
+                    fn($query) =>
+                    $query->where('guest_name', $this->guest_name)
+                ),
+            ],
+
+            // must be unique in combination with guest_name (if provided)
+            'wp_number' => [
+                'nullable',
+                'string',
+                'max:20',
+                Rule::unique('guests')->where(
+                    fn($query) =>
+                    $query->where('guest_name', $this->guest_name)
+                ),
+            ],
+
+            'address' => ['nullable', 'string', 'max:191'],
+
+            // not globally unique anymore (since removed from migration),
+            // but still you may want to validate format
+            'email' => ['nullable', 'email', 'max:191'],
+
+            'gender_id' => ['required', 'exists:genders,id'],
+            'food_preference_id' => ['required', 'exists:food_preferences,id'],
+            'inforce' => ['boolean'],
         ];
     }
 

@@ -21,7 +21,7 @@ class GuestController extends Controller
         if ($guests->isEmpty()) {
             return ResponseHelper::error("No guests found", null, statusCode: 404);
         }
-        
+
         return ResponseHelper::success("Guests retrieved successfully", GuestResource::collection($guests));
     }
 
@@ -39,7 +39,17 @@ class GuestController extends Controller
     public function store(StoreGuestRequest $request)
     {
         return $this->executeInTransaction(function () use ($request) {
-            $guest = Guest::create($request->validated());
+            $data = $request->validated();
+
+            // Check if a guest already exists with the same mobile
+            $previousGuest = Guest::where('mobile', $data['mobile'])->first();
+
+            if ($previousGuest) {
+                $data['previous_guest_id'] = $previousGuest->id;
+            }
+
+            $guest = Guest::create($data);
+
             return ResponseHelper::success("Guest created successfully", $guest);
         });
     }
