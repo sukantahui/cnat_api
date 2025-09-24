@@ -29,6 +29,8 @@ class GuestResource extends JsonResource
             'genderName' => $genderName,
             'foodPreferenceId' => $this->food_preference_id,
             'foodPreferenceName' => FoodPreference::find($this->food_preference_id)->food_preference_name,
+            'isPresent' => $this->is_present,
+            'comment' => $this->comment,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,   
         ];

@@ -59,7 +59,8 @@ class StoreGuestRequest extends FormRequest
 
             'gender_id' => ['required', 'exists:genders,id'],
             'food_preference_id' => ['required', 'exists:food_preferences,id'],
-            'inforce' => ['boolean'],
+            'is_attending' => ['boolean'],
+            'comment' => ['nullable', 'string'],
         ];
     }
 
