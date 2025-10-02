@@ -56,6 +56,7 @@ class StoreGuestRequest extends FormRequest
             // but still you may want to validate format
             'email' => ['nullable', 'email', 'max:191'],
             'pin' => ['required', 'string', 'max:4', 'min:4'],
+            'token' => ['nullable', 'string', 'max:50', 'min:4'],
 
             'gender_id' => ['required', 'exists:genders,id'],
             'food_preference_id' => ['required', 'exists:food_preferences,id'],

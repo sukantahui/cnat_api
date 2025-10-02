@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('address', 191)->nullable();
             $table->string('email', 191)->nullable(true);
             $table->string('pin', 4);
+            $table->string('token', 50)->nullable(true);
             $table->foreignId('gender_id')->constrained('genders');
             $table->foreignId('food_preference_id')->constrained('food_preferences');
             $table->unsignedBigInteger('previous_guest_id')->nullable();
