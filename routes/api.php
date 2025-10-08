@@ -53,7 +53,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('/','index');
         Route::get('/{id}','show');
         Route::post('/','store');
-        Route::put('/{guestId}','update');
+        Route::put('/','edit');
+        // Route::put('/{guestId}','update');
         Route::delete('/{guestId}','destroy');
     });
 });
@@ -66,7 +67,8 @@ Route::group(array('prefix' => 'dev'), function() {
         Route::get('/','index');
         Route::get('/{id}','show');
         Route::post('/','store');
-        Route::put('/{guestId}','update');
+        // Route::put('/{guestId}','update');
+        Route::put('/{guestId}','edit');
         Route::delete('/{guestId}','destroy');
     });
 });

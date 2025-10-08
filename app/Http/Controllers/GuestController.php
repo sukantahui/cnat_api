@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateGuestRequest;
 use App\Helper\ResponseHelper;
 use App\Http\Resources\GuestResource;
 use App\Traits\HandlesTransactions;
+use Illuminate\Http\Request;
 
 class GuestController extends Controller
 {
@@ -68,9 +69,11 @@ class GuestController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Guest $guest)
+    public function edit($guestId, Request $request)
     {
-        //
+        // return $guestId;
+        $guest = Guest::findOrFail($guestId);
+        return ResponseHelper::success("Guest retrieved successfully", new GuestResource($guest));
     }
 
     /**
