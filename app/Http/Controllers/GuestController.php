@@ -50,7 +50,7 @@ class GuestController extends Controller
             }
 
             $guest = Guest::create($data);
-            $guest->token = "CNAT-Bijoya2025-" . ($guest->id + 1000);
+            $guest->token = "CNAT-" . ($guest->id + 1000);
             $guest->save();
 
             return ResponseHelper::success("Guest created successfully", $guest);
