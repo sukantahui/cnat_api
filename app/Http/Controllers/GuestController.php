@@ -10,20 +10,63 @@ use App\Http\Resources\GuestResource;
 use App\Traits\HandlesTransactions;
 use Illuminate\Http\Request;
 
+
 class GuestController extends Controller
 {
     use HandlesTransactions;
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // public function index()
+    // {
+    //     $guests = Guest::with(['gender', 'foodPreference'])->get();
+    //     if ($guests->isEmpty()) {
+    //         return ResponseHelper::error("No guests found", null, statusCode: 404);
+    //     }
+
+    //     return ResponseHelper::success("Guests retrieved successfully", GuestResource::collection($guests));
+    // }
+
+    private function maskMobile($mobile)
     {
-        $guests = Guest::with(['gender', 'foodPreference'])->get();
-        if ($guests->isEmpty()) {
-            return ResponseHelper::error("No guests found", null, statusCode: 404);
+        if (!$mobile || strlen($mobile) < 4) {
+            return $mobile; // fallback if invalid number
         }
 
-        return ResponseHelper::success("Guests retrieved successfully", GuestResource::collection($guests));
+        $firstTwo = substr($mobile, 0, 2);
+        $lastTwo  = substr($mobile, -2);
+        $masked   = str_repeat('X', strlen($mobile) - 4);
+
+        return $firstTwo . $masked . $lastTwo;
+    }
+
+    public function index()
+    {
+        $guests = Guest::all();
+
+        if ($guests->isEmpty()) {
+            return ResponseHelper::error("No guests found", null, 404);
+        }
+
+        // Add related data manually
+        $guests = $guests->map(function ($guest) {
+            return [
+                'id' => $guest->id,
+                'token' => $guest->token,
+                'guestName' => $guest->guest_name,
+                'mobile' => $guest->mobile,
+                'mobileMasked' => $this->maskMobile($guest->mobile),
+                'wpNumber' => $guest->wp_number,
+                'wpNumberMasked' => $this->maskMobile($guest->wp_number),
+                'genderId' => $guest->gender_id,
+                'genderName' => optional($guest->gender)->gender_name ?? null,
+                'foodPreferenceName' => optional($guest->foodPreference)->food_preference_name ?? null,
+                'created_at' => $guest->created_at,
+                'updated_at' => $guest->updated_at,
+            ];
+        });
+
+        return ResponseHelper::success("Guests retrieved successfully", $guests);
     }
 
     /**

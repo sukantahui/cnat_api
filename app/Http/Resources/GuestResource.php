@@ -18,6 +18,7 @@ class GuestResource extends JsonResource
         $genderName = Gender::find($this->gender_id)->gender_name;
         return [
             'guestId' => $this->id,
+            'token' => $this->token,
             'guestName' => $this->guest_name,
             'mobileMasked' => $this->maskMobile($this->mobile),
             'mobile' => $this->mobile,
