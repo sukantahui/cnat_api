@@ -42,7 +42,7 @@ class GuestController extends Controller
 
     public function index()
     {
-        $guests = Guest::all();
+        $guests = Guest::orderBy('id', 'desc')->get();
 
         if ($guests->isEmpty()) {
             return ResponseHelper::error("No guests found", null, 404);
