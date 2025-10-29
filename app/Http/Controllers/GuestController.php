@@ -21,7 +21,7 @@ class GuestController extends Controller
     // {
     //     $guests = Guest::with(['gender', 'foodPreference'])->get();
     //     if ($guests->isEmpty()) {
-    //         return ResponseHelper::error("No guests found", null, statusCode: 404);
+    //   !      return ResponseHelper::error("No guests found", null, statusCode: 404);
     //     }
 
     //     return ResponseHelper::success("Guests retrieved successfully", GuestResource::collection($guests));
