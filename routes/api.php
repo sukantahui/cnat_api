@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Api\AuthController;
@@ -85,4 +86,11 @@ Route::group(array('prefix' => 'dev'), function() {
         Route::put('/{studentId}','update');
         Route::delete('/{studentId}','destroy');
     });
+    Route::controller(CourseController::class)->prefix('courses')->group(function(){
+        Route::get('/','index');
+        Route::post('/','store');
+        Route::put('/{courseId}','update');
+        Route::delete('/{courseId}','destroy');
+    });
+
 });

@@ -9,4 +9,5 @@ class State extends Model
 {
     /** @use HasFactory<\Database\Factories\StateFactory> */
     use HasFactory;
+    protected $guarded = ['id'];
 }

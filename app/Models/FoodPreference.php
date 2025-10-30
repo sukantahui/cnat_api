@@ -9,4 +9,5 @@ class FoodPreference extends Model
 {
     /** @use HasFactory<\Database\Factories\FoodPreferenceFactory> */
     use HasFactory;
+    protected $guarded = ['id'];
 }

@@ -9,9 +9,14 @@ class Gender extends Model
 {
     /** @use HasFactory<\Database\Factories\GenderFactory> */
     use HasFactory;
+    protected $guarded = ['id'];
     function guests()
     {
         return $this->hasMany(Guest::class);
+    }
+    function students()
+    {
+        return $this->hasMany(Student::class);
     }
 }
 
