@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
-use App\Http\Requests\StoreStudentRequest;
-use App\Http\Requests\UpdateStudentRequest;
+use App\Models\Course;
+use App\Http\Requests\StoreCourseRequest;
+use App\Http\Requests\UpdateCourseRequest;
 use App\Traits\HandlesTransactions;
 use App\Helper\ResponseHelper;
 
-class StudentController extends Controller
+class CourseController extends Controller
 {
     use HandlesTransactions;
     /**
@@ -16,8 +16,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
-        return ResponseHelper::success("Students retrieved successfully", $students);
+        //
     }
 
     /**
@@ -31,23 +30,29 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreStudentRequest $request)
+    public function store(StoreCourseRequest $request)
     {
-       return $this->executeInTransaction(function () use ($request) {
+        return $this->executeInTransaction(function () use ($request) {
             $data = $request->validated();
-            $student = Student::create($data);
-            $student->save();
+            $course = Course::create($data);
+            $course->save();
 
-            return ResponseHelper::success("Student created successfully", $student);
+            return ResponseHelper::success("Course created successfully", $course);
         });
     }
 
-    
+    /**
+     * Display the specified resource.
+     */
+    public function show(Course $course)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Student $student)
+    public function edit(Course $course)
     {
         //
     }
@@ -55,7 +60,7 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStudentRequest $request, Student $student)
+    public function update(UpdateCourseRequest $request, Course $course)
     {
         //
     }
@@ -63,7 +68,7 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student)
+    public function destroy(Course $course)
     {
         //
     }

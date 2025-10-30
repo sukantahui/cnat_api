@@ -4,6 +4,7 @@
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 
@@ -49,13 +50,20 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::delete('/{employeeId}','destroy');
     });
 
-     Route::controller(GuestController::class)->prefix('guests')->group(function(){
+    Route::controller(GuestController::class)->prefix('guests')->group(function(){
         Route::get('/','index');
         Route::get('/{id}','show');
         Route::post('/','store');
         Route::put('/','edit');
         // Route::put('/{guestId}','update');
         Route::delete('/{guestId}','destroy');
+    });
+
+    Route::controller(StudentController::class)->prefix('students')->group(function(){
+        Route::get('/','index');
+        Route::post('/','store');
+        Route::put('/{studentId}','update');
+        Route::delete('/{studentId}','destroy');
     });
 });
 
@@ -70,5 +78,11 @@ Route::group(array('prefix' => 'dev'), function() {
         // Route::put('/{guestId}','update');
         Route::put('/{guestId}','edit');
         Route::delete('/{guestId}','destroy');
+    });
+    Route::controller(StudentController::class)->prefix('students')->group(function(){
+        Route::get('/','index');
+        Route::post('/','store');
+        Route::put('/{studentId}','update');
+        Route::delete('/{studentId}','destroy');
     });
 });
