@@ -12,6 +12,7 @@ use App\Models\Gender;
 use App\Models\FoodPreference;
 use App\Models\State;
 use App\Models\District;
+use App\Models\Course;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -1048,6 +1049,98 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Kargil'],
             ['state_id' => $state->id, 'district_name' => 'Leh'],
         ]);
+
+
+        //adding courses
+        $course=Course::create(['course_code'=>'RDBMS','course_name' => 'Relational Database Management System']);
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Database Systems',
+                'topic_description' => 'Understanding data, information, and database concepts. Overview of file-based systems and their limitations.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Database Architecture & Data Models',
+                'topic_description' => 'Three-level database architecture, data abstraction, data independence, ER model, and relational model overview.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 1.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Entity Relationship (ER) Modeling',
+                'topic_description' => 'ER diagrams, entities, attributes, relationships, keys, cardinality, and conversion to relational schema.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 1.5,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Relational Algebra and Calculus',
+                'topic_description' => 'Operations like select, project, join, union, difference, and division. Introduction to tuple and domain relational calculus.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 1.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'SQL – Structured Query Language',
+                'topic_description' => 'DDL, DML, DCL, TCL commands; constraints; joins; nested queries; aggregate functions; and views.',
+                'theory_duration' => 4.0,
+                'practical_duration' => 4.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Normalization and Functional Dependencies',
+                'topic_description' => 'Concepts of normalization, 1NF to 5NF, BCNF, and identifying anomalies and dependencies.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 1.0,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Transaction Management and Concurrency Control',
+                'topic_description' => 'ACID properties, transaction states, serializability, locking, and deadlock handling.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 1.0,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Database Recovery and Backup Techniques',
+                'topic_description' => 'Recovery techniques, checkpoints, log-based recovery, and backup strategies.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Database Security and Authorization',
+                'topic_description' => 'User authentication, privileges, roles, encryption, and SQL injection prevention.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'PL/SQL and Stored Procedures',
+                'topic_description' => 'Procedural extensions in SQL: variables, cursors, loops, triggers, and stored procedures.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Indexing and Query Optimization',
+                'topic_description' => 'B-trees, hashing, cost-based optimization, and use of indexes for performance tuning.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 1.0,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'NoSQL Overview (Optional)',
+                'topic_description' => 'Brief comparison between relational and NoSQL databases, document and key-value stores.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 0.5,
+                'sequence' => 12,
+            ],
+        ]);
+
+        
 
 
         
