@@ -1140,19 +1140,323 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
-        
-
-
-        
-
-
-
-
-
-
-
-
-
+        $course=Course::create(['course_code'=>'JAVA','course_name' => 'JAVA Web Technologies']);
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Advanced Java',
+                'topic_description' => 'Overview of Core vs Advanced Java, JDK structure, and setup for development with IDEs.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 0.5,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Java Database Connectivity (JDBC)',
+                'topic_description' => 'JDBC architecture, connection interface, statements, prepared statements, result sets, and transactions.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 3.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Servlets and Web Applications',
+                'topic_description' => 'Servlet lifecycle, request/response handling, session management, cookies, and deployment in Tomcat.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 4.0,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'JavaServer Pages (JSP)',
+                'topic_description' => 'JSP lifecycle, implicit objects, directives, JSTL, and JSP-Servlet integration.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 3.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'JavaBeans and Custom Tags',
+                'topic_description' => 'Creating reusable components using JavaBeans and using custom tag libraries in JSP.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Java Networking',
+                'topic_description' => 'Working with sockets, URL and InetAddress classes, client-server communication, and multithreading with sockets.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Remote Method Invocation (RMI)',
+                'topic_description' => 'Distributed programming with RMI: remote interfaces, stubs, skeletons, and registry.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Java Message Service (JMS)',
+                'topic_description' => 'Messaging concepts, point-to-point vs publish-subscribe models, and message-driven beans.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 1.5,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Spring Framework Basics',
+                'topic_description' => 'Introduction to IoC, dependency injection, and using annotations in Spring Core.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 3.0,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Hibernate ORM Framework',
+                'topic_description' => 'Object-relational mapping, configuration, session management, CRUD operations, and relationships.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 3.0,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Spring MVC Architecture',
+                'topic_description' => 'Model-View-Controller architecture, form handling, validation, and integration with Hibernate.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 3.0,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'RESTful Web Services in Java',
+                'topic_description' => 'Creating REST APIs using Spring Boot, JSON handling, and HTTP methods.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 3.0,
+                'sequence' => 12,
+            ],
+            [
+                'topic_title' => 'Java Security and Authentication',
+                'topic_description' => 'User authentication, encryption, SSL, and secure coding practices in Java applications.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 1.5,
+                'sequence' => 13,
+            ],
+            [
+                'topic_title' => 'Project Work',
+                'topic_description' => 'Building a full-stack Java web application integrating Servlets, JSP, JDBC, and Spring Boot.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 6.0,
+                'sequence' => 14,
+            ],
+        ]);
+        $course=Course::create(['course_code'=>'Tally01','course_name' => 'Tally Prime']);
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Accounting and Tally Prime',
+                'topic_description' => 'Overview of accounting principles, need for computerised accounting, introduction to Tally Prime interface and features.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 1.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Company Creation and Configuration',
+                'topic_description' => 'Creating, selecting, altering and deleting companies; managing data directories; security and user management.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 2.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Fundamentals of Accounting in Tally',
+                'topic_description' => 'Understanding Groups, Ledgers, Vouchers, and Double Entry System; creating and managing ledger accounts.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.5,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Voucher Entries',
+                'topic_description' => 'Recording transactions using different voucher types — Payment, Receipt, Contra, Journal, Sales, and Purchase.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Inventory Management in Tally Prime',
+                'topic_description' => 'Stock groups, stock categories, stock items, units of measure, and stock valuation methods.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Bill-wise and Outstanding Management',
+                'topic_description' => 'Managing bills receivable and payable, maintaining party balances, and ageing analysis reports.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.0,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Banking Features and Reconciliation',
+                'topic_description' => 'Bank reconciliation, cheque management, post-dated cheques, and online banking features.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.5,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'GST in Tally Prime',
+                'topic_description' => 'Introduction to Goods and Services Tax, GST configuration, creating GST ledgers, and filing GST returns using Tally.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 3.0,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'TDS and TCS Management',
+                'topic_description' => 'Configuring and calculating Tax Deducted at Source (TDS) and Tax Collected at Source (TCS) in Tally.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Payroll Management in Tally Prime',
+                'topic_description' => 'Enabling payroll, creating employee masters, salary structures, attendance, and payslips.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Budgeting and Scenario Management',
+                'topic_description' => 'Creating budgets, defining controls, variance analysis, and using scenarios for forecasting.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 1.5,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Generating Financial Statements',
+                'topic_description' => 'Viewing and customizing Balance Sheet, Profit & Loss Account, Cash Flow, and Ratio Analysis reports.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 12,
+            ],
+            [
+                'topic_title' => 'Data Management and Security',
+                'topic_description' => 'Backup and restore, data migration, password protection, user roles, and audit features.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.0,
+                'sequence' => 13,
+            ],
+            [
+                'topic_title' => 'Tally Prime Reports and Printing',
+                'topic_description' => 'Customizing report views, printing invoices, exporting data, and emailing reports.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 2.0,
+                'sequence' => 14,
+            ],
+            [
+                'topic_title' => 'Practical Project: Full Business Cycle',
+                'topic_description' => 'Recording transactions from company creation to final reports for a sample trading business.',
+                'theory_duration' => 0.5,
+                'practical_duration' => 5.0,
+                'sequence' => 15,
+            ],
+        ]);
+        $course=Course::create(['course_code'=>'Excel-01','course_name' => 'Advance Excel']);
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Excel Environment',
+                'topic_description' => 'Overview of Excel interface, ribbons, workbooks, worksheets, and data entry basics.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 1.5,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Cell Referencing and Data Formatting',
+                'topic_description' => 'Understanding relative, absolute, and mixed references; number formats; conditional formatting.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 2.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Data Validation and Drop-down Lists',
+                'topic_description' => 'Restricting and validating data inputs; creating dependent lists and error alerts.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 1.5,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Advanced Formulas and Functions',
+                'topic_description' => 'In-depth use of text, date, logical, and statistical functions like IF, SUMIF, COUNTIF, and nested formulas.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Lookup and Reference Functions',
+                'topic_description' => 'Using VLOOKUP, HLOOKUP, XLOOKUP, INDEX, and MATCH for data retrieval and dynamic referencing.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Working with Tables and Named Ranges',
+                'topic_description' => 'Creating and formatting tables, structured references, and using named ranges in formulas.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 2.0,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Data Sorting, Filtering and Subtotals',
+                'topic_description' => 'Custom sorting, multiple-level filters, advanced filter options, and using subtotals.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.0,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Pivot Tables and Pivot Charts',
+                'topic_description' => 'Creating pivot tables, grouping data, using slicers, and generating pivot charts for summaries.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'What-If Analysis and Data Tools',
+                'topic_description' => 'Goal Seek, Scenario Manager, Data Tables, and consolidation of data across workbooks.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.5,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Charts and Visualization Techniques',
+                'topic_description' => 'Creating and customizing various charts, combo charts, and using Sparklines and conditional visuals.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.0,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Macros and Automation (VBA Introduction)',
+                'topic_description' => 'Recording, editing, and running macros; basic introduction to VBA editor and automation tasks.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Protection, Security and Collaboration',
+                'topic_description' => 'Protecting worksheets, sharing workbooks, tracking changes, and password protection.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.0,
+                'sequence' => 12,
+            ],
+            [
+                'topic_title' => 'Importing and Cleaning Data',
+                'topic_description' => 'Using Power Query, Text-to-Columns, Flash Fill, and data cleaning techniques.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.5,
+                'sequence' => 13,
+            ],
+            [
+                'topic_title' => 'Dashboards and Reports',
+                'topic_description' => 'Creating interactive dashboards using pivot tables, charts, slicers, and form controls.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 14,
+            ],
+            [
+                'topic_title' => 'Project: Business Data Analysis in Excel',
+                'topic_description' => 'Practical case study involving report generation, analysis, and dashboard presentation.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 4.0,
+                'sequence' => 15,
+            ],
+        ]);
 
 
 
