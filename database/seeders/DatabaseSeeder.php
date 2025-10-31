@@ -115,7 +115,7 @@ class DatabaseSeeder extends Seeder
             ['food_preference_name' => 'Non-Vegetarian']
         ]);
         //Jammu & Kashmir
-        $state=State::create(['state_code' => 1, 'state_name' => 'Jammu & Kashmir']);
+        $state = State::create(['state_code' => 1, 'state_name' => 'Jammu & Kashmir']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Anantnag'],
             ['state_id' => $state->id, 'district_name' => 'Bandipora'],
@@ -140,7 +140,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // for Himachal Pradesh states
-        $state=State::create(['state_code' => 2, 'state_name' => 'Himachal Pradesh']);
+        $state = State::create(['state_code' => 2, 'state_name' => 'Himachal Pradesh']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Bilaspur HP'],
             ['state_id' => $state->id, 'district_name' => 'Chamba'],
@@ -157,7 +157,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // for Punjab
-        $state=State::create(['state_code' => 3, 'state_name' => 'Punjab']);
+        $state = State::create(['state_code' => 3, 'state_name' => 'Punjab']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Amritsar'],
             ['state_id' => $state->id, 'district_name' => 'Barnala'],
@@ -182,14 +182,14 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'SAS Nagar (Mohali)'],
             ['state_id' => $state->id, 'district_name' => 'SBS Nagar (Nawanshahr)'],
             ['state_id' => $state->id, 'district_name' => 'Tarn Taran'],
-        ]);     
+        ]);
         // for Chandigarh states
-        $state=State::create(['state_code' => 4, 'state_name' => 'Chandigarh']);
+        $state = State::create(['state_code' => 4, 'state_name' => 'Chandigarh']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Chandigarh'],
         ]);
         // for Uttarakhand states
-        $state=State::create(['state_code' => 5, 'state_name' => 'Uttarakhand']);
+        $state = State::create(['state_code' => 5, 'state_name' => 'Uttarakhand']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Almora'],
             ['state_id' => $state->id, 'district_name' => 'Bageshwar'],
@@ -207,7 +207,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // for Haryana states
-        $state=State::create(['state_code' => 6, 'state_name' => 'Haryana']);
+        $state = State::create(['state_code' => 6, 'state_name' => 'Haryana']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Ambala'],
             ['state_id' => $state->id, 'district_name' => 'Bhiwani'],
@@ -234,7 +234,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // for Delhi states
-        $state=State::create(['state_code' => 7, 'state_name' => 'Delhi']);
+        $state = State::create(['state_code' => 7, 'state_name' => 'Delhi']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Central Delhi'],
             ['state_id' => $state->id, 'district_name' => 'East Delhi'],
@@ -250,7 +250,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // for Rajasthan states
-        $state=State::create(['state_code' => 8, 'state_name' => 'Rajasthan']);
+        $state = State::create(['state_code' => 8, 'state_name' => 'Rajasthan']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Ajmer'],
             ['state_id' => $state->id, 'district_name' => 'Alwar'],
@@ -288,7 +288,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // for Uttar Pradesh states
-        $state=State::create(['state_code' => 9, 'state_name' => 'Uttar Pradesh']);
+        $state = State::create(['state_code' => 9, 'state_name' => 'Uttar Pradesh']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Agra'],
             ['state_id' => $state->id, 'district_name' => 'Aligarh'],
@@ -367,7 +367,7 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Varanasi'],
         ]);
         // for Bihar states
-        $state=State::create(['state_code' => 10, 'state_name' => 'Bihar']);
+        $state = State::create(['state_code' => 10, 'state_name' => 'Bihar']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Araria'],
             ['state_id' => $state->id, 'district_name' => 'Arwal'],
@@ -410,7 +410,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // for Sikkim states
-        $state=State::create(['state_code' => 11, 'state_name' => 'Sikkim']);
+        $state = State::create(['state_code' => 11, 'state_name' => 'Sikkim']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Gangtok'],
             ['state_id' => $state->id, 'district_name' => 'Namchi'],
@@ -421,7 +421,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // for Arunachal Pradesh states
-        $state=State::create(['state_code' => 12, 'state_name' => 'Arunachal Pradesh']);
+        $state = State::create(['state_code' => 12, 'state_name' => 'Arunachal Pradesh']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Tawang'],
             ['state_id' => $state->id, 'district_name' => 'West Kameng'],
@@ -450,7 +450,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // for Nagaland states
-        $state=State::create(['state_code' => 13, 'state_name' => 'Nagaland']);
+        $state = State::create(['state_code' => 13, 'state_name' => 'Nagaland']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Chümoukedima'],
             ['state_id' => $state->id, 'district_name' => 'Dimapur'],
@@ -470,7 +470,7 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Zunheboto'],
         ]);
         // for Manipur states
-        $state=State::create(['state_code' => 14, 'state_name' => 'Manipur']);
+        $state = State::create(['state_code' => 14, 'state_name' => 'Manipur']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Bishnupur'],
             ['state_id' => $state->id, 'district_name' => 'Chandel'],
@@ -491,7 +491,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // for Mizoram states
-        $state=State::create(['state_code' => 15, 'state_name' => 'Mizoram']);
+        $state = State::create(['state_code' => 15, 'state_name' => 'Mizoram']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Aizawl'],
             ['state_id' => $state->id, 'district_name' => 'Champhai'],
@@ -506,7 +506,7 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Saitual'],
         ]);
         // for Tripura states
-        $state=State::create(['state_code' => 16, 'state_name' => 'Tripura']);
+        $state = State::create(['state_code' => 16, 'state_name' => 'Tripura']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Dhalai'],
             ['state_id' => $state->id, 'district_name' => 'Gomati'],
@@ -576,7 +576,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // for West Bengal states
-        $state=State::create(['state_code' => 19, 'state_name' => 'West Bengal']);
+        $state = State::create(['state_code' => 19, 'state_name' => 'West Bengal']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Alipurduar'],
             ['state_id' => $state->id, 'district_name' => 'Bankura'],
@@ -603,7 +603,7 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Uttar Dinajpur'],
         ]);
         // for Jharkhand states
-        $state=State::create(['state_code' => 20, 'state_name' => 'Jharkhand']);
+        $state = State::create(['state_code' => 20, 'state_name' => 'Jharkhand']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Bokaro'],
             ['state_id' => $state->id, 'district_name' => 'Chatra'],
@@ -632,7 +632,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // for odisha states
-        $state=State::create(['state_code' => 21, 'state_name' => 'Odisha']);
+        $state = State::create(['state_code' => 21, 'state_name' => 'Odisha']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Angul'],
             ['state_id' => $state->id, 'district_name' => 'Balangir'],
@@ -667,7 +667,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // for Chhattisgarh states
-        $state=State::create(['state_code' => 22, 'state_name' => 'Chhattisgarh']);
+        $state = State::create(['state_code' => 22, 'state_name' => 'Chhattisgarh']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Balod'],
             ['state_id' => $state->id, 'district_name' => 'Baloda Bazar'],
@@ -704,8 +704,8 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Khairagarh-Chhuikhadan-Gandai'],
         ]);
 
-         // for Madhya Pradesh states  
-        $state=State::create(['state_code' => 23, 'state_name' => 'Madhya Pradesh']);
+        // for Madhya Pradesh states  
+        $state = State::create(['state_code' => 23, 'state_name' => 'Madhya Pradesh']);
         // for Madhya Pradesh state
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Agar Malwa'],
@@ -765,9 +765,9 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Sailana'],
         ]);
 
-        
+
         // for Gujarat states
-        $state=State::create(['state_code' => 24, 'state_name' => 'Gujarat']);
+        $state = State::create(['state_code' => 24, 'state_name' => 'Gujarat']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Ahmedabad'],
             ['state_id' => $state->id, 'district_name' => 'Amreli'],
@@ -810,14 +810,14 @@ class DatabaseSeeder extends Seeder
         //     ['state_id' => 25, 'district_name' => 'Diu'],
         // ]);
         // for Dadra & Nagar Haveli and Daman & Diu' states
-        $state=State::create(['state_code' => 26, 'state_name' => 'Dadra & Nagar Haveli and Daman & Diu']);
+        $state = State::create(['state_code' => 26, 'state_name' => 'Dadra & Nagar Haveli and Daman & Diu']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Dadra & Nagar Haveli'],
             ['state_id' => $state->id, 'district_name' => 'Daman'],
             ['state_id' => $state->id, 'district_name' => 'Diu'],
         ]);
         // for Maharashtra states
-        $state=State::create(['state_code' => 27, 'state_name' => 'Maharashtra']);
+        $state = State::create(['state_code' => 27, 'state_name' => 'Maharashtra']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Ahmednagar'],
             ['state_id' => $state->id, 'district_name' => 'Akola'],
@@ -857,7 +857,7 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Yavatmal'],
         ]);
         // for Andhra Pradesh states
-        $state=State::create(['state_code' => 28, 'state_name' => 'Andhra Pradesh']);
+        $state = State::create(['state_code' => 28, 'state_name' => 'Andhra Pradesh']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Alluri Sitharama Raju'],
             ['state_id' => $state->id, 'district_name' => 'Anakapalli'],
@@ -887,7 +887,7 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Kona Seema'],
         ]);
         // for Karnataka states
-        $state=State::create(['state_code' => 29, 'state_name' => 'Karnataka']);
+        $state = State::create(['state_code' => 29, 'state_name' => 'Karnataka']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Bagalkote'],
             ['state_id' => $state->id, 'district_name' => 'Ballari (Bellary)'],
@@ -922,18 +922,18 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Yadgir'],
         ]);
         // for Goa
-        $state=State::create(['state_code' => 30, 'state_name' => 'Goa']);
+        $state = State::create(['state_code' => 30, 'state_name' => 'Goa']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'North Goa'],
             ['state_id' => $state->id, 'district_name' => 'South Goa'],
         ]);
         // for Lakshadweep states
-        $state=State::create(['state_code' => 31, 'state_name' => 'Lakshadweep']);
+        $state = State::create(['state_code' => 31, 'state_name' => 'Lakshadweep']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Lakshadweep'],
         ]);
         // for Kerala states
-        $state=State::create(['state_code' => 32, 'state_name' => 'Kerala']);
+        $state = State::create(['state_code' => 32, 'state_name' => 'Kerala']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Alappuzha'],
             ['state_id' => $state->id, 'district_name' => 'Ernakulam'],
@@ -951,7 +951,7 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Wayanad'],
         ]);
         // for Tamil Nadu states
-        $state=State::create(['state_code' => 33, 'state_name' => 'Tamil Nadu']);
+        $state = State::create(['state_code' => 33, 'state_name' => 'Tamil Nadu']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Ariyalur'],
             ['state_id' => $state->id, 'district_name' => 'Chengalpattu'],
@@ -992,7 +992,7 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Virudhunagar'],
         ]);
         // for Puducherry states
-        $state=State::create(['state_code' => 34, 'state_name' => 'Puducherry']);
+        $state = State::create(['state_code' => 34, 'state_name' => 'Puducherry']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Puducherry'],
             ['state_id' => $state->id, 'district_name' => 'Karaikal'],
@@ -1000,14 +1000,14 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Yanam'],
         ]);
         // for Andaman and Nicobar Islands states
-        $state=State::create(['state_code' => 35, 'state_name' => 'Andaman and Nicobar Islands']);
+        $state = State::create(['state_code' => 35, 'state_name' => 'Andaman and Nicobar Islands']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Nicobar'],
             ['state_id' => $state->id, 'district_name' => 'North and Middle Andaman'],
             ['state_id' => $state->id, 'district_name' => 'South Andaman'],
         ]);
         // for Telangana states
-        $state=State::create(['state_code' => 36, 'state_name' => 'Telangana']);
+        $state = State::create(['state_code' => 36, 'state_name' => 'Telangana']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Adilabad'],
             ['state_id' => $state->id, 'district_name' => 'Bhadradri Kothagudem'],
@@ -1044,7 +1044,7 @@ class DatabaseSeeder extends Seeder
             ['state_id' => $state->id, 'district_name' => 'Yadadri Bhuvanagiri'],
         ]);
         // for Ladakh states
-        $state=State::create(['state_code' => 37, 'state_name' => 'Ladakh']);
+        $state = State::create(['state_code' => 37, 'state_name' => 'Ladakh']);
         District::insert([
             ['state_id' => $state->id, 'district_name' => 'Kargil'],
             ['state_id' => $state->id, 'district_name' => 'Leh'],
@@ -1052,7 +1052,7 @@ class DatabaseSeeder extends Seeder
 
 
         //adding courses
-        $course=Course::create(['course_code'=>'RDBMS','course_name' => 'Relational Database Management System']);
+        $course = Course::create(['course_code' => 'RDBMS', 'course_name' => 'Relational Database Management System']);
         $course->details()->createMany([
             [
                 'topic_title' => 'Introduction to Database Systems',
@@ -1140,7 +1140,7 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
-        $course=Course::create(['course_code'=>'JAVA','course_name' => 'JAVA Web Technologies']);
+        $course = Course::create(['course_code' => 'JAVA', 'course_name' => 'JAVA Web Technologies']);
         $course->details()->createMany([
             [
                 'topic_title' => 'Introduction to Advanced Java',
@@ -1241,7 +1241,7 @@ class DatabaseSeeder extends Seeder
                 'sequence' => 14,
             ],
         ]);
-        $course=Course::create(['course_code'=>'Tally01','course_name' => 'Tally Prime']);
+        $course = Course::create(['course_code' => 'Tally01', 'course_name' => 'Tally Prime']);
         $course->details()->createMany([
             [
                 'topic_title' => 'Introduction to Accounting and Tally Prime',
@@ -1349,7 +1349,7 @@ class DatabaseSeeder extends Seeder
                 'sequence' => 15,
             ],
         ]);
-        $course=Course::create(['course_code'=>'Excel-01','course_name' => 'Advance Excel']);
+        $course = Course::create(['course_code' => 'Excel-01', 'course_name' => 'Advance Excel']);
         $course->details()->createMany([
             [
                 'topic_title' => 'Introduction to Excel Environment',
@@ -1458,11 +1458,649 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        $course = Course::create(['course_code' => 'GST', 'course_name' => 'GST']);
+        // 📘 Add detailed topics for the course
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to GST',
+                'topic_description' => 'Overview of Goods and Services Tax system, history, and structure in India.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 0.00,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'GST Registration',
+                'topic_description' => 'Process and requirements for GST registration for businesses and professionals.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.00,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Filing GST Returns',
+                'topic_description' => 'Step-by-step guide to filing monthly, quarterly, and annual GST returns using GST portal.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Input Tax Credit (ITC)',
+                'topic_description' => 'Understanding ITC claims, restrictions, and reconciliation procedures.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 0.50,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'GST Compliance & Audit',
+                'topic_description' => 'Compliance checklist, audit procedures, and common errors to avoid in GST.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.00,
+                'sequence' => 5,
+            ],
+        ]);
 
+        $course = Course::create(['course_code' => 'C01', 'course_name' => 'C Programming']);
+        // 📘 Add topic details for this course
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to C Programming',
+                'topic_description' => 'Overview of C language history, features, and structure of a C program.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 0.50,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Data Types, Variables, and Operators',
+                'topic_description' => 'Understanding data types, constants, variables, and use of arithmetic, logical, and relational operators.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.00,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Control Statements',
+                'topic_description' => 'Conditional and looping constructs like if-else, switch, for, while, and do-while loops.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Functions and Recursion',
+                'topic_description' => 'Creating functions, function prototypes, passing parameters, and recursive calls.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.00,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Arrays and Strings',
+                'topic_description' => 'Single and multi-dimensional arrays, string handling, and common string functions.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.50,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Pointers',
+                'topic_description' => 'Pointer basics, pointer arithmetic, and dynamic memory allocation concepts.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.50,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Structures and File Handling',
+                'topic_description' => 'Defining structures, nested structures, file operations such as reading, writing, and appending files.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 7,
+            ],
+        ]);
 
+        // 🐍 Create the main course
+        $course = Course::create([
+            'course_code' => 'P01',
+            'course_name' => 'Python Programming',
+        ]);
 
+        // 📘 Add topic details for Python Programming
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Python',
+                'topic_description' => 'Overview of Python language, its features, installation, and first program execution.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 0.50,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Data Types, Variables, and Operators',
+                'topic_description' => 'Understanding Python data types, variables, constants, and different types of operators.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.00,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Conditional Statements and Loops',
+                'topic_description' => 'Implementing decision-making with if-else, nested if, and loops like for and while.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.50,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Functions and Modules',
+                'topic_description' => 'Creating reusable functions, understanding scope, and working with Python modules.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.00,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Lists, Tuples, and Dictionaries',
+                'topic_description' => 'Working with Python’s key data structures for storing and accessing collections of data.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'File Handling',
+                'topic_description' => 'Reading from and writing to files, handling file exceptions, and working with CSV files.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.50,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Object-Oriented Programming in Python',
+                'topic_description' => 'Classes, objects, inheritance, polymorphism, and encapsulation in Python.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Exception Handling and Libraries',
+                'topic_description' => 'Understanding try-except blocks and exploring common libraries like math, datetime, and os.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.00,
+                'sequence' => 8,
+            ],
+        ]);
+        // ☕ Create the main course
+        $course = Course::create([
+            'course_code' => 'J01',
+            'course_name' => 'Basic Java Programming',
+        ]);
 
+        // 📘 Add topic details for this course
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Java',
+                'topic_description' => 'Overview of Java, its features, JDK installation, and structure of a Java program.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 0.50,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Data Types, Variables, and Operators',
+                'topic_description' => 'Understanding Java data types, variables, literals, and different types of operators.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.00,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Control Statements',
+                'topic_description' => 'Decision-making with if, if-else, switch, and looping constructs like for, while, and do-while.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Arrays and Strings',
+                'topic_description' => 'Single and multi-dimensional arrays, string handling, and use of String class methods.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.50,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Methods and Recursion',
+                'topic_description' => 'Creating methods, parameter passing, return values, and understanding recursion.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.00,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Object-Oriented Programming Concepts',
+                'topic_description' => 'Classes, objects, constructors, method overloading, and encapsulation principles.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Inheritance and Polymorphism',
+                'topic_description' => 'Extending classes, using super keyword, overriding methods, and runtime polymorphism.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.50,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Exception Handling and File I/O',
+                'topic_description' => 'Working with try-catch blocks, custom exceptions, and basic file input/output operations in Java.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.50,
+                'sequence' => 8,
+            ],
+        ]);
+        // ☕ Create the main course
+        $course = Course::create([
+            'course_code' => 'J02',
+            'course_name' => 'Advance Java',
+        ]);
 
+        // 📘 Add topic details for this course
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Core Java',
+                'topic_description' => 'Overview of Java language, JVM architecture, features, and difference between JDK, JRE, and JVM.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 0.50,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Data Types, Variables, and Operators',
+                'topic_description' => 'Understanding primitive and non-primitive data types, variables, constants, and different operators in Java.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.00,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Control Flow and Loops',
+                'topic_description' => 'Working with if-else, switch, for, while, and do-while loops; using break and continue statements.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.50,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Arrays and String Handling',
+                'topic_description' => 'Understanding arrays (1D & 2D), String class, StringBuffer, and StringBuilder operations.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.50,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Methods and Constructors',
+                'topic_description' => 'Defining methods, method overloading, parameter passing, recursion, and different types of constructors.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.00,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Object-Oriented Programming Basics',
+                'topic_description' => 'Core OOP concepts — classes, objects, encapsulation, and the “this” keyword.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Inheritance in Java',
+                'topic_description' => 'Single and multilevel inheritance, use of super keyword, constructor chaining, and method overriding.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.50,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Abstract Classes and Methods',
+                'topic_description' => 'Understanding abstraction, abstract methods, and real-world examples of abstract classes in Java.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.00,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Interfaces and Multiple Inheritance',
+                'topic_description' => 'Creating and implementing interfaces, default and static methods in interfaces, and multiple inheritance via interfaces.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.50,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Packages and Access Modifiers',
+                'topic_description' => 'Organizing code using packages and understanding public, private, protected, and default access levels.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.00,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Exception Handling in Java',
+                'topic_description' => 'Using try-catch-finally blocks, throw and throws keywords, custom exceptions, and handling multiple exceptions.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.50,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Generics in Java',
+                'topic_description' => 'Understanding type safety, generic classes, methods, and collections framework with generics.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 12,
+            ],
+            [
+                'topic_title' => 'Wrapper Classes and Autoboxing',
+                'topic_description' => 'Concept of wrapper classes, conversion between primitives and objects, and autoboxing/unboxing.',
+                'theory_duration' => 1.00,
+                'practical_duration' => 1.00,
+                'sequence' => 13,
+            ],
+            [
+                'topic_title' => 'Collection Framework Overview',
+                'topic_description' => 'Introduction to List, Set, Map interfaces and common implementations like ArrayList and HashMap.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.50,
+                'sequence' => 14,
+            ],
+        ]);
+        // 💻 Create the main course
+        $course = Course::create([
+            'course_code' => 'O01',
+            'course_name' => 'Office Procedure and Computer Fundamentals',
+        ]);
 
+        // 📘 Add detailed topics for this course
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Office Procedure',
+                'topic_description' => 'Understanding office setup, official communication, filing system, record keeping, and basic administrative workflow.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 0.50,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Fundamentals of Computer',
+                'topic_description' => 'Basics of computer hardware, software, input-output devices, storage units, and computer generations.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.00,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Operating System and Windows 11 Interface',
+                'topic_description' => 'Introduction to operating systems, Windows 11 features, desktop customization, file and folder management, and system tools.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.50,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'MS Word — Document Creation and Formatting',
+                'topic_description' => 'Creating and editing documents, formatting text, using styles, inserting tables, images, headers, and footers.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 2.00,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'MS Word — Advanced Features',
+                'topic_description' => 'Mail merge, templates, track changes, comments, table of contents, and printing options.',
+                'theory_duration' => 1.00,
+                'practical_duration' => 1.50,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'MS Excel — Basics and Data Entry',
+                'topic_description' => 'Introduction to spreadsheets, data entry, cell referencing, formulas, and basic formatting.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 2.00,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'MS Excel — Formulas, Charts, and Data Analysis',
+                'topic_description' => 'Using functions, creating charts, conditional formatting, and basic data analysis tools like sorting and filtering.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'MS PowerPoint — Presentation Basics',
+                'topic_description' => 'Creating slides, themes, text and image insertion, transitions, and animation effects.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.50,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'MS PowerPoint — Advanced Presentation Design',
+                'topic_description' => 'Slide master, custom animations, multimedia integration, and preparing for live presentations.',
+                'theory_duration' => 1.00,
+                'practical_duration' => 1.50,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Basic Internet and Email Usage',
+                'topic_description' => 'Using web browsers, searching information, downloading files, creating and managing email accounts, and internet safety.',
+                'theory_duration' => 1.00,
+                'practical_duration' => 1.00,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Introduction to HTML',
+                'topic_description' => 'Basics of web development, understanding HTML structure, tags, attributes, and creating a simple webpage.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 2.00,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'HTML Formatting and Links',
+                'topic_description' => 'Formatting text, inserting images, hyperlinks, tables, and basic page layout design.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 2.00,
+                'sequence' => 12,
+            ],
+        ]);
+
+        // 🧠 Create the main course
+        $course = Course::create([
+            'course_code' => 'DS01',
+            'course_name' => 'Data Structure and Algorithm',
+        ]);
+
+        // 📘 Add detailed topics for this course
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Data Structures and Algorithms',
+                'topic_description' => 'Understanding what data structures and algorithms are, their importance, and types of data structures.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 0.50,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Algorithm Analysis and Big O Notation',
+                'topic_description' => 'Time and space complexity, Big O, Big Theta, and Big Omega notations, and analyzing algorithm efficiency.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 1.00,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Arrays and Strings',
+                'topic_description' => 'Introduction to arrays, operations like insertion, deletion, traversal, and string manipulation.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.50,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Linked Lists',
+                'topic_description' => 'Singly, doubly, and circular linked lists with operations such as insertion, deletion, and traversal.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Stacks',
+                'topic_description' => 'Concept of LIFO, stack operations using arrays and linked lists, and applications such as expression evaluation.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.50,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Queues',
+                'topic_description' => 'FIFO principle, types of queues (simple, circular, priority, and deque), and real-life applications.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.50,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Recursion and Divide & Conquer Algorithms',
+                'topic_description' => 'Concept of recursion, stack frame management, and examples like factorial, Fibonacci, and binary search.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.50,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Searching and Sorting Algorithms',
+                'topic_description' => 'Linear and binary search; sorting algorithms such as bubble sort, selection sort, insertion sort, merge sort, and quick sort.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Trees and Binary Search Trees',
+                'topic_description' => 'Tree terminology, binary trees, traversals (inorder, preorder, postorder), and binary search tree operations.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Heaps and Priority Queues',
+                'topic_description' => 'Understanding heap structure, heapify process, insertion and deletion in heaps, and heap sort.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.50,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Graphs and Graph Traversals',
+                'topic_description' => 'Graph representation (adjacency matrix/list), BFS, DFS, and shortest path algorithms (Dijkstra, Floyd-Warshall).',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Hashing and Hash Tables',
+                'topic_description' => 'Concept of hash functions, collision resolution techniques (chaining, open addressing), and load factor.',
+                'theory_duration' => 1.50,
+                'practical_duration' => 1.50,
+                'sequence' => 12,
+            ],
+            [
+                'topic_title' => 'Greedy, Dynamic Programming, and Backtracking',
+                'topic_description' => 'Introduction to problem-solving techniques — greedy algorithms, dynamic programming, and backtracking concepts.',
+                'theory_duration' => 2.00,
+                'practical_duration' => 2.00,
+                'sequence' => 13,
+            ],
+        ]);
+        $course = Course::create([
+            'course_code' => 'C06',
+            'course_name' => 'Full Stack Development'
+        ]);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Full Stack Development',
+                'topic_description' => 'Overview of front-end, back-end, and database layers. Understanding client-server architecture and developer roles.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 0.5,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Basic HTML',
+                'topic_description' => 'Learning HTML structure, elements, tags, and document formatting. Creating static web pages.',
+                'theory_duration' => 2,
+                'practical_duration' => 3,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'CSS Fundamentals',
+                'topic_description' => 'Styling web pages using CSS, selectors, colors, layouts, and responsive design.',
+                'theory_duration' => 2,
+                'practical_duration' => 3,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Bootstrap Framework',
+                'topic_description' => 'Building responsive websites quickly using Bootstrap classes and components.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.5,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Tailwind CSS',
+                'topic_description' => 'Learning utility-first CSS with Tailwind for rapid UI development.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.5,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'JavaScript Basics',
+                'topic_description' => 'Variables, functions, events, DOM manipulation, and loops in JavaScript.',
+                'theory_duration' => 3,
+                'practical_duration' => 4,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'jQuery Essentials',
+                'topic_description' => 'Simplifying JavaScript with jQuery for DOM traversal, effects, and AJAX.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.5,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'PHP Programming',
+                'topic_description' => 'Server-side scripting using PHP. Form handling, sessions, and file operations.',
+                'theory_duration' => 3,
+                'practical_duration' => 5,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'MySQL Database',
+                'topic_description' => 'Database design, CRUD operations, joins, and relationships using MySQL.',
+                'theory_duration' => 2,
+                'practical_duration' => 3,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Laravel Framework',
+                'topic_description' => 'MVC structure, routing, controllers, models, migrations, and authentication using Laravel.',
+                'theory_duration' => 3,
+                'practical_duration' => 5,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'API Development with Laravel',
+                'topic_description' => 'Creating and consuming RESTful APIs using Laravel.',
+                'theory_duration' => 2,
+                'practical_duration' => 3,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Node.js Fundamentals',
+                'topic_description' => 'Introduction to Node.js environment, npm packages, and backend scripting.',
+                'theory_duration' => 2,
+                'practical_duration' => 3,
+                'sequence' => 12,
+            ],
+            [
+                'topic_title' => 'Angular Basics',
+                'topic_description' => 'Learning Angular components, directives, and data binding concepts.',
+                'theory_duration' => 2,
+                'practical_duration' => 3,
+                'sequence' => 13,
+            ],
+            [
+                'topic_title' => 'React.js Fundamentals',
+                'topic_description' => 'Component-based architecture, state management, and hooks in React.',
+                'theory_duration' => 2,
+                'practical_duration' => 3,
+                'sequence' => 14,
+            ],
+            [
+                'topic_title' => 'Version Control with Git & GitHub',
+                'topic_description' => 'Working with Git commands, repositories, branches, and collaboration on GitHub.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.5,
+                'sequence' => 15,
+            ],
+            [
+                'topic_title' => 'Live Project Development',
+                'topic_description' => 'Building and deploying a full-stack project integrating all learned technologies.',
+                'theory_duration' => 2,
+                'practical_duration' => 8,
+                'sequence' => 16,
+            ],
+        ]);
     }
 }
