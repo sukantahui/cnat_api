@@ -9,4 +9,10 @@ class CourseStatus extends Model
 {
     /** @use HasFactory<\Database\Factories\CourseStatusFactory> */
     use HasFactory;
+    protected $guarded = ['id'];
+
+    public function admissions()
+    {
+        return $this->hasMany(Admission::class);
+    }
 }

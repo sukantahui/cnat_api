@@ -32,5 +32,9 @@ class Student extends Model
             'state_id'       // Local key on Districts table
         );
     }
+    public function admissions()
+    {
+        return $this->hasMany(Admission::class);
+    }
     
 }

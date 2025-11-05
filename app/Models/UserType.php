@@ -26,7 +26,7 @@ class UserType extends Model
 {
     /** @use HasFactory<\Database\Factories\UserTypeFactory> */
     use HasFactory;
-
+    protected $guarded = ['id'];
     public function users()
     {
         return $this->hasMany(User::class);

@@ -19,8 +19,6 @@ return new class extends Migration
             $table->integer('course_fees')->default(0);
             $table->date('admission_date')->nullable(false);
             $table->date('completion_date')->nullable(true);
-            $table->tinyInteger('status')->default(1);
-
             $table->timestamps();
         });
     }
