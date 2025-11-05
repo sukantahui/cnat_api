@@ -29,7 +29,8 @@ class AdmissionController extends Controller
      */
     public function store(StoreAdmissionRequest $request)
     {
-        //
+       $admission = Admission::create($request->validated());
+       return response()->json($admission, 201);
     }
 
     /**

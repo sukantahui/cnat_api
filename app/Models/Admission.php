@@ -9,4 +9,5 @@ class Admission extends Model
 {
     /** @use HasFactory<\Database\Factories\AdmissionFactory> */
     use HasFactory;
+     protected $guarded = ['id'];
 }

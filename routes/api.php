@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
@@ -66,6 +67,13 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::put('/{studentId}','update');
         Route::delete('/{studentId}','destroy');
     });
+
+    Route::controller(AdmissionController::class)->prefix('admissions')->group(function(){
+        Route::get('/','index');
+        Route::post('/','store');
+        Route::put('/{admissionId}','update');
+        Route::delete('/{admissionId}','destroy');
+    });
 });
 
 
@@ -91,6 +99,12 @@ Route::group(array('prefix' => 'dev'), function() {
         Route::post('/','store');
         Route::put('/{courseId}','update');
         Route::delete('/{courseId}','destroy');
+    });
+    Route::controller(AdmissionController::class)->prefix('admissions')->group(function(){
+        Route::get('/','index');
+        Route::post('/','store');
+        Route::put('/{admissionId}','update');
+        Route::delete('/{admissionId}','destroy');
     });
 
 });

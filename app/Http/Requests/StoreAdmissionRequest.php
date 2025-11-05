@@ -11,7 +11,7 @@ class StoreAdmissionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class StoreAdmissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'student_id' => 'required|exists:students,id',
+            'course_id' => 'required|exists:courses,id',
+            'course_status_id' => 'required|exists:course_statuses,id',
+            'course_fees' => 'required|integer|min:0',
+            'admission_date' => 'required|date',
+            'completion_date' => 'nullable|date|after_or_equal:admission_date',
+            'status' => 'required|in:0,1',
         ];
     }
 }
