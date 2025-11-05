@@ -13,9 +13,12 @@ use App\Models\FoodPreference;
 use App\Models\State;
 use App\Models\District;
 use App\Models\Course;
+use App\Models\CourseStatus;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -2102,5 +2105,130 @@ class DatabaseSeeder extends Seeder
                 'sequence' => 16,
             ],
         ]);
+        CourseStatus::insert([
+            ['course_status_name' => 'Ongoing'],
+            ['course_status_name' => 'Completed'],
+            ['course_status_name' => 'Incomplete'],
+        ]);
+
+        // ******************************** fake students ********************************
+        DB::table('students')->insert([
+            [
+                'registration_number' => 'REG2025001',
+                'student_name' => 'Anirban Dey',
+                'nickname' => 'anir',
+                'email' => 'anirban.dey@example.com',
+                'dob' => '2003-05-10',
+                'blood_group' => 'B+',
+                'father_name' => 'Sanjay Dey',
+                'mother_name' => 'Mita Dey',
+                'guardian_name' => null,
+                'guardian_relation' => null,
+                'guardian_phone' => null,
+                'phone1' => '9876543210',
+                'phone2' => null,
+                'whatsapp' => '9876543210',
+                'address' => 'Barrackpore, West Bengal',
+                'district_id' => 1,
+                'city' => 'Barrackpore',
+                'pin' => '700120',
+                'gender_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'registration_number' => 'REG2025002',
+                'student_name' => 'Priya Saha',
+                'nickname' => 'priya',
+                'email' => 'priya.saha@example.com',
+                'dob' => '2004-02-15',
+                'blood_group' => 'A+',
+                'father_name' => 'Rakesh Saha',
+                'mother_name' => 'Moumita Saha',
+                'guardian_name' => null,
+                'guardian_relation' => null,
+                'guardian_phone' => null,
+                'phone1' => '9876501234',
+                'phone2' => null,
+                'whatsapp' => '9876501234',
+                'address' => 'Kolkata, West Bengal',
+                'district_id' => 2,
+                'city' => 'Kolkata',
+                'pin' => '700001',
+                'gender_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'registration_number' => 'REG2025003',
+                'student_name' => 'Rohit Sen',
+                'nickname' => 'rohit',
+                'email' => 'rohit.sen@example.com',
+                'dob' => '2002-11-25',
+                'blood_group' => 'O+',
+                'father_name' => 'Dipankar Sen',
+                'mother_name' => 'Kalyani Sen',
+                'guardian_name' => null,
+                'guardian_relation' => null,
+                'guardian_phone' => null,
+                'phone1' => '9876009876',
+                'phone2' => null,
+                'whatsapp' => '9876009876',
+                'address' => 'Howrah, West Bengal',
+                'district_id' => 3,
+                'city' => 'Howrah',
+                'pin' => '711101',
+                'gender_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'registration_number' => 'REG2025004',
+                'student_name' => 'Sneha Chatterjee',
+                'nickname' => 'sneha',
+                'email' => 'sneha.chatterjee@example.com',
+                'dob' => '2005-07-12',
+                'blood_group' => 'AB+',
+                'father_name' => 'Suman Chatterjee',
+                'mother_name' => 'Rita Chatterjee',
+                'guardian_name' => null,
+                'guardian_relation' => null,
+                'guardian_phone' => null,
+                'phone1' => '9876123456',
+                'phone2' => null,
+                'whatsapp' => '9876123456',
+                'address' => 'Dumdum, West Bengal',
+                'district_id' => 4,
+                'city' => 'Dumdum',
+                'pin' => '700028',
+                'gender_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'registration_number' => 'REG2025005',
+                'student_name' => 'Arjun Ghosh',
+                'nickname' => 'arjun',
+                'email' => 'arjun.ghosh@example.com',
+                'dob' => '2003-01-08',
+                'blood_group' => 'O-',
+                'father_name' => 'Amit Ghosh',
+                'mother_name' => 'Rina Ghosh',
+                'guardian_name' => null,
+                'guardian_relation' => null,
+                'guardian_phone' => null,
+                'phone1' => '9876554321',
+                'phone2' => null,
+                'whatsapp' => '9876554321',
+                'address' => 'Barasat, West Bengal',
+                'district_id' => 5,
+                'city' => 'Barasat',
+                'pin' => '700124',
+                'gender_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+        ]);
+        //*******************************************************************************
     }
 }

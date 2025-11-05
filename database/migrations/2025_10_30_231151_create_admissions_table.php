@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained('students')->onDelete('restrict');
             $table->foreignId('course_id')->constrained('courses')->onDelete('restrict');
+            $table->foreignId('course_status_id')->constrained('course_statuses')->onDelete('restrict');
             $table->integer('course_fees')->default(0);
             $table->date('admission_date')->nullable(false);
+            $table->date('completion_date')->nullable(true);
+            $table->tinyInteger('status')->default(1);
 
             $table->timestamps();
         });
