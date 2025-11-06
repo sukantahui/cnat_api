@@ -2,35 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AdmissionResource;
 use App\Models\Admission;
 use App\Http\Requests\StoreAdmissionRequest;
 use App\Http\Requests\UpdateAdmissionRequest;
+use App\Traits\HandlesTransactions;
+use App\Helper\ResponseHelper;
 
 class AdmissionController extends Controller
 {
+    use HandlesTransactions;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $admissions = Admission::with('student', 'course', 'courseStatus')->get();
+        return ResponseHelper::success("Admissions fetched successfully", AdmissionResource::collection($admissions));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreAdmissionRequest $request)
     {
-       $admission = Admission::create($request->validated());
-       return response()->json($admission, 201);
+       return $this->executeInTransaction(function () use ($request) {
+            $admission = Admission::create($request->validated());
+            $admission->save();
+            return ResponseHelper::success("Admission created successfully", AdmissionResource::make($admission));
+        });
+       
     }
 
     /**

@@ -20,13 +20,7 @@ class StudentController extends Controller
         return ResponseHelper::success("Students retrieved successfully", $students);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -34,8 +28,7 @@ class StudentController extends Controller
     public function store(StoreStudentRequest $request)
     {
        return $this->executeInTransaction(function () use ($request) {
-            $data = $request->validated();
-            $student = Student::create($data);
+            $student = Student::create($request->validated());
             $student->save();
 
             return ResponseHelper::success("Student created successfully", $student);
