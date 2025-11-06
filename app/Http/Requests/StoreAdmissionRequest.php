@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Traits\ConvertsCamelToSnake;
+use Illuminate\Support\Facades\DB;
 class StoreAdmissionRequest extends BaseRequest
 {
     use ConvertsCamelToSnake;
@@ -26,8 +27,19 @@ class StoreAdmissionRequest extends BaseRequest
                 'bail', 'required', 'integer', 'exists:students,id'
             ],
             'course_id' => [
-                'bail', 'required', 'integer', 'exists:courses,id'
-            ],
+            'bail', 'required', 'integer', 'exists:courses,id',
+            function ($attribute, $value, $fail) {
+                $exists = DB::table('admissions')
+                    ->where('student_id', $this->student_id)
+                    ->where('course_id', $value)
+                    ->where('course_status_id', 1) // 1 = Ongoing
+                    ->exists();
+
+                if ($exists) {
+                    $fail('This student already has an ongoing admission for the selected course.');
+                }
+            },
+        ],
             'course_status_id' => [
                 'bail', 'required', 'integer', 'exists:course_statuses,id'
             ],
