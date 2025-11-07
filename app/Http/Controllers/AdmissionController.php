@@ -35,28 +35,19 @@ class AdmissionController extends Controller
        
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Admission $admission)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Admission $admission)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAdmissionRequest $request, Admission $admission)
+    public function update(UpdateAdmissionRequest $request, $admissionId)
     {
-        //
+        $admission = Admission::findOrFail($admissionId);
+
+        return $this->executeInTransaction(function () use ($request, $admission) {
+            $admission->update($request->validated());
+            return ResponseHelper::success("Admission updated successfully", AdmissionResource::make($admission));
+        });
     }
 
     /**

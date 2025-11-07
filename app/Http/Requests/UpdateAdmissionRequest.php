@@ -2,16 +2,19 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Traits\ConvertsCamelToSnake;
+use Illuminate\Support\Facades\DB;
 
-class UpdateAdmissionRequest extends FormRequest
+class UpdateAdmissionRequest extends BaseRequest
 {
+    use ConvertsCamelToSnake;
+
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +24,69 @@ class UpdateAdmissionRequest extends FormRequest
      */
     public function rules(): array
     {
+        $admissionId = $this->route('admissionId'); // assuming route is /admissions/{admissionId}
+
         return [
-            //
+            'student_id' => [
+                'bail', 'sometimes', 'integer', 'exists:students,id'
+            ],
+            'course_id' => [
+                'bail', 'sometimes', 'integer', 'exists:courses,id',
+                function ($attribute, $value, $fail) use ($admissionId) {
+                    $exists = DB::table('admissions')
+                        ->where('student_id', $this->student_id)
+                        ->where('course_id', $value)
+                        ->where('course_status_id', 1) // 1 = Ongoing
+                        ->where('id', '!=', $admissionId) // exclude current record
+                        ->exists();
+
+                    if ($exists) {
+                        $fail('This student already has an ongoing admission for the selected course.'.$admissionId);
+                    }
+                },
+            ],
+            'course_status_id' => [
+                'bail', 'sometimes', 'integer', 'exists:course_statuses,id'
+            ],
+            'course_fees' => [
+                'bail', 'sometimes', 'integer', 'min:0'
+            ],
+            'admission_date' => [
+                'bail', 'sometimes', 'date_format:Y-m-d'
+            ],
+            'completion_date' => [
+                'nullable', 'date_format:Y-m-d', 'after_or_equal:admission_date'
+            ],
+        ];
+    }
+
+    /**
+     * Custom attribute names.
+     */
+    public function attributes(): array
+    {
+        return [
+            'student_id'       => 'student',
+            'course_id'        => 'course',
+            'course_status_id' => 'course status',
+            'course_fees'      => 'course fee',
+            'admission_date'   => 'admission date',
+            'completion_date'  => 'completion date',
+        ];
+    }
+
+    /**
+     * Custom error messages.
+     */
+    public function messages(): array
+    {
+        return [
+            '*.required' => 'The :attribute field is required.',
+            '*.exists' => 'The selected :attribute is invalid.',
+            '*.integer' => 'The :attribute must be a valid number.',
+            '*.date_format' => 'The :attribute must be in YYYY-MM-DD format.',
+            'course_fees.min' => 'Course fee cannot be negative.',
+            'completion_date.after_or_equal' => 'Completion date cannot be before admission date.'
         ];
     }
 }
