@@ -4,6 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Student;
+use App\Models\Course;
+use App\Models\CourseStatus;
 
 class AdmissionResource extends BaseResource
 {
@@ -16,9 +19,15 @@ class AdmissionResource extends BaseResource
     {
         return [
             'admissionId' => $this->id,
-            'student' => new StudentResource($this->whenLoaded('student')),
-            'course' => new CourseResource($this->whenLoaded('course')),
-            'courseStatus' => new CourseStatusResource($this->whenLoaded('courseStatus')),
+            'student' => $this->whenLoaded('student')
+                        ? new StudentResource($this->student)
+                        : new StudentResource(Student::find($this->student_id)), // return empty resource if not loaded
+            'course' => $this->whenLoaded('course')
+                        ? new CourseResource($this->course)
+                        : new CourseResource(Course::find($this->course_id)),
+            'courseStatus' => $this->whenLoaded('courseStatus')
+                        ? new CourseStatusResource($this->courseStatus)
+                        : new CourseStatusResource(CourseStatus::find($this->course_status_id)),
             'courseFees' => $this->course_fees,
             'admissionDate' => $this->admission_date,
             'completionDate' => $this->completion_date,
