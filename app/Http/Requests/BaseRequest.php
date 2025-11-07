@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Helper\ResponseHelper;
 use App\Traits\ConvertsCamelToSnake;
 
 abstract class BaseRequest extends FormRequest
@@ -37,5 +40,25 @@ abstract class BaseRequest extends FormRequest
             // ✅ Attach the authenticated user's ID if available
             'created_by' => auth()->id() ?? null,
         ]);
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            ResponseHelper::error(
+                'Validation failed',
+                $validator->errors(),
+                422
+            )
+        );
+    }
+    protected function failedAuthorization()
+    {
+        throw new HttpResponseException(
+            ResponseHelper::error(
+                'You are not authorized to perform this action.',
+                null,
+                403
+            )
+        );
     }
 }
