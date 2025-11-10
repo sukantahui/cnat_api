@@ -55,9 +55,9 @@ class DatabaseSeeder extends Seeder
             ['designation_name' => 'Worker'],
         ]);
         Employee::insert([
-            ['employee_name' => 'Vivekanada', 'mobile' => '9836444999', 'email' => 'bangle312@gmail.com', 'department_id' => 3, 'designation_id' => 3],
+            ['employee_name' => 'Sachin Tendulkar', 'mobile' => '9836444999', 'email' => 'bangle312@gmail.com', 'department_id' => 3, 'designation_id' => 3],
             ['employee_name' => 'Sukanta Hui', 'mobile' => '7003756860', 'email' => 'sukantahui@gmail.com', 'department_id' => 2, 'designation_id' => 2],
-            ['employee_name' => 'Saheb Ghosh', 'mobile' => '833486$state->id99', 'email' => 'sahebghosh89@gmail.com', 'department_id' => 4, 'designation_id' => 4]
+            ['employee_name' => 'Saheb Ghosh', 'mobile' => '8334869999', 'email' => 'sahebghosh89@gmail.com', 'department_id' => 4, 'designation_id' => 4]
         ]);
         //admin created
         $user = User::create([

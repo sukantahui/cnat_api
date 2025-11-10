@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('guests', function (Blueprint $table) {
             $table->id();
+            $table->integer('year')->default(date('Y'));
             $table->string('guest_name', 100);
             $table->string('mobile', 20);
             $table->string('wp_number', 20)->nullable();
