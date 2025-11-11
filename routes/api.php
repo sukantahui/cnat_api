@@ -109,7 +109,7 @@ Route::group(array('prefix' => 'dev'), function() {
     });
     Route::controller(VisitorController::class)->prefix('visitors')->group(function(){
         Route::get('/','index');
-        Route::post('/','store');
+        Route::post('/','store')->middleware('throttle:3,1');
         Route::put('/{visitorId}','update');
         Route::delete('/{visitorId}','destroy');
     });

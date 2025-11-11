@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\NoSlang;
 
 class StoreVisitorRequest extends FormRequest
 {
@@ -22,10 +23,10 @@ class StoreVisitorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => 'required|string|max:255',
-            'email'    => 'nullable|email|max:255',
+            'name'     => ['required', 'string', 'max:255', new NoSlang],
+            'email'    => ['nullable','email','max:255',new NoSlang],
             'interest' => 'required|string|max:255',
-            'message'  => 'nullable|string|max:2000',
+            'message'  => ['nullable', 'string', 'max:2000', new NoSlang],
 
             // Optional meta fields if sent from frontend
             'ip_address'  => 'nullable|string|max:45',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Visitor;
 use App\Http\Requests\StoreVisitorRequest;
 use App\Http\Requests\UpdateVisitorRequest;
+use App\Models\BotLog;
 
 class VisitorController extends Controller
 {
@@ -29,6 +30,31 @@ class VisitorController extends Controller
      */
     public function store(StoreVisitorRequest $request)
     {
+        // 🧱 Step 1: Honeypot protection (bot detection)
+        if (!empty($request->input('extra_field'))) {
+
+            // Log to database
+            BotLog::create([
+                'ip' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'page_url' => $request->headers->get('referer'),
+                'referrer' => $request->input('referrer'),
+                'payload' => json_encode($request->all()), // optional for review
+            ]);
+
+            // Optional: Log to file as well
+            \Log::warning('🚫 Bot submission blocked', [
+                'ip' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'time' => now(),
+            ]);
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid submission detected.',
+            ], 403);
+        }
+
         // ✅ Step 1: Validate input from StoreVisitorRequest
         $data = $request->validated();
 
