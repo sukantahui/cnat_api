@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\VisitorController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -106,5 +107,13 @@ Route::group(array('prefix' => 'dev'), function() {
         Route::put('/{admissionId}','update');
         Route::delete('/{admissionId}','destroy');
     });
+    Route::controller(VisitorController::class)->prefix('visitors')->group(function(){
+        Route::get('/','index');
+        Route::post('/','store');
+        Route::put('/{visitorId}','update');
+        Route::delete('/{visitorId}','destroy');
+    });
+
+  
 
 });
