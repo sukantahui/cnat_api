@@ -1,30 +1,49 @@
 <?php
 
-namespace App\Rules;
+return [
 
-use Closure;
-use Illuminate\Contracts\Validation\ValidationRule;
+    /*
+    |--------------------------------------------------------------------------
+    | Bad / Offensive Word List
+    |--------------------------------------------------------------------------
+    | Centralized configuration for filtering inappropriate or abusive words.
+    | You can edit this file anytime without changing code.
+    |
+    */
 
-class NoSlang implements ValidationRule
-{
-    /**
-     * Run the validation rule.
-     *
-     * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
-     */
-    public function validate(string $attribute, mixed $value, Closure $fail): void
-    {
-        // If value is empty or not a string, nothing to check
-        if (!is_string($value) || trim($value) === '') {
-            return;
-        }
+    'list' => [
 
-        // Normalize unicode + lowercase for reliable matching
-        $lowerValue = mb_strtolower($value, 'UTF-8');
+        // 🌍 English Vulgarities
+        'fuck','shit','bitch','asshole','bastard','dick','cunt','slut','fag','moron',
+        'stupid','idiot','retard','nigga','whore','jerk','piss','bloody','suck','dumb',
+        'cock','pussy','balls','boobs','tits','arse','bollocks','bugger','crap','damn','prick',
 
-        // Load bad words from config (fallback to an inline small list if config missing)
-        $badWords = config('badwords.list', [
-            // ===============================
+        // 💬 Internet Slang / Short Forms
+        'wtf','lmfao','lmao','omfg','stfu','fml','roflmao','rofl','af','tf','mf','bastards',
+        'fucker','motherfucker','fucked','fucking','fucktard','shithead','shitface','shitbag',
+        'dickhead','jackass','douche','douchebag','hoe','thot','trash','loser',
+
+        // 🇮🇳 Hindi / Hinglish
+        'madarchod','bhenchod','chutiya','gaand','randi','suar','harami','kutte','kutti',
+        'kamina','kamini','nalayak','gandu','launda','lavda','behenchod','maachod',
+        'bhosdike','jhantu','chakka','rakhni','bhadwa','raand','chodu','bakchod','ullu ka pattha',
+
+        // 🇮🇳 Hindi (Devanagari)
+        'मादरचोद','बहनचोद','चूतिया','गांड','रंडी','कमीना','कुत्ता','हरामी','भोसडीके',
+        'लौड़ा','भोसड़ा','चोद','भड़वा','भड़वे','रांड','गांडू','सुअर','हरामखोर',
+
+        // 🇧🇩 Bengali / Banglish
+        'chod','chodna','chodcho','bokachoda','haramjada','randi','magi','banchod',
+        'bosdike','chodachudi','madarchod','banchoda','gandu','randimoni',
+
+        // 🇧🇩 Bengali (বাংলা)
+        'চোদ','চোদা','চুদি','চুদছে','চোদন','গান্ডু','হারামজাদা','বসদিকে',
+        'রান্ডি','মাগী','বোকাচোদা','ভোসদিকে',
+
+        // Variations & Leetspeak
+        'f*ck','f@ck','sh1t','b!tch','a$$','f.u.c.k','p0rn','s3x','idi0t','a$$hole',
+        'd1ck','f@ggot','sl@t','chuti@','r@ndi','bhench0d','mad@rch0d','bh0sdike',
+        // ===============================
             // 🌍 Common English Vulgarities
             // ===============================
             'fuck',
@@ -337,22 +356,6 @@ class NoSlang implements ValidationRule
             'bhench0d',
             'mad@rch0d',
             'bh0sdike',
-            // ... you can keep a short fallback here if desired
-        ]);
+    ],
 
-        foreach ($badWords as $word) {
-            // skip empty config entries
-            if ($word === '' || $word === null) {
-                continue;
-            }
-
-            // Normalize each word as well
-            $checkWord = mb_strtolower($word, 'UTF-8');
-
-            if ($checkWord !== '' && str_contains($lowerValue, $checkWord)) {
-                $fail("The {$attribute} contains inappropriate language. Please rephrase it.");
-                return;
-            }
-        }
-    }
-}
+];
