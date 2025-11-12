@@ -27,6 +27,7 @@ class StoreVisitorRequest extends FormRequest
             'email'    => ['nullable','email','max:255',new NoSlang],
             'interest' => 'required|string|max:255',
             'message'  => ['nullable', 'string', 'max:2000', new NoSlang],
+            'phone'       => ['nullable', 'string', 'max:15', 'regex:/^[0-9+\-\s]+$/'],
 
             // Optional meta fields if sent from frontend
             'ip_address'  => 'nullable|string|max:45',
