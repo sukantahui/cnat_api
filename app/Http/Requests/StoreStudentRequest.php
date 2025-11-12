@@ -23,7 +23,7 @@ class StoreStudentRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'registration_number' => 'required|string|max:20|unique:students,registration_number',
+            // 'registration_number' => 'required|string|max:20|unique:students,registration_number',
             'student_name'        => 'required|string|max:100',
             'nickname'            => 'required|string|max:100|unique:students,nickname',
             'email'               => 'required|email|max:150|unique:students,email',

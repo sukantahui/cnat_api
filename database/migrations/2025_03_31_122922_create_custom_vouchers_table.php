@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('voucher_name',100);
             $table->bigInteger('last_counter')->default(1);
             $table->string('accounting_year',50)->default($accountingYear);
-
             $table->string('prefix',10)->nullable(true);
             $table->string('suffix',10)->nullable(true);
             $table->string('delimiter',5)->default('-');

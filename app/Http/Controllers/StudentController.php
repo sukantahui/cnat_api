@@ -7,6 +7,7 @@ use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Traits\HandlesTransactions;
 use App\Helper\ResponseHelper;
+use App\Models\CustomVoucher;
 
 class StudentController extends Controller
 {
@@ -28,7 +29,9 @@ class StudentController extends Controller
     public function store(StoreStudentRequest $request)
     {
        return $this->executeInTransaction(function () use ($request) {
-            $student = Student::create($request->validated());
+            $data=$request->validated();  
+            $data['registration_number']=CustomVoucher::generate("Student",5,"CNAT");
+            $student = Student::create($data);
             $student->save();
 
             return ResponseHelper::success("Student created successfully", $student);
