@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\ConvertsCamelToSnake;
-class StoreStudentRequest extends FormRequest
+class StoreStudentRequest extends BaseRequest
 {
     use ConvertsCamelToSnake;
     /**
@@ -33,12 +33,12 @@ class StoreStudentRequest extends FormRequest
             'mother_name'         => 'nullable|string|max:100',
             'guardian_name'       => 'nullable|string|max:100',
             'guardian_relation'   => 'nullable|string|max:50',
-            'guardian_phone'      => 'nullable|digits_between:10,11',
+            'guardian_phone'      => 'nullable|digits_between:10,15',
 
             // ✅ Ensure uniqueness and difference
             'phone1' => [
                 'nullable',
-                'digits_between:10,11',
+                'digits_between:10,15',
                 'unique:students,phone1',
                 'different:phone2'
             ],
