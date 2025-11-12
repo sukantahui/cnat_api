@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             ['user_type_name' => 'Developer'],
             ['user_type_name' => 'Owner'],
             ['user_type_name' => 'Manager'],
-            ['user_type_name' => 'Manager Production'],
+            ['user_type_name' => 'Teacher'],
             ['user_type_name' => 'Manager Sale'],
             ['user_type_name' => 'Worker'],
         ]);
@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
         Department::insert([
             ['department_name' => 'Administration'],
             ['depatment_name' => 'Development'],
-            ['depatment_name' => 'Ownership'],
+            ['depatment_name' => 'Teaching'],
             ['depatment_name' => 'Office'],
         ]);
         Designation::insert([
@@ -50,20 +50,34 @@ class DatabaseSeeder extends Seeder
             ['designation_name' => 'Developer'],
             ['designation_name' => 'Owner'],
             ['designation_name' => 'Manager'],
-            ['designation_name' => 'Manager Production'],
+            ['designation_name' => 'Teacher'],
             ['designation_name' => 'Manager Sale'],
             ['designation_name' => 'Worker'],
+            ['designation_name' => 'Student'],
         ]);
         Employee::insert([
-            ['employee_name' => 'Sachin Tendulkar', 'mobile' => '9836444999', 'email' => 'bangle312@gmail.com', 'department_id' => 3, 'designation_id' => 3],
-            ['employee_name' => 'Sukanta Hui', 'mobile' => '7003756860', 'email' => 'sukantahui@gmail.com', 'department_id' => 2, 'designation_id' => 2],
-            ['employee_name' => 'Saheb Ghosh', 'mobile' => '8334869999', 'email' => 'sahebghosh89@gmail.com', 'department_id' => 4, 'designation_id' => 4]
+            ['employee_name' => 'Sukanta Hui', 'mobile' => '9830371685', 'email' => 'sukantahui@gmail.com', 'department_id' => 1, 'designation_id' => 1],
+            ['employee_name' => 'Tanusree Hui', 'mobile' =>'9051724200', 'email' => 'tanusreehui@gmail.com', 'department_id' => 3, 'designation_id' => 5],
+            ['employee_name' => 'Chandan Das', 'mobile' => '9836987171', 'email' => 'chandan.dasy2k10@gmail.com', 'department_id' => 1, 'designation_id' => 1]
         ]);
         //admin created
         $user = User::create([
-            'email' => 'admin@gmail.com',
+            'email' => 'sukantahui',
             'password' => Hash::make('12345678'),
             'user_type_id' => 1,
+            'employee_id' => 1
+        ]);
+        $this->command->info('Created user ADMIN:');
+        $this->command->table(
+            ['Email', 'Created At'],
+            [[$user->email, $user->created_at]]
+        );
+
+        //user: Teacher
+        $user = User::create([
+            'email' => 'tanusreehui',
+            'password' => Hash::make('12345678'),
+            'user_type_id' => 5,
             'employee_id' => 2
         ]);
         $this->command->info('Created user ADMIN:');
@@ -71,6 +85,20 @@ class DatabaseSeeder extends Seeder
             ['Email', 'Created At'],
             [[$user->email, $user->created_at]]
         );
+
+        //admin created
+        $user = User::create([
+            'email' => 'chandandas',
+            'password' => Hash::make('12345678'),
+            'user_type_id' => 1,
+            'employee_id' => 3
+        ]);
+        $this->command->info('Created user ADMIN:');
+        $this->command->table(
+            ['Email', 'Created At'],
+            [[$user->email, $user->created_at]]
+        );
+
         //developer created
         $user = User::create([
             'email' => 'developer@gmail.com',

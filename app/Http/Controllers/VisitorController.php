@@ -6,15 +6,20 @@ use App\Models\Visitor;
 use App\Http\Requests\StoreVisitorRequest;
 use App\Http\Requests\UpdateVisitorRequest;
 use App\Models\BotLog;
+use App\Traits\HandlesTransactions;
+
+use App\Helper\ResponseHelper;
 
 class VisitorController extends Controller
 {
+    use HandlesTransactions;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $visitors = Visitor::get();
+        return ResponseHelper::success("Visitors fetched successfully", $visitors);
     }
 
     /**

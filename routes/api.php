@@ -75,6 +75,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::put('/{admissionId}','update');
         Route::delete('/{admissionId}','destroy');
     });
+    Route::controller(VisitorController::class)->prefix('visitors')->group(function(){
+        Route::get('/','index');
+        Route::post('/','store')->middleware('throttle:3,1');
+        Route::put('/{visitorId}','update');
+        Route::delete('/{visitorId}','destroy');
+    });
 });
 
 
@@ -108,10 +114,7 @@ Route::group(array('prefix' => 'dev'), function() {
         Route::delete('/{admissionId}','destroy');
     });
     Route::controller(VisitorController::class)->prefix('visitors')->group(function(){
-        Route::get('/','index');
         Route::post('/','store')->middleware('throttle:3,1');
-        Route::put('/{visitorId}','update');
-        Route::delete('/{visitorId}','destroy');
     });
 
   
