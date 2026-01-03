@@ -14,11 +14,16 @@ use App\Models\State;
 use App\Models\District;
 use App\Models\Course;
 use App\Models\CourseStatus;
+use App\Models\Subject;
+use App\Models\Chapter;
+use App\Models\Topic;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -2258,5 +2263,149 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
         //*******************************************************************************
+        Subject::insert([
+            ['subject_code' => 'SUB001', 'subject_name' => 'Python Programming'],
+            ['subject_code' => 'SUB002', 'subject_name' => 'Basic Java Programming'],
+            ['subject_code' => 'SUB003', 'subject_name' => 'Advance Java'],
+            ['subject_code' => 'SUB004', 'subject_name' => 'Office Procedure and Computer Fundamentals'],
+            ['subject_code' => 'SUB005', 'subject_name' => 'Data Structure and Algorithm'],
+            ['subject_code' => 'SUB006', 'subject_name' => 'Full Stack Development'],
+        ]);
+
+        Chapter::insert([
+
+            /* =========================
+               Segment 1 – Beginner
+            ========================== */
+
+            ['subject_id' => 1, 'chapter_name' => 'Getting Started with Python'],
+            ['subject_id' => 1, 'chapter_name' => 'Python Syntax, Variables & Data Types'],
+            ['subject_id' => 1, 'chapter_name' => 'Operators, Expressions & Logic'],
+            ['subject_id' => 1, 'chapter_name' => 'Control Flow & Decision Making'],
+            ['subject_id' => 1, 'chapter_name' => 'Loops & Iteration'],
+            ['subject_id' => 1, 'chapter_name' => 'Beginner Assessment – Segment 1'],
+
+            /* =========================
+               Segment 2 – Intermediate
+            ========================== */
+
+            ['subject_id' => 1, 'chapter_name' => 'Functions & Modular Programming'],
+            ['subject_id' => 1, 'chapter_name' => 'Lists & List Operations'],
+            ['subject_id' => 1, 'chapter_name' => 'Tuples'],
+            ['subject_id' => 1, 'chapter_name' => 'Dictionaries'],
+            ['subject_id' => 1, 'chapter_name' => 'Sets'],
+            ['subject_id' => 1, 'chapter_name' => 'String Processing & Pattern Handling'],
+            ['subject_id' => 1, 'chapter_name' => 'File Handling'],
+            ['subject_id' => 1, 'chapter_name' => 'Modules, Packages & Standard Library'],
+
+            /* =========================
+               Segment 3 – Advanced
+            ========================== */
+
+            ['subject_id' => 1, 'chapter_name' => 'Object-Oriented Programming in Python'],
+            ['subject_id' => 1, 'chapter_name' => 'Exception Handling & Debugging'],
+            ['subject_id' => 1, 'chapter_name' => 'Decorators, Generators & Iterators'],
+            ['subject_id' => 1, 'chapter_name' => 'Working with JSON & External Data'],
+            ['subject_id' => 1, 'chapter_name' => 'Advanced Comprehensions & Lambda Expressions'],
+
+            /* =========================
+               Segment 4 – Pro Level
+            ========================== */
+
+            ['subject_id' => 1, 'chapter_name' => 'Advanced File Operations & OS Module'],
+            ['subject_id' => 1, 'chapter_name' => 'Performance Optimization & Big-O'],
+            ['subject_id' => 1, 'chapter_name' => 'Testing & Quality Assurance in Python'],
+            ['subject_id' => 1, 'chapter_name' => 'Capstone Projects & Interview Preparation'],
+
+        ]);
+
+        Topic::insert([
+
+            /* Chapter 1: Getting Started with Python */
+            ['chapter_id' => 1, 'topic_name' => 'What is Python and where it is used'],
+            ['chapter_id' => 1, 'topic_name' => 'Features of Python'],
+            ['chapter_id' => 1, 'topic_name' => 'Python Installation'],
+            ['chapter_id' => 1, 'topic_name' => 'Using IDLE, VS Code and PyCharm'],
+            ['chapter_id' => 1, 'topic_name' => 'Running Python Files vs Interactive Shell'],
+            ['chapter_id' => 1, 'topic_name' => 'print() Function'],
+            ['chapter_id' => 1, 'topic_name' => 'Basic Debugging using print()'],
+
+            /* Chapter 2: Syntax & Data Types */
+            ['chapter_id' => 2, 'topic_name' => 'Python Indentation Rules'],
+            ['chapter_id' => 2, 'topic_name' => 'Comments in Python'],
+            ['chapter_id' => 2, 'topic_name' => 'Variables and Naming Conventions'],
+            ['chapter_id' => 2, 'topic_name' => 'Keywords and Identifiers'],
+            ['chapter_id' => 2, 'topic_name' => 'Core Data Types'],
+            ['chapter_id' => 2, 'topic_name' => 'Type Casting'],
+            ['chapter_id' => 2, 'topic_name' => 'Input and Output Formatting'],
+
+            /* Chapter 3: Operators */
+            ['chapter_id' => 3, 'topic_name' => 'Arithmetic Operators'],
+            ['chapter_id' => 3, 'topic_name' => 'Assignment and Compound Operators'],
+            ['chapter_id' => 3, 'topic_name' => 'Comparison Operators'],
+            ['chapter_id' => 3, 'topic_name' => 'Logical Operators'],
+            ['chapter_id' => 3, 'topic_name' => 'Operator Precedence'],
+            ['chapter_id' => 3, 'topic_name' => 'Evaluating Expressions'],
+            ['chapter_id' => 3, 'topic_name' => 'String Concatenation and f-Strings'],
+
+            /* Chapter 4: Control Flow */
+            ['chapter_id' => 4, 'topic_name' => 'if, elif, else Statements'],
+            ['chapter_id' => 4, 'topic_name' => 'Nested Conditions'],
+            ['chapter_id' => 4, 'topic_name' => 'Logical Conditions'],
+            ['chapter_id' => 4, 'topic_name' => 'Decision Making Programs'],
+
+            /* Chapter 5: Loops */
+            ['chapter_id' => 5, 'topic_name' => 'while Loop'],
+            ['chapter_id' => 5, 'topic_name' => 'for Loop with range()'],
+            ['chapter_id' => 5, 'topic_name' => 'break, continue, pass'],
+            ['chapter_id' => 5, 'topic_name' => 'Nested Loops'],
+            ['chapter_id' => 5, 'topic_name' => 'Pattern Printing'],
+            ['chapter_id' => 5, 'topic_name' => 'Menu-driven Programs'],
+
+            /* Chapter 7: Functions */
+            ['chapter_id' => 7, 'topic_name' => 'Function Definition and Calling'],
+            ['chapter_id' => 7, 'topic_name' => 'Parameters and Arguments'],
+            ['chapter_id' => 7, 'topic_name' => 'Default Parameters'],
+            ['chapter_id' => 7, 'topic_name' => '*args and **kwargs'],
+            ['chapter_id' => 7, 'topic_name' => 'Return Values'],
+            ['chapter_id' => 7, 'topic_name' => 'Lambda Functions'],
+            ['chapter_id' => 7, 'topic_name' => 'Local and Global Scope'],
+
+            /* Chapter 8: Lists */
+            ['chapter_id' => 8, 'topic_name' => 'Introduction to Lists'],
+            ['chapter_id' => 8, 'topic_name' => 'List Indexing and Slicing'],
+            ['chapter_id' => 8, 'topic_name' => 'List Methods'],
+            ['chapter_id' => 8, 'topic_name' => 'List Comprehension'],
+            ['chapter_id' => 8, 'topic_name' => 'Nested Lists'],
+
+            /* Chapter 9: Tuples */
+            ['chapter_id' => 9, 'topic_name' => 'Tuple Packing and Unpacking'],
+            ['chapter_id' => 9, 'topic_name' => 'Tuple Immutability'],
+            ['chapter_id' => 9, 'topic_name' => 'Tuples vs Lists'],
+
+            /* Chapter 10: Dictionaries */
+            ['chapter_id' => 10, 'topic_name' => 'Dictionary Creation and Access'],
+            ['chapter_id' => 10, 'topic_name' => 'Dictionary Methods'],
+            ['chapter_id' => 10, 'topic_name' => 'Nested Dictionaries'],
+            ['chapter_id' => 10, 'topic_name' => 'Dictionary Comprehension'],
+
+            /* Chapter 11: Sets */
+            ['chapter_id' => 11, 'topic_name' => 'Introduction to Sets'],
+            ['chapter_id' => 11, 'topic_name' => 'Set Operations'],
+            ['chapter_id' => 11, 'topic_name' => 'Frozen Sets'],
+
+            /* Chapter 13: File Handling */
+            ['chapter_id' => 13, 'topic_name' => 'Opening Files'],
+            ['chapter_id' => 13, 'topic_name' => 'Reading and Writing Files'],
+            ['chapter_id' => 13, 'topic_name' => 'Working with CSV Files'],
+
+            /* Chapter 15: OOP */
+            ['chapter_id' => 15, 'topic_name' => 'Classes and Objects'],
+            ['chapter_id' => 15, 'topic_name' => 'Constructors (__init__)'],
+            ['chapter_id' => 15, 'topic_name' => 'Inheritance'],
+            ['chapter_id' => 15, 'topic_name' => 'Polymorphism'],
+            ['chapter_id' => 15, 'topic_name' => 'Abstraction'],
+
+        ]);
     }
 }
