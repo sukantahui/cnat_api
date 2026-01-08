@@ -17,6 +17,8 @@ use App\Models\CourseStatus;
 use App\Models\Subject;
 use App\Models\Chapter;
 use App\Models\Topic;
+use App\Models\QuestionType;
+use App\Models\QuestionLevel;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -2262,7 +2264,23 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
         ]);
+
         //*******************************************************************************
+        // ********** Seed Subjects, Chapters, and Topics for Python Programming **********
+        //*******************************************************************************
+        QuestionType::insert([
+            ['question_type_name' => 'Multiple Choice','default_marks' => 1],
+            ['question_type_name' => 'True/False','default_marks' => 1],
+            ['question_type_name' => 'Multiple Answers','default_marks' => 2],
+            ['question_type_name' => 'Short Answer','default_marks' => 2],
+            ['question_type_name' => 'Essay','default_marks' => 5],
+            ['question_type_name' => 'Fill in the Blanks','default_marks' => 1],
+        ]);
+        QuestionLevel::insert([
+            ['question_level_name' => 'Easy'],
+            ['question_level_name' => 'Medium'],
+            ['question_level_name' => 'Hard'],
+        ]);
 
         $subject = Subject::create(['subject_code' => 'SUB001', 'subject_name' => 'Python Programming']);
         $chapter = Chapter::create(['subject_id' => $subject->id, 'chapter_name' => 'Getting Started with Python']);
