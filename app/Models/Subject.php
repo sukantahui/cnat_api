@@ -9,4 +9,10 @@ class Subject extends Model
 {
     /** @use HasFactory<\Database\Factories\SubjectFactory> */
     use HasFactory;
+    protected $guarded = ['id'];
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class);
+    }
+    
 }

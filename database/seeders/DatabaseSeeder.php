@@ -2270,6 +2270,7 @@ class DatabaseSeeder extends Seeder
             ['subject_code' => 'SUB004', 'subject_name' => 'Office Procedure and Computer Fundamentals'],
             ['subject_code' => 'SUB005', 'subject_name' => 'Data Structure and Algorithm'],
             ['subject_code' => 'SUB006', 'subject_name' => 'Full Stack Development'],
+            ['subject_code' => 'SUB007', 'subject_name' => 'Unix'],
         ]);
 
         Chapter::insert([
