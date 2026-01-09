@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('subject_id')->constrained('subjects');
             $table->string('chapter_name',100);
-            $table->tinyInteger('Inforce')->default(1);
+            $table->tinyInteger('Inforce')->default(value: 1);
             $table->timestamps();
         });
     }

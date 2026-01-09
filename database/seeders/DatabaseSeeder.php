@@ -19,6 +19,7 @@ use App\Models\Chapter;
 use App\Models\Topic;
 use App\Models\QuestionType;
 use App\Models\QuestionLevel;
+use App\Models\Question;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -2764,5 +2765,8 @@ class DatabaseSeeder extends Seeder
             ['subject_code' => 'SUB006', 'subject_name' => 'Full Stack Development'],
             ['subject_code' => 'SUB007', 'subject_name' => 'Unix']
         ]);
+
+        //Adding questions for python programming
+        
     }
 }
