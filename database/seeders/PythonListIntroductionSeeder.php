@@ -19,7 +19,7 @@ class PythonListIntroductionSeeder extends Seeder
                 'question_code' => null,
                 'question_image' => null,
                 'question_type_id' => 1,
-                'topic_id' => 7,
+                'topic_id' => 39,
                 'question_level_id' => 1,
                 'question_tags' => 'python,list,basics',
                 'options' => [
@@ -34,7 +34,7 @@ class PythonListIntroductionSeeder extends Seeder
                 'question_code' => null,
                 'question_image' => null,
                 'question_type_id' => 1,
-                'topic_id' => 7,
+                'topic_id' => 39,
                 'question_level_id' => 1,
                 'question_tags' => 'python,list,syntax',
                 'options' => [
@@ -49,7 +49,7 @@ class PythonListIntroductionSeeder extends Seeder
                 'question_code' => 'A = [1, "apple", 3.5]',
                 'question_image' => null,
                 'question_type_id' => 1,
-                'topic_id' => 7,
+                'topic_id' => 39,
                 'question_level_id' => 1,
                 'question_tags' => 'python,list,examples',
                 'options' => [
@@ -64,7 +64,7 @@ class PythonListIntroductionSeeder extends Seeder
                 'question_code' => null,
                 'question_image' => null,
                 'question_type_id' => 1,
-                'topic_id' => 7,
+                'topic_id' => 39,
                 'question_level_id' => 1,
                 'question_tags' => 'python,list,indexing',
                 'options' => [
@@ -79,7 +79,7 @@ class PythonListIntroductionSeeder extends Seeder
                 'question_code' => null,
                 'question_image' => null,
                 'question_type_id' => 1,
-                'topic_id' => 7,
+                'topic_id' => 39,
                 'question_level_id' => 1,
                 'question_tags' => 'python,list,mutable',
                 'options' => [
@@ -94,7 +94,7 @@ class PythonListIntroductionSeeder extends Seeder
                 'question_code' => null,
                 'question_image' => null,
                 'question_type_id' => 1,
-                'topic_id' => 7,
+                'topic_id' => 39,
                 'question_level_id' => 1,
                 'question_tags' => 'python,list,length',
                 'options' => [
@@ -109,7 +109,7 @@ class PythonListIntroductionSeeder extends Seeder
                 'question_code' => null,
                 'question_image' => null,
                 'question_type_id' => 1,
-                'topic_id' => 7,
+                'topic_id' => 39,
                 'question_level_id' => 1,
                 'question_tags' => 'python,list,duplicates',
                 'options' => [
@@ -124,7 +124,7 @@ class PythonListIntroductionSeeder extends Seeder
                 'question_code' => null,
                 'question_image' => null,
                 'question_type_id' => 1,
-                'topic_id' => 7,
+                'topic_id' => 39,
                 'question_level_id' => 1,
                 'question_tags' => 'python,list,empty',
                 'options' => [
@@ -139,7 +139,7 @@ class PythonListIntroductionSeeder extends Seeder
                 'question_code' => null,
                 'question_image' => null,
                 'question_type_id' => 1,
-                'topic_id' => 7,
+                'topic_id' => 39,
                 'question_level_id' => 1,
                 'question_tags' => 'python,list,datatypes',
                 'options' => [
@@ -154,7 +154,7 @@ class PythonListIntroductionSeeder extends Seeder
                 'question_code' => 'mylist[-1]',
                 'question_image' => null,
                 'question_type_id' => 1,
-                'topic_id' => 7,
+                'topic_id' => 39,
                 'question_level_id' => 1,
                 'question_tags' => 'python,list,negative-index',
                 'options' => [
@@ -169,7 +169,7 @@ class PythonListIntroductionSeeder extends Seeder
                 'question_code' => null,
                 'question_image' => null,
                 'question_type_id' => 1,
-                'topic_id' => 7,
+                'topic_id' => 39,
                 'question_level_id' => 1,
                 'question_tags' => 'python,list,nested',
                 'options' => [
@@ -184,7 +184,7 @@ class PythonListIntroductionSeeder extends Seeder
                 'question_code' => 'len([1,2,3,4])',
                 'question_image' => null,
                 'question_type_id' => 1,
-                'topic_id' => 7,
+                'topic_id' => 39,
                 'question_level_id' => 1,
                 'question_tags' => 'python,list,len',
                 'options' => [
@@ -199,7 +199,7 @@ class PythonListIntroductionSeeder extends Seeder
                 'question_code' => null,
                 'question_image' => null,
                 'question_type_id' => 1,
-                'topic_id' => 7,
+                'topic_id' => 39,
                 'question_level_id' => 1,
                 'question_tags' => 'python,list,properties',
                 'options' => [
