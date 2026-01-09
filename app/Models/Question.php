@@ -61,7 +61,8 @@ class Question extends Model
     //Attribute Casting (Auto Data Conversion)
     protected $casts = [
         'inforce' => 'boolean',
-        'question_tags' => 'array'
+        'question_tags' => 'array',
+        'applicable_to' => 'array'
     ];
     public function scopeLatestFirst($query)
     {
