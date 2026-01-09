@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreignId('question_type_id')->constrained('question_types');
             $table->foreignId('topic_id')->constrained('topics');
             $table->foreignId('question_level_id')->constrained('question_levels');
-            $table->text('question_tags');
-            $table->tinyInteger('inforce')->default(1)->comment('1=active,0=inactive');
+            $table->json('question_tags');
+            $table->boolean('inforce')->default(true);
             $table->timestamps();
         });
     }
