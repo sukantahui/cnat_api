@@ -1,8 +1,10 @@
 <?php
-
+use App\Models\Question;
+use App\Models\Chapter;
+use App\Models\Topic;
 use Illuminate\Support\Facades\Route;
 Route::get('/test-tinker', function () {
-    return \App\Models\Question::whereJsonContains('applicable_to', 'class_9')->get();
+    return Topic::find(40)->questions;
 });
 
 Route::get('/', function () {
