@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
+use App\Traits\HandlesTransactions;
+use App\Helper\ResponseHelper;
 
 class QuestionController extends Controller
 {
+    use HandlesTransactions;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $questions = Question::all();
+        return ResponseHelper::success("Questions fetched successfully", $questions);
     }
 
     /**

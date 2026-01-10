@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
@@ -75,16 +76,26 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::put('/{admissionId}','update');
         Route::delete('/{admissionId}','destroy');
     });
+    
     Route::controller(VisitorController::class)->prefix('visitors')->group(function(){
         Route::get('/','index');
         Route::post('/','store')->middleware('throttle:3,1');
         Route::put('/{visitorId}','update');
         Route::delete('/{visitorId}','destroy');
     });
+
+    Route::controller(QuestionController::class)->prefix('questions')->group(function(){
+        Route::get('/','index');
+        Route::post('/','store');
+        Route::put('/{questionId}','update');
+        Route::delete('/{questionId}','destroy');
+    });
 });
 
 
-
+//*****************************************************************************************************
+// 
+//  */
 // for development purpose no token required
 Route::group(array('prefix' => 'dev'), function() {
     Route::controller(GuestController::class)->prefix('guests')->group(function(){
@@ -118,5 +129,5 @@ Route::group(array('prefix' => 'dev'), function() {
     });
 
   
-
+    
 });
