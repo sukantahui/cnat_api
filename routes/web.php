@@ -17,6 +17,16 @@ Route::get('/test-viewer', function () {
         'data'  => $data?->toArray()
     ]);
 });
+Route::get('/test-viewer2', function () {
+
+    //  $data = \App\Models\Topic::with('questions.options')->find(40);
+     $data = Topic::find(44)->questions;
+
+    return view('universal.viewer', [
+        'title' => 'JSON Inspector',
+        'data'  => $data?->toArray()
+    ]);
+});
 
 Route::get('/', function () {
     return view('welcome');
