@@ -18,7 +18,13 @@ Route::get('/test-viewer', function () {
     ]);
 });
 Route::get('/test-viewer2', function () {
+<<<<<<< HEAD
      $data = Topic::with('questions.options')->find(45);
+=======
+
+    //  $data = \App\Models\Topic::with('questions.options')->find(40);
+     $data = Topic::find(50)->questions;
+>>>>>>> 8c847a163db04587e7ff403743d109a2d2dd9604
 
     return view('universal.viewer', [
         'title' => 'JSON Inspector',
