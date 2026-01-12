@@ -19,7 +19,7 @@ class Question extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $appends = ['subject'];
+    //protected $appends = ['subject'];
     
     public function options()
     {
@@ -48,10 +48,10 @@ class Question extends Model
             'chapter_id'      // FK on topics table
         );
     }
-    public function getSubjectAttribute()
-    {
-        return $this->topic?->chapter?->subject;
-    }
+    // public function getSubjectAttribute()
+    // {
+    //     return $this->topic?->chapter?->subject;
+    // }
 
     //local scope
     public function scopeActive($query)
