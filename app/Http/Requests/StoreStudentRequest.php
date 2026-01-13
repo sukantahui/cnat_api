@@ -4,9 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\ConvertsCamelToSnake;
+
 class StoreStudentRequest extends BaseRequest
 {
     use ConvertsCamelToSnake;
+    public static bool $locked = false;
+    public static string $cachedNumber = '';
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -38,9 +41,9 @@ class StoreStudentRequest extends BaseRequest
             // ✅ Ensure uniqueness and difference
             'phone1' => [
                 'nullable',
-                'digits_between:10,15',
-                'unique:students,phone1',
-                'different:phone2'
+                // 'digits_between:10,15',
+                // 'unique:students,phone1',
+                // 'different:phone2'
             ],
             'phone2' => [
                 'nullable',
@@ -56,8 +59,6 @@ class StoreStudentRequest extends BaseRequest
             'pin'         => 'nullable|digits:6',
             'gender_id'   => 'required|exists:genders,id',
         ];
-
-        
     }
     public function messages(): array
     {
