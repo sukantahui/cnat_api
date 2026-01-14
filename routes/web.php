@@ -26,7 +26,7 @@ Route::get('/test-viewer2', function () {
     ]);
 });
 Route::get('/test-viewer3', function () {
-     $data = Topic::find(7);
+     $data = Topic::find(8);
     return view('universal.viewer', [
         'title' => 'JSON Inspector',
         'data'  => $data?->toArray()

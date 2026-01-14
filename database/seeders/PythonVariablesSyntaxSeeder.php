@@ -336,13 +336,13 @@ class PythonVariablesSyntaxSeeder extends Seeder
             ],
         ],
        
-
+    //comments questions
     [
         'question_text' => 'What are comments in Python?',
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -358,7 +358,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -374,7 +374,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -390,7 +390,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -406,7 +406,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -422,7 +422,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -438,7 +438,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -454,7 +454,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -470,7 +470,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -486,7 +486,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -502,7 +502,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -518,7 +518,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -534,7 +534,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -550,7 +550,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -566,7 +566,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -582,7 +582,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -598,7 +598,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -614,7 +614,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
@@ -630,7 +630,7 @@ class PythonVariablesSyntaxSeeder extends Seeder
         'question_code' => null,
         'question_image' => null,
         'question_type_id' => 1,
-        'topic_id' => 8,
+        'topic_id' => 9,
         'question_level_id' => 1,
         'question_tags' => ['python', 'comments'],
         'options' => [
