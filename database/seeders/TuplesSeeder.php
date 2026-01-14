@@ -570,8 +570,8 @@ class TuplesSeeder extends Seeder
 
 
                 /*|--------------------------------------------------------------------------
-| Topic ID 46 : Tuple vs List
-|--------------------------------------------------------------------------*/
+                | Topic ID 46 : Tuple vs List
+                |--------------------------------------------------------------------------*/
                 [
                     'question_text' => 'What is the main difference between a tuple and a list in Python?',
                     'question_code' => null,
