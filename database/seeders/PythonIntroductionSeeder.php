@@ -529,7 +529,178 @@ class PythonIntroductionSeeder extends Seeder
                         ['option_text' => 'Complex memory handling', 'is_correct' => false],
                         ['option_text' => 'Binary-level coding', 'is_correct' => false],
                     ],
-                ]
+                ],
+                /* topic_id = 2 -> Features of Python (More Questions) */
+
+                [
+                    'question_text' => 'Which feature of Python allows code reuse?',
+                    'question_code' => null,
+                    'question_image' => null,
+                    'question_type_id' => 1,
+                    'topic_id' => 2,
+                    'question_level_id' => 1,
+                    'question_tags' => ['python', 'features', 'reusability'],
+                    'applicable_to' => ['class_9', 'class_10'],
+                    'options' => [
+                        ['option_text' => 'Modular programming', 'is_correct' => true],
+                        ['option_text' => 'Binary execution', 'is_correct' => false],
+                        ['option_text' => 'Hardware dependency', 'is_correct' => false],
+                        ['option_text' => 'Low-level coding', 'is_correct' => false],
+                    ],
+                ],
+
+                [
+                    'question_text' => 'Python programs are easy to maintain because of:',
+                    'question_code' => null,
+                    'question_image' => null,
+                    'question_type_id' => 1,
+                    'topic_id' => 2,
+                    'question_level_id' => 1,
+                    'question_tags' => ['python', 'features', 'maintenance'],
+                    'applicable_to' => ['class_9', 'class_10'],
+                    'options' => [
+                        ['option_text' => 'Readable and structured code', 'is_correct' => true],
+                        ['option_text' => 'Complex syntax rules', 'is_correct' => false],
+                        ['option_text' => 'Manual memory handling', 'is_correct' => false],
+                        ['option_text' => 'Platform dependency', 'is_correct' => false],
+                    ],
+                ],
+
+                [
+                    'question_text' => 'Which feature allows Python to be extended using C or C++?',
+                    'question_code' => null,
+                    'question_image' => null,
+                    'question_type_id' => 1,
+                    'topic_id' => 2,
+                    'question_level_id' => 1,
+                    'question_tags' => ['python', 'features', 'extensible'],
+                    'applicable_to' => ['class_10'],
+                    'options' => [
+                        ['option_text' => 'Extensible nature', 'is_correct' => true],
+                        ['option_text' => 'Platform dependence', 'is_correct' => false],
+                        ['option_text' => 'Strict typing', 'is_correct' => false],
+                        ['option_text' => 'Binary-only execution', 'is_correct' => false],
+                    ],
+                ],
+
+                [
+                    'question_text' => 'Python allows interaction with other languages. This feature is called:',
+                    'question_code' => null,
+                    'question_image' => null,
+                    'question_type_id' => 1,
+                    'topic_id' => 2,
+                    'question_level_id' => 1,
+                    'question_tags' => ['python', 'features', 'integration'],
+                    'applicable_to' => ['class_10'],
+                    'options' => [
+                        ['option_text' => 'Integrated', 'is_correct' => true],
+                        ['option_text' => 'Compiled', 'is_correct' => false],
+                        ['option_text' => 'Machine-level', 'is_correct' => false],
+                        ['option_text' => 'Assembly-based', 'is_correct' => false],
+                    ],
+                ],
+
+                [
+                    'question_text' => 'Which feature makes Python suitable for scripting?',
+                    'question_code' => null,
+                    'question_image' => null,
+                    'question_type_id' => 1,
+                    'topic_id' => 2,
+                    'question_level_id' => 1,
+                    'question_tags' => ['python', 'features', 'scripting'],
+                    'applicable_to' => ['class_9', 'class_10'],
+                    'options' => [
+                        ['option_text' => 'Interpreted and simple syntax', 'is_correct' => true],
+                        ['option_text' => 'Complex compilation process', 'is_correct' => false],
+                        ['option_text' => 'Hardware-specific design', 'is_correct' => false],
+                        ['option_text' => 'Binary-only execution', 'is_correct' => false],
+                    ],
+                ],
+
+                [
+                    'question_text' => 'Python supports automatic garbage collection. This relates to:',
+                    'question_code' => null,
+                    'question_image' => null,
+                    'question_type_id' => 1,
+                    'topic_id' => 2,
+                    'question_level_id' => 1,
+                    'question_tags' => ['python', 'features', 'memory-management'],
+                    'applicable_to' => ['class_10'],
+                    'options' => [
+                        ['option_text' => 'Automatic memory management', 'is_correct' => true],
+                        ['option_text' => 'Manual pointer usage', 'is_correct' => false],
+                        ['option_text' => 'Low-level execution', 'is_correct' => false],
+                        ['option_text' => 'Platform dependency', 'is_correct' => false],
+                    ],
+                ],
+
+                [
+                    'question_text' => 'Which feature allows Python programs to be written with fewer lines of code?',
+                    'question_code' => null,
+                    'question_image' => null,
+                    'question_type_id' => 1,
+                    'topic_id' => 2,
+                    'question_level_id' => 1,
+                    'question_tags' => ['python', 'features', 'productivity'],
+                    'applicable_to' => ['class_8', 'class_9'],
+                    'options' => [
+                        ['option_text' => 'High-level language', 'is_correct' => true],
+                        ['option_text' => 'Assembly-level coding', 'is_correct' => false],
+                        ['option_text' => 'Binary execution', 'is_correct' => false],
+                        ['option_text' => 'Strict memory control', 'is_correct' => false],
+                    ],
+                ],
+
+                [
+                    'question_text' => 'Python is considered portable because:',
+                    'question_code' => null,
+                    'question_image' => null,
+                    'question_type_id' => 1,
+                    'topic_id' => 2,
+                    'question_level_id' => 1,
+                    'question_tags' => ['python', 'features', 'portability'],
+                    'applicable_to' => ['class_9', 'class_10'],
+                    'options' => [
+                        ['option_text' => 'Same code runs on multiple platforms', 'is_correct' => true],
+                        ['option_text' => 'It runs only on Windows', 'is_correct' => false],
+                        ['option_text' => 'It needs hardware changes', 'is_correct' => false],
+                        ['option_text' => 'It is machine dependent', 'is_correct' => false],
+                    ],
+                ],
+
+                [
+                    'question_text' => 'Which feature of Python helps in quick problem solving?',
+                    'question_code' => null,
+                    'question_image' => null,
+                    'question_type_id' => 1,
+                    'topic_id' => 2,
+                    'question_level_id' => 1,
+                    'question_tags' => ['python', 'features', 'efficiency'],
+                    'applicable_to' => ['class_8', 'class_9'],
+                    'options' => [
+                        ['option_text' => 'Simple syntax and built-in functions', 'is_correct' => true],
+                        ['option_text' => 'Complex compilation steps', 'is_correct' => false],
+                        ['option_text' => 'Manual memory allocation', 'is_correct' => false],
+                        ['option_text' => 'Binary-level programming', 'is_correct' => false],
+                    ],
+                ],
+
+                    [
+                        'question_text' => 'Python supports multiple programming paradigms. This means:',
+                        'question_code' => null,
+                        'question_image' => null,
+                        'question_type_id' => 1,
+                        'topic_id' => 2,
+                        'question_level_id' => 1,
+                        'question_tags' => ['python', 'features', 'multi-paradigm'],
+                        'applicable_to' => ['class_10'],
+                        'options' => [
+                            ['option_text' => 'It supports OOP, procedural, and functional programming', 'is_correct' => true],
+                            ['option_text' => 'It supports only machine language', 'is_correct' => false],
+                            ['option_text' => 'It supports only assembly language', 'is_correct' => false],
+                            ['option_text' => 'It supports only one style', 'is_correct' => false],
+                        ],
+                    ],
 
 
 
