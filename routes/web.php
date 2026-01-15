@@ -3,6 +3,7 @@ use App\Models\Question;
 use App\Models\Chapter;
 use App\Models\Topic;
 use App\Models\Subject;
+use App\Models\State;
 use Illuminate\Support\Facades\Route;
 Route::get('/test-tinker', function () {
     return Topic::find(40)->questions;
@@ -26,7 +27,7 @@ Route::get('/test-viewer2', function () {
     ]);
 });
 Route::get('/test-viewer3', function () {
-     $data = Topic::find(8);
+     $data = State::all();
     return view('universal.viewer', [
         'title' => 'JSON Inspector',
         'data'  => $data?->toArray()

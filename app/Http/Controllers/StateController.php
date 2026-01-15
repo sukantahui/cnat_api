@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\State;
 use App\Http\Requests\StoreStateRequest;
 use App\Http\Requests\UpdateStateRequest;
+use App\Traits\HandlesTransactions;
+use App\Helper\ResponseHelper;
+use App\Http\Resources\StateResource;
 
 class StateController extends Controller
 {
+    use HandlesTransactions;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $states = State::all();
+        return ResponseHelper::success("States retrieved successfully",StateResource::collection($states));
     }
 
     /**
@@ -29,15 +34,19 @@ class StateController extends Controller
      */
     public function store(StoreStateRequest $request)
     {
-        //
+        return "testing";
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(State $state)
+    public function show($stateId)
     {
-        //
+        $state=State::find($stateId);
+        if(!$state){
+            return ResponseHelper::error("State not found",404);
+        }
+        return ResponseHelper::success("State retrieved successfully",new StateResource($state));
     }
 
     /**
