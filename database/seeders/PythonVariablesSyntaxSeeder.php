@@ -1251,18 +1251,6 @@ class PythonVariablesSyntaxSeeder extends Seeder
         ],
     ],
 ];
-
-   
-
-
-
-
-
-
-
-
-
-
             
  foreach ($questions as $data) {
 
