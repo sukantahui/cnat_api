@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Option;
 use App\Http\Requests\StoreOptionRequest;
 use App\Http\Requests\UpdateOptionRequest;
+use Illuminate\Support\Facades\DB;
+use App\Helper\ResponseHelper;
+use App\Http\Resources\OptionResource;
 
 class OptionController extends Controller
 {
@@ -13,7 +16,8 @@ class OptionController extends Controller
      */
     public function index()
     {
-        //
+        $options = Option::all();
+        return ResponseHelper::success("Options fetched successfully", OptionResource::collection($options));
     }
 
     /**

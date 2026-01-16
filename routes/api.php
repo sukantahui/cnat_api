@@ -7,6 +7,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\OptionController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -91,6 +92,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/', 'store');
         Route::put('/{questionId}', 'update');
         Route::delete('/{questionId}', 'destroy');
+    });
+    Route::controller(OptionController::class)->prefix('options')->group(function () {
+        Route::get('/', 'index');
+        Route::get('/{optionId}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{optionId}', 'update');
+        Route::delete('/{optionId}', 'destroy');
     });
     Route::controller(StateController::class)->prefix('states')->group(function () {
         Route::get('/', 'index');
