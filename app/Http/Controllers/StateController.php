@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateStateRequest;
 use App\Traits\HandlesTransactions;
 use App\Helper\ResponseHelper;
 use App\Http\Resources\StateResource;
+use Illuminate\Support\Facades\DB;
 
 class StateController extends Controller
 {
@@ -21,20 +22,18 @@ class StateController extends Controller
         return ResponseHelper::success("States retrieved successfully",StateResource::collection($states));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreStateRequest $request)
     {
-        return "testing";
+        $state = DB::transaction(function () use ($request) {
+            $data=$request->validated();
+            $state=State::create($data);
+            return $state;
+        });
+        return ResponseHelper::success("State created successfully",$state);
     }
 
     /**

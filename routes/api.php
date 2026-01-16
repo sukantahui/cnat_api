@@ -87,9 +87,17 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::controller(QuestionController::class)->prefix('questions')->group(function () {
         Route::get('/', 'index');
+        Route::get('/{questionId}', 'show');
         Route::post('/', 'store');
         Route::put('/{questionId}', 'update');
         Route::delete('/{questionId}', 'destroy');
+    });
+    Route::controller(StateController::class)->prefix('states')->group(function () {
+        Route::get('/', 'index');
+        Route::get('/{stateId}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{stateId}', 'update');
+        Route::delete('/{stateId}', 'destroy');
     });
 });
 
@@ -125,13 +133,7 @@ Route::group(array('prefix' => 'dev'), function () {
         Route::put('/{admissionId}', 'update');
         Route::delete('/{admissionId}', 'destroy');
     });
-    Route::controller(StateController::class)->prefix('states')->group(function () {
-        Route::get('/', 'index');
-        Route::get('/{stateId}', 'show');
-        Route::post('/', 'store');
-        Route::put('/{stateId}', 'update');
-        Route::delete('/{stateId}', 'destroy');
-    });
+    
 
     Route::controller(VisitorController::class)->prefix('visitors')->group(function () {
         Route::post('/', 'store')->middleware('throttle:3,1');
