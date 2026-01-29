@@ -33,6 +33,13 @@ Route::get('/test-viewer3', function () {
         'data'  => $data?->toArray()
     ]);
 });
+Route::get('/subject', function () {
+     $data = Subject::all();
+    return view('universal.viewer', [
+        'title' => 'JSON Inspector',
+        'data'  => $data?->toArray()
+    ]);
+});
 
 
 

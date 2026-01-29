@@ -33,6 +33,8 @@ class QuestionController extends Controller
             $question=Question::create($data);
             return $question;
         });
+
+        
         return ResponseHelper::success("Question created successfully", new QuestionResource($question));
     }
 

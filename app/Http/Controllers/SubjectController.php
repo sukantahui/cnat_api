@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Subject;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
+use App\Http\Resources\SubjectResource;     
+use App\Helper\ResponseHelper;      
 
 class SubjectController extends Controller
 {
@@ -13,7 +15,8 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+        $subjects = Subject::all();
+        return ResponseHelper::success("Subjects fetched successfully", SubjectResource::collection($subjects));
     }
 
     /**

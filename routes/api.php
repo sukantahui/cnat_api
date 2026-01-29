@@ -13,6 +13,7 @@ use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\VisitorController;
+use App\Http\Controllers\SubjectController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -100,6 +101,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::put('/{optionId}', 'update');
         Route::delete('/{optionId}', 'destroy');
     });
+
+    Route::controller(SubjectController::class)->prefix('subjects')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::put('/{subjectId}', 'update');
+        Route::delete('/{subjectId}', 'destroy');
+    });
     Route::controller(StateController::class)->prefix('states')->group(function () {
         Route::get('/', 'index');
         Route::get('/{stateId}', 'show');
@@ -141,6 +149,7 @@ Route::group(array('prefix' => 'dev'), function () {
         Route::put('/{admissionId}', 'update');
         Route::delete('/{admissionId}', 'destroy');
     });
+
     
 
     Route::controller(VisitorController::class)->prefix('visitors')->group(function () {
