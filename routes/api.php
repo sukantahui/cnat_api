@@ -104,6 +104,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::controller(SubjectController::class)->prefix('subjects')->group(function () {
         Route::get('/', 'index');
+        Route::get('/{subjectId}', 'show');
         Route::post('/', 'store');
         Route::put('/{subjectId}', 'update');
         Route::delete('/{subjectId}', 'destroy');

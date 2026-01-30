@@ -22,7 +22,19 @@ class StoreSubjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'subject_name' => ['required', 'string', 'max:255', 'unique:subjects,subject_name'],
+            'subject_code' => ['required', 'string', 'max:100', 'unique:subjects,subject_code'],
+            'description' => ['nullable', 'string']
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'subject_name.required' => 'Subject name is required.',
+            'subject_name.max' => 'Subject name may not be greater than 255 characters.',
+            'subject_code.max' => 'Subject code may not be greater than 100 characters.',
+            'subject_name.unique' => 'Subject name must be unique.',
+            'subject_code.unique' => 'Subject code must be unique.'
         ];
     }
 }

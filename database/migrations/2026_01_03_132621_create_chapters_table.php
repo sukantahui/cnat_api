@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('subject_id')->constrained('subjects');
+            $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
             $table->string('chapter_name',100);
             $table->tinyInteger('Inforce')->default(value: 1);
             $table->timestamps();

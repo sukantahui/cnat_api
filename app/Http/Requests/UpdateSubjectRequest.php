@@ -11,7 +11,7 @@ class UpdateSubjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateSubjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "subject_name" => ['required', 'string', 'max:255'],
+            "subject_code" => ['required', 'string', 'max:100'],
+            "description" => ['nullable', 'string']
         ];
     }
 }

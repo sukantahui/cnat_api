@@ -7,6 +7,7 @@ use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
 use App\Http\Resources\SubjectResource;     
 use App\Helper\ResponseHelper;      
+use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
 {
@@ -32,15 +33,25 @@ class SubjectController extends Controller
      */
     public function store(StoreSubjectRequest $request)
     {
-        //
+        $subject = DB::transaction(function () use ($request) {
+            $data = $request->validated();
+            $subject = Subject::create($data);
+            return $subject;
+        });
+
+        return ResponseHelper::success("Subject created successfully", new SubjectResource($subject));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Subject $subject)
+    public function show($subjectId)
     {
-        //
+        $subject = Subject::find($subjectId);
+        if (!$subject) {
+            return ResponseHelper::error("Subject not found", 404);
+        }
+        return ResponseHelper::success("Subject fetched successfully", new SubjectResource($subject));
     }
 
     /**
@@ -54,16 +65,29 @@ class SubjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSubjectRequest $request, Subject $subject)
+    public function update(UpdateSubjectRequest $request,  $subjectId)
     {
-        //
+        $subject = Subject::find($subjectId);
+        if (!$subject) {
+            return ResponseHelper::error("Subject not found", 404);
+        }
+        DB::transaction(function () use ($request, $subject) {
+            $data = $request->validated();
+            $subject->update($data);
+        });
+        return ResponseHelper::success("Subject updated successfully", new SubjectResource($subject));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Subject $subject)
+    public function destroy($subjectId)
     {
-        //
+        $subject = Subject::find($subjectId);
+        if (!$subject) {
+            return ResponseHelper::error("Subject not found", 404);
+        }
+        $subject->delete();
+        return ResponseHelper::success("Subject deleted successfully");
     }
 }
