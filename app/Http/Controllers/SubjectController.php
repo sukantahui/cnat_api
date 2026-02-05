@@ -20,6 +20,17 @@ class SubjectController extends Controller
         return ResponseHelper::success("Subjects fetched successfully", SubjectResource::collection($subjects));
     }
 
+    public function unused_subjects()
+    {
+        $subjects = Subject::doesntHave('chapters')->get();
+        return ResponseHelper::success("Subjects fetched successfully", SubjectResource::collection($subjects));
+    }
+
+    public function list_of_chapters_in_subjects($subjectId)
+    {
+        $chapters = Subject::find($subjectId)->chapters;
+        return ResponseHelper::success("Subjects fetched successfully",$chapters);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -68,11 +79,16 @@ class SubjectController extends Controller
      */
     public function destroy($subjectId)
     {
-        $subject = Subject::find($subjectId);
+        $subject=Subject::withCount('chapters')->find($subjectId);
         if (!$subject) {
             return ResponseHelper::error("Subject not found", 404);
         }
+        if($subject->chapters_count>0){
+            return ResponseHelper::error("sorry parchina delete korte!",$subject,409);
+        }
+        
         $subject->delete();
         return ResponseHelper::success("Subject deleted successfully");
     }
+
 }

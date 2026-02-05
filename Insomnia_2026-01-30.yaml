@@ -414,12 +414,12 @@ collection:
       sortKey: -1753941883097.5
       description: ""
     children:
-      - url: 127.0.0.1/cnat_api/public/api/dev/courses
+      - url: "{{base_url}}/dev/courses"
         name: Save Course
         meta:
           id: req_b85d7c4421014f4c86a05e1b5f8d74e7
           created: 1761817001325
-          modified: 1761817207577
+          modified: 1770267738144
           isPrivate: false
           description: ""
           sortKey: -1761803386025
@@ -949,7 +949,7 @@ collection:
         meta:
           id: req_00a1ff1a4afb487e802eeb3930777652
           created: 1769751206644
-          modified: 1770099408715
+          modified: 1770267879735
           isPrivate: false
           description: ""
           sortKey: -1769105978452
@@ -958,10 +958,167 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"subject_name": "C++",
-            	"subject_code": "C002",
-            	"description": "This is C++"
+            	"subject_name": "k++",
+            	"subject_code": "k002",
+            	"description": "This is k++"
             }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+          - name: Accept
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{{ auth.bearerToken }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{base_url}}/subjects/7"
+        name: get subject by id
+        meta:
+          id: req_986d1de592c34e4c829e8bc92854d07f
+          created: 1770268331028
+          modified: 1770268347811
+          isPrivate: false
+          description: ""
+          sortKey: -1769428555422
+        method: GET
+        body:
+          mimeType: application/json
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+          - name: Accept
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{{ auth.bearerToken }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{base_url}}/subjects/5"
+        name: update subject by id
+        meta:
+          id: req_14dfffca20f94832bcb9763d8cac3219
+          created: 1770268760320
+          modified: 1770269126955
+          isPrivate: false
+          description: ""
+          sortKey: -1768783401482
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"subject_name": "testing",
+            	"subject_code": "T1001",
+            	"description": "This is k++"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+          - name: Accept
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{{ auth.bearerToken }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{base_url}}/subjects/6"
+        name: Delete subject by id
+        meta:
+          id: req_916df4bc198b479b997a0dbfb81ca2fb
+          created: 1770269189375
+          modified: 1770275048920
+          isPrivate: false
+          description: ""
+          sortKey: -1768622112997
+        method: DELETE
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+          - name: Accept
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{{ auth.bearerToken }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{base_url}}/subjects/unused"
+        name: get unused subject by id
+        meta:
+          id: req_78723fe4fd3147bbaec6be8def51f7f9
+          created: 1770276507262
+          modified: 1770276523540
+          isPrivate: false
+          description: ""
+          sortKey: -1769267266937
+        method: GET
+        body:
+          mimeType: application/json
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+          - name: Accept
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{{ auth.bearerToken }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{base_url}}/subjects/1/chapters"
+        name: Get chapters by subject Id
+        meta:
+          id: req_f8479daa34de45bba4a0e891ae3952f5
+          created: 1770278379334
+          modified: 1770278429121
+          isPrivate: false
+          description: ""
+          sortKey: -1769186622694.5
+        method: GET
+        body:
+          mimeType: application/json
         headers:
           - name: Content-Type
             value: application/json

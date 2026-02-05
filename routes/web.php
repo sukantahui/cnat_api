@@ -34,8 +34,14 @@ Route::get('/test-viewer3', function () {
     ]);
 });
 Route::get('/test-viewer4', function () {
-     
-    return Subject::find(1)->chapters;
+     return Subject::doesntHave('chapters')->get();
+});
+Route::get('/test-viewer5', function () {
+     $data = Subject::find(1)->chapters;
+    return view('universal.viewer', [
+        'title' => 'JSON Inspector',
+        'data'  => $data?->toArray()
+    ]);
 });
 Route::get('/subject', function () {
      $data = Subject::all();
