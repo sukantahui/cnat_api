@@ -33,6 +33,10 @@ Route::get('/test-viewer3', function () {
         'data'  => $data?->toArray()
     ]);
 });
+Route::get('/test-viewer4', function () {
+     
+    return Subject::find(1)->chapters;
+});
 Route::get('/subject', function () {
      $data = Subject::all();
     return view('universal.viewer', [

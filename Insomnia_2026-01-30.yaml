@@ -1,24 +1,28 @@
 type: collection.insomnia.rest/5.0
+schema_version: "5.1"
 name: cnat_api
 meta:
-  id: wrk_142eaf54dc1e489b87b44c5c6480ef42
-  created: 1756138112080
-  modified: 1756138112080
+  id: wrk_00a32f3f67bf4c70be01c601378397e4
+  created: 1770098578508
+  modified: 1770098578508
+  description: ""
 collection:
   - name: User
     meta:
-      id: fld_c7ab75b761544c889d339eab81896fe7
+      id: fld_a8d4e980af214e3187adefdb16c5cbba
       created: 1756138112091
       modified: 1756138112091
       sortKey: -1743173372251
+      description: ""
     children:
-      - url: 127.0.0.1/cnat_api/public/api/login
+      - url: "{{base_url}}/login"
         name: login
         meta:
-          id: req_a47da50f66854ada91133fc51fe4202f
+          id: req_77c7004f838740b4bbe0b2d6a19d9470
           created: 1756138112092
-          modified: 1756138201614
+          modified: 1770099484620
           isPrivate: false
+          description: ""
           sortKey: -1743173385709
         method: POST
         body:
@@ -41,13 +45,14 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: 127.0.0.1/cnat_api/public/api/register
+      - url: "{{base_url}}/register"
         name: Register
         meta:
-          id: req_f4de3e446f5d48fa8494d6e330fd8345
+          id: req_fa73148248c147c7872bb3716700f9ea
           created: 1756138112094
-          modified: 1756139374866
+          modified: 1770104942745
           isPrivate: false
+          description: ""
           sortKey: -1743173385609
         method: POST
         body:
@@ -75,13 +80,14 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: 127.0.0.1/cnat_api/public/api/me
+      - url: "{{base_url}}/me"
         name: About Me
         meta:
-          id: req_134b23f8b07743838c73b9de6bb959df
+          id: req_3385aa3106dd4887b9d7350a8deab414
           created: 1756138112099
-          modified: 1756139361245
+          modified: 1770104928732
           isPrivate: false
+          description: ""
           sortKey: -1743173385659
         method: GET
         body:
@@ -92,8 +98,8 @@ collection:
           - name: User-Agent
             value: insomnia/11.0.2
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -102,13 +108,14 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: 127.0.0.1/cnat_api/public/api/logout
+      - url: "{{base_url}}/logout"
         name: logout
         meta:
-          id: req_f18301a64c9d4c85b6cde34d842b4d04
+          id: req_94f6d7cd6b3b4974b1906e79875aa3ef
           created: 1756138112101
-          modified: 1756139336217
+          modified: 1770104914742
           isPrivate: false
+          description: ""
           sortKey: -1743173385684
         method: POST
         body:
@@ -119,8 +126,8 @@ collection:
           - name: User-Agent
             value: insomnia/11.0.2
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -131,18 +138,20 @@ collection:
           rebuildPath: true
   - name: Employees
     meta:
-      id: fld_9b625ab33b67443e8c3436ba01d9de1a
+      id: fld_eed7ab89185a4417b546ac7831a67992
       created: 1756138112204
       modified: 1756138112204
       sortKey: -1743248987054.5
+      description: ""
     children:
       - url: 127.0.0.1/cnat_api/public/api/dev/guests
         name: Save Guest
         meta:
-          id: req_c3bfd436c7ba4331be9c20023942156b
+          id: req_19e424142ab84d6386d63e1ca28759bf
           created: 1756138112206
           modified: 1761803048458
           isPrivate: false
+          description: ""
           sortKey: -1743273963232
         method: POST
         body:
@@ -166,8 +175,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -179,10 +188,11 @@ collection:
       - url: 127.0.0.1/cnat_api/public/api/dev/guests
         name: Get all Guests
         meta:
-          id: req_03a4e7f37e864b5085602214b1dc9c03
+          id: req_da8ecfcebb964eefad34c273aa4799a3
           created: 1756138112207
           modified: 1761803025207
           isPrivate: false
+          description: ""
           sortKey: -1743236551942.75
         method: GET
         body:
@@ -195,9 +205,9 @@ collection:
           - name: Accept
             value: application/json
         authentication:
+          type: bearer
           disabled: false
           token: "{{ auth.bearerToken }}"
-          type: bearer
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -209,10 +219,11 @@ collection:
       - url: 127.0.0.1/cnat_api/public/api/guests/2
         name: Update Guest
         meta:
-          id: req_7645e3963ccd4182b49671131b853444
+          id: req_9a1e5e4b5c4b4056a8942895353a0a5e
           created: 1756138112209
           modified: 1756139094704
           isPrivate: false
+          description: ""
           sortKey: -1743249022372.5
         method: PUT
         body:
@@ -233,8 +244,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -246,10 +257,11 @@ collection:
       - url: 127.0.0.1/cnat_api/public/api/guests/5
         name: Delete Guests
         meta:
-          id: req_42c5b5aad113403f9d994f64dc59be98
+          id: req_0bb10dcab5e44a99b105be731dcc18a8
           created: 1756138112210
           modified: 1756139203029
           isPrivate: false
+          description: ""
           sortKey: -1743242787157.625
         method: DELETE
         body:
@@ -262,8 +274,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -275,10 +287,11 @@ collection:
       - url: 127.0.0.1/cnat_api/public/api/guests/2
         name: Get  Guest by ID
         meta:
-          id: req_551bcee0629b4dfd8652f5b161fb99ab
+          id: req_6d5d850ddb5a46ef8c675f5004fe77a6
           created: 1756138112212
           modified: 1756310965471
           isPrivate: false
+          description: ""
           sortKey: -1743230316727.875
         method: GET
         body:
@@ -291,9 +304,9 @@ collection:
           - name: Accept
             value: application/json
         authentication:
+          type: bearer
           disabled: false
           token: "{{ auth.bearerToken }}"
-          type: bearer
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -304,18 +317,20 @@ collection:
           rebuildPath: true
   - name: STUDENTS
     meta:
-      id: fld_cbe59bc4f028478090de6e33cd7f0279
+      id: fld_6b0a6bf0f8cf4dd6b782fd6be4797d40
       created: 1761803334757
       modified: 1761803334757
       sortKey: -1761803334757
+      description: ""
     children:
       - url: 127.0.0.1/cnat_api/public/api/dev/students
         name: Get Students
         meta:
-          id: req_970822db758e4d34812b763d3d5a2ee8
+          id: req_3b8471f7fad14eb9bfac04b794f50b0a
           created: 1761808021449
           modified: 1761808035351
           isPrivate: false
+          description: ""
           sortKey: -1753941938087
         method: GET
         body:
@@ -329,8 +344,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -342,10 +357,11 @@ collection:
       - url: 127.0.0.1/cnat_api/public/api/dev/students
         name: Update Sstudent
         meta:
-          id: req_377845f28f8b44eea7b08de6896fe985
+          id: req_6aa4c57b22864847a8592a9177852c32
           created: 1762504263105
           modified: 1762504369343
           isPrivate: false
+          description: ""
           sortKey: -1757872662056
         method: PUT
         body:
@@ -380,8 +396,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -392,18 +408,20 @@ collection:
           rebuildPath: true
   - name: COURSES
     meta:
-      id: fld_20606257cc4e489ca9df6b105f5f466f
+      id: fld_262529333ebb495da37dd27b131cf1a4
       created: 1761817001292
       modified: 1761817001292
       sortKey: -1753941883097.5
+      description: ""
     children:
       - url: 127.0.0.1/cnat_api/public/api/dev/courses
         name: Save Course
         meta:
-          id: req_6541c5c7989e4ad5b633cb2e036485af
+          id: req_b85d7c4421014f4c86a05e1b5f8d74e7
           created: 1761817001325
           modified: 1761817207577
           isPrivate: false
+          description: ""
           sortKey: -1761803386025
         method: POST
         body:
@@ -421,8 +439,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -434,10 +452,11 @@ collection:
       - url: 127.0.0.1/cnat_api/public/api/dev/courses
         name: Get Courses
         meta:
-          id: req_fa559a00e7804e1480997afd5bd899a2
+          id: req_ab96a92d627b42808d1aeece821f9886
           created: 1761817001333
           modified: 1761817072802
           isPrivate: false
+          description: ""
           sortKey: -1753941938087
         method: GET
         body:
@@ -451,8 +470,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -463,18 +482,20 @@ collection:
           rebuildPath: true
   - name: ADMISSION
     meta:
-      id: fld_9fe1231bbf3343a0aedd3a995bb3e5bf
+      id: fld_73e98553f579485ba7d38ec9a31cdaff
       created: 1762357470721
       modified: 1762357470721
       sortKey: -1757872608927.25
+      description: ""
     children:
       - url: 127.0.0.1/cnat_api/public/api/dev/admissions
         name: Save Admission
         meta:
-          id: req_8ffab826cba44f84a96c663cc5788005
+          id: req_2da3d4b4e98648328491524cdf5dca62
           created: 1762357470725
           modified: 1762507353189
           isPrivate: false
+          description: ""
           sortKey: -1761803386025
         method: POST
         body:
@@ -495,8 +516,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -508,10 +529,11 @@ collection:
       - url: 127.0.0.1/cnat_api/public/api/dev/admissions
         name: Get Admission
         meta:
-          id: req_ec0538ac4da94d7c8386a5738114eae6
+          id: req_0528c99a670447ba99914a52fa1907bc
           created: 1762357470727
           modified: 1762408939548
           isPrivate: false
+          description: ""
           sortKey: -1753941938087
         method: GET
         body:
@@ -525,8 +547,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -538,10 +560,11 @@ collection:
       - url: 127.0.0.1/cnat_api/public/api/dev/admissions/8
         name: Update Admission
         meta:
-          id: req_9a2d1c75526543aeab17b88cfc091b14
+          id: req_bcba2a96d9854a46bdd1cc7380306a1c
           created: 1762504303754
           modified: 1762511417502
           isPrivate: false
+          description: ""
           sortKey: -1759838024040.5
         method: PUT
         body:
@@ -562,8 +585,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -574,18 +597,20 @@ collection:
           rebuildPath: true
   - name: QUESTION
     meta:
-      id: fld_14f86ae9bde24cd4a245081c2e8753e0
+      id: fld_e5685c8785824e339edaca59c4b19d69
       created: 1768033733958
       modified: 1768547014857
       sortKey: -1768460818200
+      description: ""
     children:
-      - url: 127.0.0.1/cnat_api/public/api/questions
+      - url: "{{base_url}}/questions"
         name: get all questions
         meta:
-          id: req_18d7cc3e1f2d46df9e299a39de2cf215
+          id: req_47b225b1b22c4a588d424fbfce527ffe
           created: 1761803365744
-          modified: 1768459769702
+          modified: 1770099311598
           isPrivate: false
+          description: ""
           sortKey: -1768033878798
         method: GET
         body:
@@ -598,8 +623,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -608,13 +633,14 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: 127.0.0.1/cnat_api/public/api/questions/5
+      - url: "{{base_url}}/questions/5"
         name: get questions by ID
         meta:
-          id: req_5b309d0c968d40848e9ab9843e3e1372
+          id: req_285de6f0f51e4258b29a7ce4c595d184
           created: 1768545310375
-          modified: 1768545393091
+          modified: 1770099369563
           isPrivate: false
+          description: ""
           sortKey: -1764918632411.5
         method: GET
         body:
@@ -627,8 +653,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -637,13 +663,14 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: 127.0.0.1/cnat_api/public/api/questions
+      - url: "{{base_url}}/questions"
         name: Save Question
         meta:
-          id: req_f85383230532458c8898de5fadab5b9a
+          id: req_5dc915059c83414992c00070e3dab287
           created: 1768546568547
-          modified: 1768546908150
+          modified: 1770099348675
           isPrivate: false
+          description: ""
           sortKey: -1766476255604.75
         method: POST
         body:
@@ -668,8 +695,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -680,18 +707,20 @@ collection:
           rebuildPath: true
   - name: STATE
     meta:
-      id: fld_fd74f98fd1844d6a933e08fdf32f522c
+      id: fld_24ad37bc220043508dc404bdd5c02461
       created: 1768460818100
       modified: 1768460818100
       sortKey: -1768460818100
+      description: ""
     children:
-      - url: 127.0.0.1/cnat_api/public/api/states
+      - url: "{{base_url}}/states"
         name: Get States
         meta:
-          id: req_a8f04ea10aac405e8918f954838ba2e0
+          id: req_3baf208c01104975bafbf3fd80d34873
           created: 1768460824512
-          modified: 1768544708808
+          modified: 1770104821312
           isPrivate: false
+          description: ""
           sortKey: -1768460824512
         method: GET
         headers:
@@ -708,13 +737,14 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: 127.0.0.1/cnat_api/public/api/states/19
+      - url: "{{base_url}}/states/19"
         name: Get States by ID
         meta:
-          id: req_b89bf80b18e94078ba1a125a8c44f8e4
+          id: req_1e64262201a145f3bea05d9de8375672
           created: 1768462429338
-          modified: 1768544742334
+          modified: 1770104891280
           isPrivate: false
+          description: ""
           sortKey: -1768247351655
         method: GET
         headers:
@@ -731,13 +761,14 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: 127.0.0.1/cnat_api/public/api/states
+      - url: "{{base_url}}/states"
         name: Save State
         meta:
-          id: req_8b2ec27bec1642e39cbd8c0d0505de94
+          id: req_4ee2b8b2b3ab40399530ca337581cbbc
           created: 1768466234269
-          modified: 1768544580889
+          modified: 1770104846662
           isPrivate: false
+          description: ""
           sortKey: -1768407456297.75
         method: POST
         body:
@@ -755,8 +786,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -767,18 +798,20 @@ collection:
           rebuildPath: true
   - name: OPTION
     meta:
-      id: fld_08a61eaab24640f29e6d082c433a2b3f
+      id: fld_5c5a910cbe7248cbaf8698fc92d2b6a8
       created: 1768549102927
       modified: 1768549102927
       sortKey: -1768460818150
+      description: ""
     children:
-      - url: 127.0.0.1/cnat_api/public/api/options
+      - url: "{{base_url}}/options"
         name: get all options
         meta:
-          id: req_67e6b7bca22b4ecda139989d8c157664
+          id: req_544e122a651d4ad8be33141291a645d8
           created: 1768549102929
-          modified: 1769751045611
+          modified: 1770099431387
           isPrivate: false
+          description: ""
           sortKey: -1768033878798
         method: GET
         body:
@@ -791,8 +824,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -801,13 +834,14 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: 127.0.0.1/cnat_api/public/api/options/5
+      - url: "{{base_url}}/options/5"
         name: get options by ID
         meta:
-          id: req_cdcf8b87c07c4e169bc49e7668f8b287
+          id: req_3dff1068f2e04eec94b96b426ea49821
           created: 1768549102931
-          modified: 1768549329446
+          modified: 1770099463190
           isPrivate: false
+          description: ""
           sortKey: -1764918632411.5
         method: GET
         body:
@@ -820,8 +854,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -830,13 +864,14 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: 127.0.0.1/cnat_api/public/api/questions
+      - url: "{{base_url}}/questions"
         name: Save options
         meta:
-          id: req_4b3c952ba210462489218d6d7ae3261b
+          id: req_85e9f4e836dd462da843691daacae4af
           created: 1768549102935
-          modified: 1768549138125
+          modified: 1770099444754
           isPrivate: false
+          description: ""
           sortKey: -1766476255604.75
         method: POST
         body:
@@ -861,8 +896,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -873,18 +908,20 @@ collection:
           rebuildPath: true
   - name: SUBJECT
     meta:
-      id: fld_2e4c43bfa8c9429e99f660afc6dfa3f7
+      id: fld_ec7c86a6656f4e3ca08d6847f695560b
       created: 1769751087908
       modified: 1769751087908
       sortKey: -1769751087908
+      description: ""
     children:
-      - url: 127.0.0.1/cnat_api/public/api/subjects
+      - url: "{{base_url}}/subjects"
         name: get all subjects
         meta:
-          id: req_195ca622cae745fc9578cb008411bcc3
+          id: req_1fa34eecff9547ccbc8e742a5a7d556c
           created: 1769751124657
-          modified: 1769751165479
+          modified: 1770099391556
           isPrivate: false
+          description: ""
           sortKey: -1769751132392
         method: GET
         body:
@@ -897,8 +934,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -907,13 +944,14 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: 127.0.0.1/cnat_api/public/api/subjects
+      - url: "{{base_url}}/subjects"
         name: Save subject
         meta:
-          id: req_c48154f3b9054dce8b976a41c87b0a6f
+          id: req_00a1ff1a4afb487e802eeb3930777652
           created: 1769751206644
-          modified: 1769751712810
+          modified: 1770099408715
           isPrivate: false
+          description: ""
           sortKey: -1769105978452
         method: POST
         body:
@@ -932,8 +970,8 @@ collection:
           - name: Accept
             value: application/json
         authentication:
-          token: "{{ auth.bearerToken }}"
           type: bearer
+          token: "{{ auth.bearerToken }}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -945,38 +983,34 @@ collection:
 cookieJar:
   name: Default Jar
   meta:
-    id: jar_1bd0d8b1091a45c4987a7451ba82e509
+    id: jar_95e427ecc68d43b98ae0b4617b33985b
     created: 1756138112087
     modified: 1768466209277
   cookies:
-    - key: XSRF-TOKEN
+    - id: a278421a-9619-4170-b268-b5a2a98ae307
+      key: XSRF-TOKEN
       value: eyJpdiI6Im5zV3U3N2hCbkdBR1hNVHAvdTcwekE9PSIsInZhbHVlIjoicThZdGtyZ0FMZC80Y3lVK0RSQ0hPKzV4WkxzN1lXdDJmSldicWd1ZFFJVkU4WkhmRVBGSWhhdG80cGwrdC82RGhuNU9LakJXT1JtRmR1TGhTa0xDc0R5d1R5SnFOMFhscmhjSmVHcURvSi9Hek8xdUlIN2NjbUNoVjZWdHQ0cHciLCJtYWMiOiI5OWE1MDc3YWNmYjIzMzRjZDBmYzA0YjM2MDc5YTcyZGNjMDkzMWViOWI2ZTU1YzA4OTlkZDcwNGQ3MGZiMDA1IiwidGFnIjoiIn0%3D
-      maxAge: 7200
       domain: 127.0.0.1
       path: /
+      secure: false
+      httpOnly: false
       hostOnly: true
-      creation: 2026-01-15T08:33:15.352Z
-      lastAccessed: 2026-01-15T08:36:49.276Z
-      sameSite: lax
-      id: a278421a-9619-4170-b268-b5a2a98ae307
-    - key: laravel_session
+    - id: 5fb9b6d3-94a8-4717-900b-370a9214b01d
+      key: laravel_session
       value: eyJpdiI6IkF1MzBUVFBrMkd1R2Fyb1lMaExlTEE9PSIsInZhbHVlIjoiZjFCbFhXd3VEaUgyREc3VTFwNklCbE5WY2tENTZMdTdKc052ektKVHB6K1FjSWhUTG01ZVhzUVFoeFZGck42SFcrQUV1N3FyVDc3cEloZnVOZlZVcnNoUWFvK0toTytnQXY0czh5dUxDbGVMNXlSUnRkaXl3azZrSjhiSUFFMysiLCJtYWMiOiJmNjMzODA2MzI2MDlmYWM2YzMxYTRkZWNmYzE2YzhiNGI5NGY4NTNkNjAwZTQ3ZmQzODRjNjY5ZTFjMzYwNjUxIiwidGFnIjoiIn0%3D
-      maxAge: 7200
       domain: 127.0.0.1
       path: /
+      secure: false
       httpOnly: true
       hostOnly: true
-      creation: 2026-01-15T08:33:15.354Z
-      lastAccessed: 2026-01-15T08:36:49.277Z
-      sameSite: lax
-      id: 5fb9b6d3-94a8-4717-900b-370a9214b01d
 environments:
   name: Base Environment
   meta:
-    id: env_2aa0ee951e6c4550ae7794c4d9277821
+    id: env_88004bb01dc64f95ba10d7fa959519ac
     created: 1756138112082
-    modified: 1769752796164
+    modified: 1770099295717
     isPrivate: false
   data:
     auth:
-      bearerToken: 1|Kvt4f5GlyvFdjw37bKY7RtBzGoO4cOZ8eyiBr2Urfea6ab58
+      bearerToken: 1|NziDsaRHFCTuq79tveBkpfbQU8xRNEo7PLPZ3ymG706daf03
+    base_url: http://127.0.0.1:8000/api

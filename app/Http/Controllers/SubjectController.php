@@ -20,13 +20,6 @@ class SubjectController extends Controller
         return ResponseHelper::success("Subjects fetched successfully", SubjectResource::collection($subjects));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -52,14 +45,6 @@ class SubjectController extends Controller
             return ResponseHelper::error("Subject not found", 404);
         }
         return ResponseHelper::success("Subject fetched successfully", new SubjectResource($subject));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Subject $subject)
-    {
-        //
     }
 
     /**
