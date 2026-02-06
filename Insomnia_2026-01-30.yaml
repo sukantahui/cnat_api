@@ -7,6 +7,106 @@ meta:
   modified: 1770098578508
   description: ""
 collection:
+  - url: "{{base_url}}/chapters"
+    name: get all chapters
+    meta:
+      id: req_2f3142a24b0340cebe6628cc29fdd97d
+      created: 1770358180377
+      modified: 1770358199225
+      isPrivate: false
+      description: ""
+      sortKey: -1770054619574.5
+    method: GET
+    body:
+      mimeType: application/json
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.0.1
+      - name: Accept
+        value: application/json
+    authentication:
+      type: bearer
+      token: "{{ auth.bearerToken }}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{base_url}}/chapters"
+    name: save chapters
+    meta:
+      id: req_41149e9f366540bebf38dfe75cfca00d
+      created: 1770359878343
+      modified: 1770362904679
+      isPrivate: false
+      description: ""
+      sortKey: -1769902875983.25
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+         "subjectId" : 4,
+        	"chapterName": "Javascript3"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.0.1
+      - name: Accept
+        value: application/json
+    authentication:
+      type: bearer
+      token: "{{ auth.bearerToken }}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{base_url}}/chapters/1"
+    name: update chapter
+    meta:
+      id: req_dcac2ba5e310448e81e63ada04a6f808
+      created: 1770363860594
+      modified: 1770363903054
+      isPrivate: false
+      description: ""
+      sortKey: -1769827004187.625
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+         "subjectId" : 4,
+        	"chapterName": "Javascript45"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.0.1
+      - name: Accept
+        value: application/json
+    authentication:
+      type: bearer
+      token: "{{ auth.bearerToken }}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
   - name: User
     meta:
       id: fld_a8d4e980af214e3187adefdb16c5cbba
@@ -919,7 +1019,7 @@ collection:
         meta:
           id: req_1fa34eecff9547ccbc8e742a5a7d556c
           created: 1769751124657
-          modified: 1770099391556
+          modified: 1770357876822
           isPrivate: false
           description: ""
           sortKey: -1769751132392
@@ -949,7 +1049,7 @@ collection:
         meta:
           id: req_00a1ff1a4afb487e802eeb3930777652
           created: 1769751206644
-          modified: 1770267879735
+          modified: 1770363062107
           isPrivate: false
           description: ""
           sortKey: -1769105978452
@@ -958,9 +1058,9 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"subject_name": "k++",
-            	"subject_code": "k002",
-            	"description": "This is k++"
+            	"subjectName": "p++",
+            	"subjectCode": "k003",
+            	"description": "This is p++"
             }
         headers:
           - name: Content-Type
@@ -1137,6 +1237,13 @@ collection:
             send: true
             store: true
           rebuildPath: true
+  - name: CHAPTER
+    meta:
+      id: fld_b3aa728a7466411894e8786049494b09
+      created: 1770358151241
+      modified: 1770358151241
+      sortKey: -1770358151241
+      description: ""
 cookieJar:
   name: Default Jar
   meta:
@@ -1165,9 +1272,10 @@ environments:
   meta:
     id: env_88004bb01dc64f95ba10d7fa959519ac
     created: 1756138112082
-    modified: 1770099295717
+    modified: 1770357225602
     isPrivate: false
   data:
     auth:
       bearerToken: 1|NziDsaRHFCTuq79tveBkpfbQU8xRNEo7PLPZ3ymG706daf03
     base_url: http://127.0.0.1:8000/api
+    base_url_2: http://127.0.0.1/cnat_api/public/api

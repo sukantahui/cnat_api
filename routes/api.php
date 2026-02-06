@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\ChapterController;
+
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -111,6 +113,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::put('/{subjectId}', 'update');
         Route::delete('/{subjectId}', 'destroy');
     });
+Route::controller(ChapterController::class)->prefix('chapters')->group(function (){
+    Route::get('/', 'index');
+    Route::get('/{chapterId}', 'show');
+    Route::post('/', 'store');
+    Route::put('/{chapterId}', 'update');
+    Route::delete('/{chapterId}', 'destroy');
+});
     Route::controller(StateController::class)->prefix('states')->group(function () {
         Route::get('/', 'index');
         Route::get('/{stateId}', 'show');

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Chapter;
 use App\Http\Requests\StoreChapterRequest;
 use App\Http\Requests\UpdateChapterRequest;
+use App\Http\Resources\ChapterResource;
+use App\Helper\ResponseHelper;      
+use Illuminate\Support\Facades\DB;
 
 class ChapterController extends Controller
 {
@@ -13,15 +16,8 @@ class ChapterController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $Chapters = Chapter::all();
+        return ResponseHelper::success("Chapters fetched successfully",ChapterResource::collection($Chapters));
     }
 
     /**
@@ -29,7 +25,13 @@ class ChapterController extends Controller
      */
     public function store(StoreChapterRequest $request)
     {
-        //
+        $chapter=DB::transaction(function () use ($request){
+             $data = $request->validated();
+             $chapter = Chapter::create($data);
+            return $chapter;
+        });
+        return ResponseHelper::success("Chapter created successfully", new ChapterResource($chapter));
+
     }
 
     /**
@@ -51,9 +53,19 @@ class ChapterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateChapterRequest $request, Chapter $chapter)
+    public function update(UpdateChapterRequest $request, $chapterId)
     {
-        //
+        $chapter = Chapter::find($chapterId);
+        if (!$chapter) {
+            return ResponseHelper::error("Chapter not found", 404);
+        }
+        DB::transaction(function () use ($request, $chapter) {
+            $data = $request->validated();
+            $chapter->update($data);
+        });
+        
+        return ResponseHelper::success("Chapter created successfully", new ChapterResource($chapter));
+
     }
 
     /**

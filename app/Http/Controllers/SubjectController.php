@@ -10,7 +10,7 @@ use App\Helper\ResponseHelper;
 use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
-{
+{ 
     /**
      * Display a listing of the resource.
      */
