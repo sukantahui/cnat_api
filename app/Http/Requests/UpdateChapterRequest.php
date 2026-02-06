@@ -2,29 +2,35 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateChapterRequest extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
-         return [
-            'subject_id'=> ['required','numeric'],
-            'chapter_name'=> ['required','string','max:255']
-          
+        return [
+            'subject_id' => [
+                'required',
+                'integer',
+                Rule::exists('subjects', 'id'),
+            ],
+
+            'chapter_name' => [
+                'required',
+                'string',
+                'max:100',
+
+                Rule::unique('chapters', 'chapter_name')
+                    ->where(fn ($query) =>
+                        $query->where('subject_id', $this->subject_id)
+                    )
+                    ->ignore(optional($this->route('chapter'))->id),
+            ],
         ];
     }
 }
