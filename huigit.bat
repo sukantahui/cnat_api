@@ -7,7 +7,7 @@ if "%~1"=="" (
     echo Usage: huigit "your message"
     exit /b 1
 )
-
+Rem "by sukanta hui"
 set MSG=%~1
 
 REM Check if there are changes
