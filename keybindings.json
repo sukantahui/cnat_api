@@ -12,7 +12,16 @@
         "command": "editor.action.inlineSuggest.snooze",
         "when": "true"
     },
-
+    {
+        "key": "shift+alt+down",
+        "command": "editor.action.copyLinesDownAction",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+up",
+        "command": "editor.action.copyLinesUpAction",
+        "when": "editorTextFocus"
+    },
     /* =========================
        EDITING & CODE ACTIONS
        ========================= */
@@ -32,7 +41,6 @@
         "key": "ctrl+/",
         "command": "editor.action.commentLine"
     },
-
     /* =========================
        NAVIGATION
        ========================= */
@@ -48,7 +56,6 @@
         "key": "ctrl+g",
         "command": "workbench.action.gotoLine"
     },
-
     /* =========================
        MULTI-CURSOR & SELECTION
        ========================= */
@@ -64,7 +71,6 @@
         "key": "alt+click",
         "command": "editor.action.insertCursor"
     },
-
     /* =========================
        SEARCH & REFACTOR
        ========================= */
@@ -80,7 +86,6 @@
         "key": "ctrl+shift+f",
         "command": "workbench.action.findInFiles"
     },
-
     /* =========================
        FILE & WORKSPACE
        ========================= */
@@ -96,7 +101,6 @@
         "key": "ctrl+shift+n",
         "command": "workbench.action.newWindow"
     },
-
     /* =========================
        GIT (VERY POPULAR)
        ========================= */
@@ -109,7 +113,6 @@
         "command": "git.commit",
         "when": "gitInputBoxFocus"
     },
-
     /* =========================
        DEBUGGING
        ========================= */
