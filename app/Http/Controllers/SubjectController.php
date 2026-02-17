@@ -19,7 +19,7 @@ class SubjectController extends Controller
         $subjects = Subject::all();
         return ResponseHelper::success("Subjects fetched successfully", SubjectResource::collection($subjects));
     }
-
+//
     public function unused_subjects()
     {
         $subjects = Subject::doesntHave('chapters')->get();

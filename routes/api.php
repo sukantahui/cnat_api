@@ -15,6 +15,7 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\TopicController;
 
 
 // Route::get('/user', function (Request $request) {
@@ -115,11 +116,22 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 Route::controller(ChapterController::class)->prefix('chapters')->group(function (){
     Route::get('/', 'index');
+    Route::get('/unusedChapters', 'unused_chapters');
+    Route::get('/{chapterId}/topics', 'list_of_topics_in_chapters');
     Route::get('/{chapterId}', 'show');
     Route::post('/', 'store');
     Route::put('/{chapterId}', 'update');
     Route::delete('/{chapterId}', 'destroy');
 });
+Route::controller(TopicController::class)->prefix('topics')->group(function () {
+        Route::get('/', 'index');
+        Route::get('/unusedTopics', 'unused_topics');
+        Route::get('/{topicId}/questions', 'list_of_questions_in_topics');
+        Route::get('/{topicId}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{topicId}', 'update');
+        Route::delete('/{topicId}', 'destroy');
+    });
     Route::controller(StateController::class)->prefix('states')->group(function () {
         Route::get('/', 'index');
         Route::get('/{stateId}', 'show');

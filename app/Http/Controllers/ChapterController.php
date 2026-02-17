@@ -19,7 +19,16 @@ class ChapterController extends Controller
         $Chapters = Chapter::all();
         return ResponseHelper::success("Chapters fetched successfully",ChapterResource::collection($Chapters));
     }
-
+    public function unused_chapters()
+    {
+        $Chapters = Chapter::doesntHave('topics')->get();
+        return ResponseHelper::success("Chapters fetched successfully", ChapterResource::collection($Chapters));
+    }
+    public function list_of_topics_in_chapters($chapterId)
+    {
+        $Topics = Chapter::find($chapterId)->Topics;
+        return ResponseHelper::success("Topics fetched successfully",$Topics);
+    }
     /**
      * Store a newly created resource in storage.
      */
