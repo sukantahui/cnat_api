@@ -43,8 +43,8 @@ class TopicController extends Controller
             $data = $request->validated();
             $Topic = Topic::create($data);
         });
-        return ResponseHelper::success("Topic created successfully", new ChapterResource($Topic));
-    }
+        return ResponseHelper::success("Topic created successfully", new TopicResource($Topic));
+    }//
 
     /**
      * Display the specified resource.

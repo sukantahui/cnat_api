@@ -73,7 +73,7 @@ class SubjectController extends Controller
         });
         return ResponseHelper::success("Subject updated successfully", new SubjectResource($subject));
     }
-
+//
     /**
      * Remove the specified resource from storage.
      */

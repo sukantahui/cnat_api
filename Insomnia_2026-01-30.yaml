@@ -42,7 +42,7 @@ collection:
     meta:
       id: req_41149e9f366540bebf38dfe75cfca00d
       created: 1770359878343
-      modified: 1770362904679
+      modified: 1771487601869
       isPrivate: false
       description: ""
       sortKey: -1769902875983.25
@@ -52,7 +52,7 @@ collection:
       text: |-
         {
          "subjectId" : 4,
-        	"chapterName": "Javascript3"
+        	"chapterName": "Testing"
         }
     headers:
       - name: Content-Type
@@ -89,6 +89,157 @@ collection:
          "subjectId" : 4,
         	"chapterName": "Javascript45"
         }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.0.1
+      - name: Accept
+        value: application/json
+    authentication:
+      type: bearer
+      token: "{{ auth.bearerToken }}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{base_url}}/topics"
+    name: get all Topics
+    meta:
+      id: req_de4d8972e35f4893bc2bcd7a9ed8e027
+      created: 1771483976756
+      modified: 1771483991518
+      isPrivate: false
+      description: ""
+      sortKey: -1770921040255.5
+    method: GET
+    body:
+      mimeType: application/json
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.0.1
+      - name: Accept
+        value: application/json
+    authentication:
+      type: bearer
+      token: "{{ auth.bearerToken }}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{base_url}}/chapters/unusedChapters"
+    name: get unusedChapters
+    meta:
+      id: req_f39e5662d6934c919e3c7a4396007a0c
+      created: 1771484053311
+      modified: 1771484188622
+      isPrivate: false
+      description: ""
+      sortKey: -1769978747778.875
+    method: GET
+    body:
+      mimeType: application/json
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.0.1
+      - name: Accept
+        value: application/json
+    authentication:
+      type: bearer
+      token: "{{ auth.bearerToken }}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{base_url}}/chapters/1"
+    name: get chapter by id
+    meta:
+      id: req_b58d0b8a571045859a34e82492ae5dd8
+      created: 1771484259839
+      modified: 1771485035836
+      isPrivate: false
+      description: ""
+      sortKey: -1770206385407.75
+    method: GET
+    body:
+      mimeType: application/json
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.0.1
+      - name: Accept
+        value: application/json
+    authentication:
+      type: bearer
+      token: "{{ auth.bearerToken }}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{base_url}}/chapters/1/topics"
+    name: Get topics by chapterId
+    meta:
+      id: req_646d7321d8ca40d09326a487806bdb49
+      created: 1771485821109
+      modified: 1771486371983
+      isPrivate: false
+      description: ""
+      sortKey: -1769940811881.0625
+    method: GET
+    body:
+      mimeType: application/json
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.0.1
+      - name: Accept
+        value: application/json
+    authentication:
+      type: bearer
+      token: "{{ auth.bearerToken }}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{base_url}}/chapters/38"
+    name: Delete chapter by id
+    meta:
+      id: req_0f7b2e4a20f944cc985d8bb5162f5fab
+      created: 1771487421545
+      modified: 1771487620937
+      isPrivate: false
+      description: ""
+      sortKey: -1769789046047.8125
+    method: DELETE
+    body:
+      mimeType: application/json
+      text: ""
     headers:
       - name: Content-Type
         value: application/json
@@ -1110,12 +1261,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{base_url}}/subjects/5"
+      - url: "{{base_url}}/subjects/4"
         name: update subject by id
         meta:
           id: req_14dfffca20f94832bcb9763d8cac3219
           created: 1770268760320
-          modified: 1770269126955
+          modified: 1770388254572
           isPrivate: false
           description: ""
           sortKey: -1768783401482
@@ -1124,7 +1275,7 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"subject_name": "testing",
+            	"subject_name": "testing2",
             	"subject_code": "T1001",
             	"description": "This is k++"
             }
@@ -1178,11 +1329,11 @@ collection:
             store: true
           rebuildPath: true
       - url: "{{base_url}}/subjects/unused"
-        name: get unused subject by id
+        name: "get unused subject "
         meta:
           id: req_78723fe4fd3147bbaec6be8def51f7f9
           created: 1770276507262
-          modified: 1770276523540
+          modified: 1771484334243
           isPrivate: false
           description: ""
           sortKey: -1769267266937
@@ -1244,6 +1395,13 @@ collection:
       modified: 1770358151241
       sortKey: -1770358151241
       description: ""
+  - name: TOPIC
+    meta:
+      id: fld_eb595888ee38470bb98836fe2a2aa113
+      created: 1771483929270
+      modified: 1771483936657
+      sortKey: -1771483929270
+      description: ""
 cookieJar:
   name: Default Jar
   meta:
@@ -1272,10 +1430,10 @@ environments:
   meta:
     id: env_88004bb01dc64f95ba10d7fa959519ac
     created: 1756138112082
-    modified: 1770357225602
+    modified: 1771483389711
     isPrivate: false
   data:
     auth:
-      bearerToken: 1|NziDsaRHFCTuq79tveBkpfbQU8xRNEo7PLPZ3ymG706daf03
+      bearerToken: 1|OAPbPm7fkiWLnGZnAPUZmoO3Kyym4cCUwGgJE8Bn440b9bfc
     base_url: http://127.0.0.1:8000/api
     base_url_2: http://127.0.0.1/cnat_api/public/api

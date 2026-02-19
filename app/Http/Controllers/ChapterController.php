@@ -6,8 +6,10 @@ use App\Models\Chapter;
 use App\Http\Requests\StoreChapterRequest;
 use App\Http\Requests\UpdateChapterRequest;
 use App\Http\Resources\ChapterResource;
+use App\Http\Resources\TopicResource;
 use App\Helper\ResponseHelper;      
 use Illuminate\Support\Facades\DB;
+
 
 class ChapterController extends Controller
 {
@@ -27,7 +29,7 @@ class ChapterController extends Controller
     public function list_of_topics_in_chapters($chapterId)
     {
         $Topics = Chapter::find($chapterId)->Topics;
-        return ResponseHelper::success("Topics fetched successfully",$Topics);
+        return ResponseHelper::success("Topics fetched successfully",TopicResource::collection($Topics));
     }
     /**
      * Store a newly created resource in storage.
@@ -46,9 +48,13 @@ class ChapterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Chapter $chapter)
+    public function show($chapterId)
     {
-        //
+        $Chapter = Chapter::find($chapterId);
+        if(!$Chapter){
+            return ResponseHelper::error("Chapter not found", 404);
+        }
+        return ResponseHelper::success("Chapter fetched successfully", new ChapterResource($Chapter));
     }
 
     /**
@@ -80,8 +86,18 @@ class ChapterController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Chapter $chapter)
+    public function destroy($chapterId)
     {
-        //
+        $chapter=Chapter::withCount('topics')->find($chapterId);
+        if (!$chapter) {
+            return ResponseHelper::error("Chapter not found", 404);
+        }
+        if($chapter->topic_count>0){
+            return ResponseHelper::error("sorry parchina delete korte!",$subject,409);
+        }
+        
+        $chapter->delete();
+        return ResponseHelper::success("Chapter deleted successfully");
     }
+
 }
