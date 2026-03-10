@@ -2141,6 +2141,331 @@ class DatabaseSeeder extends Seeder
                 'sequence' => 16,
             ],
         ]);
+
+        //Diploma in Computer Application
+        $course = Course::create(['course_code' => 'DCA', 'course_name' => 'Diploma in Computer Application']);
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Computer Fundamentals',
+                'topic_description' => 'Introduction to computers, hardware, software, input/output devices, and basic operating concepts.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 1.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Operating System Basics',
+                'topic_description' => 'Understanding Windows OS, file management, control panel, system tools, and shortcuts.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Microsoft Word',
+                'topic_description' => 'Creating documents, formatting text, tables, mail merge, and printing documents.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 3.0,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Microsoft Excel',
+                'topic_description' => 'Working with spreadsheets, formulas, charts, sorting, and filtering data.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Microsoft PowerPoint',
+                'topic_description' => 'Creating presentations, animations, slide transitions, and presentation techniques.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 2.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Internet and Email',
+                'topic_description' => 'Using browsers, search engines, email communication, and online collaboration tools.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 1.5,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Basic HTML',
+                'topic_description' => 'Introduction to HTML, creating web pages, tags, attributes, and hyperlinks.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Computer Security',
+                'topic_description' => 'Understanding viruses, malware, antivirus tools, and safe internet practices.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 0.5,
+                'sequence' => 8,
+            ],
+        ]);
+
+        $course = Course::create(['course_code' => 'DFA', 'course_name' => 'Diploma in Financial Accounting']);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Fundamentals of Accounting',
+                'topic_description' => 'Basic accounting principles, accounting equation, and double-entry system.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 1.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Journal and Ledger',
+                'topic_description' => 'Recording transactions in journals and posting them to ledger accounts.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Trial Balance',
+                'topic_description' => 'Preparing and understanding trial balance and detecting accounting errors.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 1.0,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Final Accounts',
+                'topic_description' => 'Preparing trading account, profit and loss account, and balance sheet.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Computerised Accounting with Tally',
+                'topic_description' => 'Creating companies, ledger accounts, voucher entries, and generating reports.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'GST Basics',
+                'topic_description' => 'GST structure, tax types, GST returns, and compliance requirements.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 1.5,
+                'sequence' => 6,
+            ],
+        ]);
+
+        $course = Course::create(['course_code' => 'AI01', 'course_name' => 'AI and Automation']);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Artificial Intelligence',
+                'topic_description' => 'Overview of AI, machine learning, and real-world AI applications.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 1.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Python for AI',
+                'topic_description' => 'Python basics, libraries, and scripting for automation tasks.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Machine Learning Basics',
+                'topic_description' => 'Supervised vs unsupervised learning, training models, and evaluation.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.0,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'AI Tools and Platforms',
+                'topic_description' => 'Using tools like ChatGPT, Midjourney, automation platforms, and AI APIs.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Business Automation',
+                'topic_description' => 'Automating workflows, chatbots, and integrating APIs for productivity.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.5,
+                'sequence' => 5,
+            ],
+        ]);
+
+        $course = Course::create(['course_code' => 'REACT01', 'course_name' => 'React Development']);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to React',
+                'topic_description' => 'Understanding React ecosystem, components, and JSX.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'React Components and Props',
+                'topic_description' => 'Creating reusable components and passing data using props.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'State and Events',
+                'topic_description' => 'Managing state, handling events, and building interactive UI.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.5,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'React Hooks',
+                'topic_description' => 'Using useState, useEffect, useRef, and custom hooks.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'React Router',
+                'topic_description' => 'Implementing routing and navigation in single page applications.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Project: React Application',
+                'topic_description' => 'Building a complete React application with API integration.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 4.0,
+                'sequence' => 6,
+            ],
+        ]);
+
+        $course = Course::create(['course_code' => 'WEBBOOT', 'course_name' => 'Web Development Bootcamp']);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'HTML Fundamentals',
+                'topic_description' => 'Structure of web pages, tags, forms, and multimedia.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'CSS and Layouts',
+                'topic_description' => 'Styling web pages, flexbox, grid, and responsive design.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'JavaScript Basics',
+                'topic_description' => 'Variables, functions, loops, events, and DOM manipulation.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Backend Development',
+                'topic_description' => 'Introduction to server-side development using Node or PHP.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 3.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Database Integration',
+                'topic_description' => 'Connecting applications to databases and CRUD operations.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Full Stack Project',
+                'topic_description' => 'Building and deploying a complete full-stack web application.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 5.0,
+                'sequence' => 6,
+            ],
+        ]);
+
+        $course = Course::create(['course_code' => 'JS01', 'course_name' => 'JavaScript Basic']);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to JavaScript',
+                'topic_description' => 'History, features, and role of JavaScript in web development.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 1.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Variables and Data Types',
+                'topic_description' => 'Working with numbers, strings, booleans, arrays, and objects.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 1.5,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Operators and Expressions',
+                'topic_description' => 'Arithmetic, comparison, logical operators, and expressions.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 1.0,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Control Structures',
+                'topic_description' => 'if, switch, loops, and decision-making statements.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 1.5,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Functions and Scope',
+                'topic_description' => 'Creating functions, parameters, return values, and scope.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 1.5,
+                'sequence' => 5,
+            ],
+        ]);
+
+        $course = Course::create(['course_code' => 'JS02', 'course_name' => 'JavaScript Advance']);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'ES6 Features',
+                'topic_description' => 'Arrow functions, template literals, destructuring, and modules.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'DOM Manipulation',
+                'topic_description' => 'Selecting elements, event handling, and dynamic UI updates.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Asynchronous JavaScript',
+                'topic_description' => 'Callbacks, promises, async/await, and API calls.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.5,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Working with APIs',
+                'topic_description' => 'Fetching data from REST APIs and displaying results.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 2.5,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'JavaScript Project',
+                'topic_description' => 'Building a real-world project using advanced JavaScript concepts.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 4.0,
+                'sequence' => 5,
+            ],
+        ]);
+
+
+
         CourseStatus::insert([
             ['course_status_name' => 'Ongoing'],
             ['course_status_name' => 'Completed'],
@@ -2270,12 +2595,12 @@ class DatabaseSeeder extends Seeder
         // ********** Seed Subjects, Chapters, and Topics for Python Programming **********
         //*******************************************************************************
         QuestionType::insert([
-            ['question_type_name' => 'Multiple Choice','default_marks' => 1],
-            ['question_type_name' => 'True/False','default_marks' => 1],
-            ['question_type_name' => 'Multiple Answers','default_marks' => 2],
-            ['question_type_name' => 'Short Answer','default_marks' => 2],
-            ['question_type_name' => 'Essay','default_marks' => 5],
-            ['question_type_name' => 'Fill in the Blanks','default_marks' => 1],
+            ['question_type_name' => 'Multiple Choice', 'default_marks' => 1],
+            ['question_type_name' => 'True/False', 'default_marks' => 1],
+            ['question_type_name' => 'Multiple Answers', 'default_marks' => 2],
+            ['question_type_name' => 'Short Answer', 'default_marks' => 2],
+            ['question_type_name' => 'Essay', 'default_marks' => 5],
+            ['question_type_name' => 'Fill in the Blanks', 'default_marks' => 1],
         ]);
         QuestionLevel::insert([
             ['question_level_name' => 'Easy'],
@@ -2767,6 +3092,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         //Adding questions for python programming
-        
+
     }
 }
