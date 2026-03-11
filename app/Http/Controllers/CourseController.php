@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Traits\HandlesTransactions;
 use App\Helper\ResponseHelper;
+use App\Http\Resources\CourseResource;
 
 class CourseController extends Controller
 {
@@ -16,7 +17,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::get();
+        return ResponseHelper::success("Course created successfully", CourseResource::collection($courses));
     }
 
     /**
@@ -37,7 +39,7 @@ class CourseController extends Controller
             $course = Course::create($data);
             $course->save();
 
-            return ResponseHelper::success("Course created successfully", $course);
+            return ResponseHelper::success("Course created successfully", new CourseResource($course));
         });
     }
 

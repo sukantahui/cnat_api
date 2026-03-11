@@ -2,38 +2,37 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
 
 class BaseResource extends JsonResource
 {
-    /**
-     * Convert array keys to camelCase recursively.
-     */
-    protected function toCamelCaseArray(array $data): array
+    protected function toCamelCaseArray($data)
     {
-        $result = [];
+        if (is_array($data)) {
+            $result = [];
 
-        foreach ($data as $key => $value) {
-            $camelKey = is_string($key) ? Str::camel($key) : $key;
-
-            if (is_array($value)) {
+            foreach ($data as $key => $value) {
+                $camelKey = is_string($key) ? Str::camel($key) : $key;
                 $result[$camelKey] = $this->toCamelCaseArray($value);
-            } else {
-                $result[$camelKey] = $value;
             }
+
+            return $result;
         }
 
-        return $result;
+        return $data;
     }
 
-    /**
-     * Transform the resource into an array (auto-camelCase keys).
-     */
     public function toArray(Request $request): array
     {
-        $array = parent::toArray($request);
-        return $this->toCamelCaseArray($array);
+        $data = $this->raw($request);
+
+        return $this->toCamelCaseArray($data);
+    }
+
+    protected function raw(Request $request): array
+    {
+        return parent::toArray($request);
     }
 }

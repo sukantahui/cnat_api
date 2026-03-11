@@ -39,7 +39,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('me', 'getCurrentUser');
         Route::post('logout', 'logout');
         Route::get('revokeAll', 'revoke_all');
-
     });
 
 
@@ -114,16 +113,16 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::put('/{subjectId}', 'update');
         Route::delete('/{subjectId}', 'destroy');
     });
-Route::controller(ChapterController::class)->prefix('chapters')->group(function (){
-    Route::get('/', 'index');
-    Route::get('/unusedChapters', 'unused_chapters');
-    Route::get('/{chapterId}/topics', 'list_of_topics_in_chapters');
-    Route::get('/{chapterId}', 'show');
-    Route::post('/', 'store');
-    Route::put('/{chapterId}', 'update');
-    Route::delete('/{chapterId}', 'destroy');
-});
-Route::controller(TopicController::class)->prefix('topics')->group(function () {
+    Route::controller(ChapterController::class)->prefix('chapters')->group(function () {
+        Route::get('/', 'index');
+        Route::get('/unusedChapters', 'unused_chapters');
+        Route::get('/{chapterId}/topics', 'list_of_topics_in_chapters');
+        Route::get('/{chapterId}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{chapterId}', 'update');
+        Route::delete('/{chapterId}', 'destroy');
+    });
+    Route::controller(TopicController::class)->prefix('topics')->group(function () {
         Route::get('/', 'index');
         Route::get('/unusedTopics', 'unused_topics');
         Route::get('/{topicId}/questions', 'list_of_questions_in_topics');
@@ -138,6 +137,12 @@ Route::controller(TopicController::class)->prefix('topics')->group(function () {
         Route::post('/', 'store');
         Route::put('/{stateId}', 'update');
         Route::delete('/{stateId}', 'destroy');
+    });
+    Route::controller(CourseController::class)->prefix('courses')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::put('/{courseId}', 'update');
+        Route::delete('/{courseId}', 'destroy');
     });
 });
 
@@ -161,12 +166,7 @@ Route::group(array('prefix' => 'dev'), function () {
         Route::put('/{studentId}', 'update');
         Route::delete('/{studentId}', 'destroy');
     });
-    Route::controller(CourseController::class)->prefix('courses')->group(function () {
-        Route::get('/', 'index');
-        Route::post('/', 'store');
-        Route::put('/{courseId}', 'update');
-        Route::delete('/{courseId}', 'destroy');
-    });
+    
     Route::controller(AdmissionController::class)->prefix('admissions')->group(function () {
         Route::get('/', 'index');
         Route::post('/', 'store');
@@ -174,12 +174,9 @@ Route::group(array('prefix' => 'dev'), function () {
         Route::delete('/{admissionId}', 'destroy');
     });
 
-    
+
 
     Route::controller(VisitorController::class)->prefix('visitors')->group(function () {
         Route::post('/', 'store')->middleware('throttle:3,1');
     });
-
-
-
 });

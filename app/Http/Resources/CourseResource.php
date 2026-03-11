@@ -12,14 +12,14 @@ class CourseResource extends BaseResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function raw(Request $request): array
     {
         return [
-            'CourseId' => $this->id,
-            'courseCode' => $this->course_code,
-            'courseName' => $this->course_name,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
+            'course_id' => $this->id,
+            'course_code' => $this->course_code,
+            'course_name' => $this->course_name,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
