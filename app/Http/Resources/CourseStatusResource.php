@@ -9,6 +9,11 @@ class CourseStatusResource extends BaseResource
 {
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'courseStatusId' => $this->id,
+            'courseStatusName' => $this->course_status_name,
+            'createdAt' => $this->created_at,
+            'updatedAt' => $this->updated_at,
+        ];
     }
 }

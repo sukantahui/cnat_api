@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\StudentResource;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
@@ -20,7 +21,7 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::all();
-        return ResponseHelper::success("Students retrieved successfully", $students);
+        return ResponseHelper::success("Students retrieved successfully", StudentResource::collection($students));
     }
 
 
