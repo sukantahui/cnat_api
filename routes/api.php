@@ -130,6 +130,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/', 'store');
         Route::put('/{topicId}', 'update');
         Route::delete('/{topicId}', 'destroy');
+        //
     });
     Route::controller(StateController::class)->prefix('states')->group(function () {
         Route::get('/', 'index');

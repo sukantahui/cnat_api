@@ -17,20 +17,20 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $Topics = Topic::all();
-        return ResponseHelper::success("Topics fetched successfully",TopicResource::collection($Topics));
+        $topic = Topic::all();
+        return ResponseHelper::success("Topics fetched successfully",TopicResource::collection($topic));
 
     }
     public function unused_topics()
     {
-        $topics = Topic::doesntHave('questions')->get();
-        return ResponseHelper::success("Topics fetched successfully", TopicResource::collection($topics));
+        $topic = Topic::doesntHave('questions')->get();
+        return ResponseHelper::success("Topics fetched successfully", TopicResource::collection($topic));
     }
 
     public function list_of_questions_in_topics($topicId)
     {
-        $Questions = Topic::find($topicId)->Questions;
-        return ResponseHelper::success("Questions fetched successfully",$Questions);
+        $question = Topic::find($topicId)->Questions;
+        return ResponseHelper::success("Questions fetched successfully",TopicResource::collection($question));
     }
 
     
@@ -39,19 +39,25 @@ class TopicController extends Controller
      */
     public function store(StoreTopicRequest $request)
     {
-        $Topic = DB::transaction(function () use ($request){
+        $topic = DB::transaction(function () use ($request){
             $data = $request->validated();
-            $Topic = Topic::create($data);
+            $topic = Topic::create($data);
+            return $topic;
         });
-        return ResponseHelper::success("Topic created successfully", new TopicResource($Topic));
+        return ResponseHelper::success("Topic created successfully", new TopicResource($topic));
+        // return $request->validated();
     }//
 
     /**
      * Display the specified resource.
      */
-    public function show(Topic $topic)
+    public function show($topicId)
     {
-        //
+        $topic = Topic::find($topicId);
+        if(!$topic){
+            return ResponseHelper::error("Topic not found", 404);
+        }
+        return ResponseHelper::success("Topic fetched successfully", new TopicResource($topic));
     }
 
     /**
