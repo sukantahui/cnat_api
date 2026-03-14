@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCourseRequest extends FormRequest
+class StoreCourseRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,20 +24,17 @@ class StoreCourseRequest extends FormRequest
         return [
             'course_code' => 'required|string|max:10|unique:courses,course_code',
             'course_name' => 'required|string|max:255|unique:courses,course_name',
-        ];
-    }
-    public function messages(): array
-    {
-        return [
-            'course_code.required' => 'The course code is required.',
-            'course_code.string'   => 'The course code must be a valid string.',
-            'course_code.max'      => 'The course code may not be greater than 10 characters.',
-            'course_code.unique'   => 'This course code already exists.',
 
-            'course_name.required' => 'The course name is required.',
-            'course_name.string'   => 'The course name must be a valid string.',
-            'course_name.max'      => 'The course name may not be greater than 255 characters.',
-            'course_name.unique'   => 'This course name already exists.',
+            'topics' => 'required|array|min:1',
+
+            'topics.*.topic_title' => 'required|string|max:150',
+            'topics.*.topic_description' => 'nullable|string',
+
+            'topics.*.theory_duration' => 'nullable|numeric',
+            'topics.*.practical_duration' => 'nullable|numeric',
+
+            'topics.*.sequence' => 'nullable|integer'
         ];
     }
+    
 }

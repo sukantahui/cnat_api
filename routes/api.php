@@ -141,6 +141,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
     Route::controller(CourseController::class)->prefix('courses')->group(function () {
         Route::get('/', 'index');
+        Route::get('/details', 'courseWithDetails');
         Route::post('/', 'store');
         Route::put('/{courseId}', 'update');
         Route::delete('/{courseId}', 'destroy');

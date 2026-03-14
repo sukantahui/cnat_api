@@ -2,23 +2,31 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Str;
+
 trait ConvertsCamelToSnake
 {
-    /**
-     * Convert all camelCase keys in the request to snake_case.
-     */
-    public function convertCamelToSnake(array $input): array
+    protected function convertCamelToSnake($data)
     {
-        $converted = [];
-
-        foreach ($input as $key => $value) {
-            $snakeKey = preg_replace_callback('/[A-Z]/', function ($match) {
-                return '_' . strtolower($match[0]);
-            }, $key);
-
-            $converted[$snakeKey] = $value;
+        if (!is_array($data)) {
+            return $data;
         }
 
-        return $converted;
+        $result = [];
+
+        foreach ($data as $key => $value) {
+
+            // convert key
+            $newKey = is_string($key) ? Str::snake($key) : $key;
+
+            // recursive conversion
+            if (is_array($value)) {
+                $value = $this->convertCamelToSnake($value);
+            }
+
+            $result[$newKey] = $value;
+        }
+
+        return $result;
     }
 }

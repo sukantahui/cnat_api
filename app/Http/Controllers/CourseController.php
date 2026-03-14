@@ -20,6 +20,15 @@ class CourseController extends Controller
         $courses = Course::get();
         return ResponseHelper::success("Course created successfully", CourseResource::collection($courses));
     }
+    public function courseWithDetails()
+    {
+        $courses = Course::with('details')->get();
+
+        return ResponseHelper::success(
+            "Course list fetched successfully",
+            CourseResource::collection($courses)
+        );
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -35,14 +44,27 @@ class CourseController extends Controller
     public function store(StoreCourseRequest $request)
     {
         return $this->executeInTransaction(function () use ($request) {
-            $data = $request->validated();
-            $course = Course::create($data);
-            $course->save();
 
-            return ResponseHelper::success("Course created successfully", new CourseResource($course));
-        });
+            $course = Course::create([
+                'course_code' => $request->course_code,
+                'course_name' => $request->course_name
+            ]);
+
+            $course->details()->createMany($request->topics);
+
+            $course->load('details');
+
+            return ResponseHelper::success(
+                "Course created successfully",
+                new CourseResource($course),
+                201
+            );
+
+        }, [
+            'action' => 'create_course',
+            'course_code' => $request->course_code
+        ]);
     }
-
     /**
      * Display the specified resource.
      */
