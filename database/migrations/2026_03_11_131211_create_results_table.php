@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('admission_id')
                 ->constrained('admissions')
                 ->onDelete('cascade');
-
+            $table->tinyInteger('attempt_no')->default(1);
             // marks information
             $table->decimal('theory_marks', 5, 2)->nullable();
             $table->decimal('practical_marks', 5, 2)->nullable();
@@ -35,6 +35,8 @@ return new class extends Migration
             $table->date('result_date')->nullable();
 
             $table->timestamps();
+
+            $table->unique(['admission_id', 'attempt_no']);
         });
     }
 

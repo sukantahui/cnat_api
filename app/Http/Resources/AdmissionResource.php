@@ -19,6 +19,7 @@ class AdmissionResource extends BaseResource
     {
         return [
             'admissionId' => $this->id,
+            'admissionNumber' => $this->admission_number,
             'student' => $this->whenLoaded('student')
                         ? new StudentResource($this->student)
                         : new StudentResource(Student::find($this->student_id)), // return empty resource if not loaded

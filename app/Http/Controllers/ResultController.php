@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\ResponseHelper;
+use App\Http\Resources\ResultResource;
 use App\Models\Result;
 use App\Http\Requests\StoreResultRequest;
 use App\Http\Requests\UpdateResultRequest;
@@ -21,7 +23,8 @@ class ResultController extends Controller
      */
     public function store(StoreResultRequest $request)
     {
-        //
+        $result = Result::create($request->validated());
+        return ResponseHelper::success("Result created successfully",new ResultResource($result));
     }
 
     /**

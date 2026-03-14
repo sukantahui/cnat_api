@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('admissions', function (Blueprint $table) {
             $table->id();
+            $table->string('admission_number')->unique();
             $table->foreignId('student_id')->constrained('students')->onDelete('restrict');
             $table->foreignId('course_id')->constrained('courses')->onDelete('restrict');
             $table->foreignId('course_status_id')->constrained('course_statuses')->onDelete('restrict');

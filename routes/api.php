@@ -8,6 +8,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\OptionController;
+use App\Http\Controllers\ResultController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -145,6 +146,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/', 'store');
         Route::put('/{courseId}', 'update');
         Route::delete('/{courseId}', 'destroy');
+    });
+
+     Route::controller(ResultController::class)->prefix('results')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::put('/{result}', 'update');
+        Route::delete('/{result}', 'destroy');
     });
 });
 
