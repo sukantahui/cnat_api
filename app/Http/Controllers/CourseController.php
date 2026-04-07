@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Traits\HandlesTransactions;
 use App\Helper\ResponseHelper;
+use App\Http\Requests\StoreCourseBasicRequest;
 use App\Http\Resources\CourseResource;
 
 class CourseController extends Controller
@@ -54,6 +55,25 @@ class CourseController extends Controller
 
             $course->load('details');
 
+            return ResponseHelper::success(
+                "Course created successfully",
+                new CourseResource($course),
+                201
+            );
+
+        }, [
+            'action' => 'create_course',
+            'course_code' => $request->course_code
+        ]);
+    }
+     public function storeBasic(StoreCourseBasicRequest $request)
+    {
+        return $this->executeInTransaction(function () use ($request) {
+
+            $course = Course::create([
+                'course_code' => $request->course_code,
+                'course_name' => $request->course_name
+            ]);
             return ResponseHelper::success(
                 "Course created successfully",
                 new CourseResource($course),

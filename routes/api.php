@@ -145,6 +145,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/', 'index');
         Route::get('/details', 'courseWithDetails');
         Route::post('/', 'store');
+        Route::post('/basic', 'storeBasic');
         Route::put('/{courseId}', 'update');
         Route::delete('/{courseId}', 'destroy');
     });
