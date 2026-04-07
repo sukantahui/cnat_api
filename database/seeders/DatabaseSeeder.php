@@ -66,12 +66,13 @@ class DatabaseSeeder extends Seeder
         Employee::insert([
             ['employee_name' => 'Sukanta Hui', 'mobile' => '9830371685', 'email' => 'sukantahui@gmail.com', 'department_id' => 1, 'designation_id' => 1],
             ['employee_name' => 'Tanusree Hui', 'mobile' => '9051724200', 'email' => 'tanusreehui@gmail.com', 'department_id' => 3, 'designation_id' => 5],
-            ['employee_name' => 'Chandan Das', 'mobile' => '9836987171', 'email' => 'chandan.dasy2k10@gmail.com', 'department_id' => 1, 'designation_id' => 1]
+            ['employee_name' => 'Chandan Das', 'mobile' => '9836987171', 'email' => 'chandan.dasy2k10@gmail.com', 'department_id' => 1, 'designation_id' => 1],
+            ['employee_name' => 'Ritaja Ghosh', 'mobile' => '7003310220', 'email' => 'ritajaghosh@gmail.com', 'department_id' => 4, 'designation_id' => 4]
         ]);
         //admin created
         $user = User::create([
             'email' => 'sukantahui',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('Cnat@1977'),
             'user_type_id' => 1,
             'employee_id' => 1
         ]);
@@ -84,7 +85,7 @@ class DatabaseSeeder extends Seeder
         //user: Teacher
         $user = User::create([
             'email' => 'tanusreehui',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('Cnat@1977'),
             'user_type_id' => 5,
             'employee_id' => 2
         ]);
@@ -97,7 +98,7 @@ class DatabaseSeeder extends Seeder
         //admin created
         $user = User::create([
             'email' => 'chandandas',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('Cnat@1977'),
             'user_type_id' => 1,
             'employee_id' => 3
         ]);
@@ -110,7 +111,7 @@ class DatabaseSeeder extends Seeder
         //developer created
         $user = User::create([
             'email' => 'developer@gmail.com',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('Cnat@1977'),
             'user_type_id' => 2,
             'employee_id' => 2
         ]);
@@ -122,7 +123,7 @@ class DatabaseSeeder extends Seeder
         //owner created
         $user = User::create([
             'email' => 'owner@gmail.com',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('Cnat@1977'),
             'user_type_id' => 3,
             'employee_id' => 1
         ]);
@@ -135,7 +136,7 @@ class DatabaseSeeder extends Seeder
         //owner created
         $user = User::create([
             'email' => 'manager@gmail.com',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('Cnat1977'),
             'user_type_id' => 4,
             'employee_id' => 3
         ]);
@@ -144,6 +145,22 @@ class DatabaseSeeder extends Seeder
             ['Email', 'Created At'],
             [[$user->email, $user->created_at]]
         );
+
+        //ritaja created
+        $user = User::create([
+            'email' => 'ritajaghosh@gmail.com',
+            'password' => Hash::make('Ghosh@2000'),
+            'user_type_id' => 4,
+            'employee_id' => 4
+        ]);
+        $this->command->info('Created user: Manager');
+        $this->command->table(
+            ['Email', 'Created At'],
+            [[$user->email, $user->created_at]]
+        );
+
+
+
         Gender::insert([
             ['gender_name' => 'Male'],
             ['gender_name' => 'Female'],
@@ -2463,6 +2480,1079 @@ class DatabaseSeeder extends Seeder
                 'sequence' => 5,
             ],
         ]);
+
+        $course = Course::create([
+            'course_code' => 'ICSE_VIII_CS',
+            'course_name' => 'ICSE Class VIII Computer Studies'
+        ]);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Computer System Overview',
+                'topic_description' => 'Basic components of a computer system, hardware vs software, types of computers, and memory units.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Number System',
+                'topic_description' => 'Decimal, Binary, Octal, and Hexadecimal number systems. Conversion between number systems.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 1.5,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Boolean Algebra',
+                'topic_description' => 'Basic logic gates (AND, OR, NOT), truth tables, Boolean expressions, and simplification.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 1.0,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Computer Languages',
+                'topic_description' => 'Machine language, assembly language, high-level languages, translators (compiler, interpreter, assembler).',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Introduction to Java Programming',
+                'topic_description' => 'Basic structure of a Java program, keywords, identifiers, variables, and data types.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Operators in Java',
+                'topic_description' => 'Arithmetic, relational, logical, and assignment operators with examples.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Input and Output in Java',
+                'topic_description' => 'Using Scanner class, taking user input, displaying output using System.out.print and println.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Conditional Statements',
+                'topic_description' => 'if, if-else, nested if, switch statements with practical examples.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.0,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Iterative Statements (Loops)',
+                'topic_description' => 'for, while, do-while loops and their applications in solving problems.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Practical Programs',
+                'topic_description' => 'Simple programs using conditions and loops such as sum of numbers, factorial, palindrome, etc.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 3.0,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Ethics and Computer Safety',
+                'topic_description' => 'Computer ethics, cyber safety, viruses, malware, and safe internet practices.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 0.5,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Project Work',
+                'topic_description' => 'Small project involving Java programming concepts learned during the course.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 3.0,
+                'sequence' => 12,
+            ],
+        ]);
+
+        $course = Course::create([
+            'course_code' => 'ICSE_IX_CA',
+            'course_name' => 'ICSE Class IX Computer Applications'
+        ]);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Object-Oriented Programming',
+                'topic_description' => 'Basic concepts of OOP: objects, classes, methods, data abstraction, and encapsulation.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 1.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Elements of Java Programming',
+                'topic_description' => 'Java program structure, tokens, keywords, identifiers, literals, and data types.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Operators in Java',
+                'topic_description' => 'Arithmetic, relational, logical, assignment, unary operators, and precedence of operators.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.0,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Input and Output in Java',
+                'topic_description' => 'Using Scanner class for input, output using System.out.print and println, formatted output.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Conditional Constructs',
+                'topic_description' => 'if, if-else, nested if, switch-case statements and their practical implementation.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Iterative Constructs (Loops)',
+                'topic_description' => 'for, while, do-while loops, nested loops, and loop control statements.',
+                'theory_duration' => 3.5,
+                'practical_duration' => 3.0,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Mathematical Library Functions',
+                'topic_description' => 'Use of Math class methods such as sqrt(), pow(), abs(), random(), etc.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 1.5,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Simple Programs and Problem Solving',
+                'topic_description' => 'Programs based on number manipulation, series, patterns, and logical problem solving.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 3.0,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Introduction to Arrays',
+                'topic_description' => 'Concept of arrays, declaration, initialization, traversal, and basic operations.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'String Handling',
+                'topic_description' => 'String class methods, string manipulation, and common string-based programs.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Ethics and Computer Applications',
+                'topic_description' => 'Cyber ethics, security, privacy, digital footprint, and responsible use of technology.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 0.5,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Project Work and Revision',
+                'topic_description' => 'Comprehensive project using Java concepts along with revision of key topics.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 3.0,
+                'sequence' => 12,
+            ],
+        ]);
+
+
+
+        $course = Course::create([
+            'course_code' => 'ICSE_X_CA',
+            'course_name' => 'ICSE Class X Computer Applications'
+        ]);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Revision of Class IX Fundamentals',
+                'topic_description' => 'Recap of variables, data types, operators, input/output, conditionals, loops, arrays, and strings.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Classes and Objects',
+                'topic_description' => 'Definition of class and object, data members, member functions, encapsulation, and basic class design.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Functions / Methods',
+                'topic_description' => 'User-defined methods, types of methods, parameter passing, return values, and function overloading.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 3.0,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Constructors',
+                'topic_description' => 'Default and parameterized constructors, constructor overloading, and object initialization.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Arrays (One-Dimensional)',
+                'topic_description' => 'Declaration, initialization, traversal, searching (linear, binary), sorting (bubble, selection), and applications.',
+                'theory_duration' => 3.5,
+                'practical_duration' => 3.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'String Handling',
+                'topic_description' => 'String class methods, string manipulation, palindrome, substring, case conversion, and character-based operations.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 3.0,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Recursion',
+                'topic_description' => 'Concept of recursion, recursive methods, tracing recursive calls, comparison with iteration.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Library Classes',
+                'topic_description' => 'Use of predefined classes such as Math and String methods for problem solving.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 1.5,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Boolean Algebra',
+                'topic_description' => 'Boolean laws, simplification, truth tables, logic gates, and basic Karnaugh maps.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 1.5,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Computer Networks',
+                'topic_description' => 'Types of networks (LAN, WAN), internet basics, network devices, protocols, and communication.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Project Work (Internal Assessment)',
+                'topic_description' => 'Application-based Java project using classes, methods, arrays, and logical constructs.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 4.0,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Exam Preparation and Mock Tests',
+                'topic_description' => 'ICSE board pattern papers, previous year questions, and full-length practice tests.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 3.0,
+                'sequence' => 12,
+            ],
+        ]);
+
+        $course = Course::create([
+            'course_code' => 'ISC_XI_CS',
+            'course_name' => 'ISC Class XI Computer Science'
+        ]);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Computer Systems',
+                'topic_description' => 'Basic organization of computer systems, hardware, software, memory units, input/output devices.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Number System and Data Representation',
+                'topic_description' => 'Binary, octal, hexadecimal systems, conversions, binary arithmetic, complements (1’s and 2’s).',
+                'theory_duration' => 3.0,
+                'practical_duration' => 1.5,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Boolean Algebra and Logic Gates',
+                'topic_description' => 'Basic Boolean operations, laws, simplification, truth tables, logic gates, and Karnaugh maps.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 1.5,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Introduction to Java Programming',
+                'topic_description' => 'Basic structure of Java program, tokens, data types, variables, and type conversion.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Operators and Expressions in Java',
+                'topic_description' => 'Arithmetic, relational, logical, assignment operators, precedence, and evaluation of expressions.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Conditional Statements',
+                'topic_description' => 'if, if-else, nested if, switch-case constructs and logical flow control.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Iterative Constructs (Loops)',
+                'topic_description' => 'for, while, do-while loops, nested loops, and loop control statements.',
+                'theory_duration' => 3.5,
+                'practical_duration' => 3.0,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Functions / Methods',
+                'topic_description' => 'User-defined methods, parameter passing, return values, recursion basics.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Arrays (One-Dimensional)',
+                'topic_description' => 'Declaration, initialization, traversal, searching, sorting, and applications.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'String Handling',
+                'topic_description' => 'String class methods, string manipulation, pattern-based programs, and character operations.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Computer Ethics and Cyber Security',
+                'topic_description' => 'Ethical issues, cyber crimes, data privacy, security measures, and safe computing practices.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 0.5,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Project Work and Practical Programs',
+                'topic_description' => 'Application-based programs using Java covering loops, arrays, methods, and logic building.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 4.0,
+                'sequence' => 12,
+            ],
+        ]);
+
+        $course = Course::create([
+            'course_code' => 'ISC_XII_CS',
+            'course_name' => 'ISC Class XII Computer Science'
+        ]);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Review of Java Fundamentals',
+                'topic_description' => 'Revision of Class XI topics: data types, operators, control structures, arrays, strings, and methods.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Object-Oriented Programming Concepts',
+                'topic_description' => 'Classes, objects, encapsulation, inheritance, polymorphism, abstraction, and method overriding.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Wrapper Classes and Java Packages',
+                'topic_description' => 'Wrapper classes (Integer, Double, Character), auto-boxing, packages, and access specifiers.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 1.5,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Data Structures: Stack',
+                'topic_description' => 'Concept of stack, operations (push, pop, peek), implementation using arrays and applications.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Data Structures: Queue',
+                'topic_description' => 'Concept of queue, operations (enqueue, dequeue), linear and circular queue implementation.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Arrays (Advanced Concepts)',
+                'topic_description' => 'Searching, sorting (bubble, selection, insertion), merging arrays, and applications.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Recursion',
+                'topic_description' => 'Recursive methods, tracing recursion, comparison with iteration, and applications.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'File Handling in Java',
+                'topic_description' => 'Concept of files, text files, file input/output streams, reading and writing data.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Exception Handling',
+                'topic_description' => 'Types of errors, try-catch-finally, throw and throws, and user-defined exceptions.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Computer Hardware and Boolean Logic',
+                'topic_description' => 'Logic gates, Boolean expressions, simplification, and basic computer hardware concepts.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 1.0,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Project Work (Internal Assessment)',
+                'topic_description' => 'Comprehensive Java project using data structures, file handling, and OOP concepts.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 5.0,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Board Exam Preparation and Practice',
+                'topic_description' => 'Previous year ISC papers, sample papers, and full-length mock tests with solutions.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 3.0,
+                'sequence' => 12,
+            ],
+        ]);
+
+        $course = Course::create([
+            'course_code' => 'CBSE_XI_CS',
+            'course_name' => 'CBSE Class XI Computer Science (Python)'
+        ]);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Computer System Overview',
+                'topic_description' => 'Basic computer organization, hardware, software, input/output devices, memory units, and types of computers.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Introduction to Python',
+                'topic_description' => 'History of Python, features, setting up environment, writing first program, tokens, keywords, identifiers.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Data Types and Variables',
+                'topic_description' => 'Built-in data types, variables, type conversion, operators, and expressions in Python.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Input and Output in Python',
+                'topic_description' => 'Using input(), print(), formatted output, type casting, and basic user interaction programs.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Conditional Statements',
+                'topic_description' => 'if, if-else, nested if, elif statements and logical decision making.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Iterative Statements (Loops)',
+                'topic_description' => 'for loop, while loop, nested loops, break and continue statements.',
+                'theory_duration' => 3.5,
+                'practical_duration' => 3.0,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Strings in Python',
+                'topic_description' => 'String operations, slicing, methods, and string manipulation programs.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Lists in Python',
+                'topic_description' => 'List operations, indexing, slicing, list methods, and applications.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Tuples and Dictionaries',
+                'topic_description' => 'Tuple operations, dictionary concepts, key-value pairs, and basic operations.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.0,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Functions',
+                'topic_description' => 'User-defined functions, parameters, return values, built-in functions, and scope of variables.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Computer Ethics and Cyber Safety',
+                'topic_description' => 'Cyber ethics, cyber crimes, digital footprint, privacy, and safe use of technology.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 0.5,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Project Work and Practical Programs',
+                'topic_description' => 'Application-based Python programs covering loops, lists, functions, and problem solving.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 4.0,
+                'sequence' => 12,
+            ],
+        ]);
+
+        $course = Course::create([
+            'course_code' => 'CBSE_XII_CS',
+            'course_name' => 'CBSE Class XII Computer Science (Python + SQL)'
+        ]);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Revision of Python Basics',
+                'topic_description' => 'Recap of data types, operators, control structures, functions, lists, tuples, and dictionaries.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Functions (Advanced)',
+                'topic_description' => 'Types of functions, recursion, lambda functions, scope, and modules.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'File Handling in Python',
+                'topic_description' => 'Text files, binary files, file modes, reading/writing, file operations using Python.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Exception Handling',
+                'topic_description' => 'Errors and exceptions, try-except blocks, finally, raising exceptions.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Data Structures: Stack',
+                'topic_description' => 'Stack operations (push, pop), implementation using lists, applications.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Data Structures: Queue',
+                'topic_description' => 'Queue operations (enqueue, dequeue), implementation using lists, applications.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Structured Query Language (SQL)',
+                'topic_description' => 'Introduction to databases, tables, keys, SQL commands (DDL, DML), constraints.',
+                'theory_duration' => 3.5,
+                'practical_duration' => 3.0,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Database Queries and Functions',
+                'topic_description' => 'SELECT queries, WHERE clause, ORDER BY, GROUP BY, aggregate functions, joins.',
+                'theory_duration' => 3.5,
+                'practical_duration' => 3.0,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Computer Networks',
+                'topic_description' => 'Types of networks, topology, protocols, internet basics, IP addressing, network devices.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 0.5,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Boolean Logic',
+                'topic_description' => 'Basic Boolean operations, truth tables, logical expressions used in programming and SQL.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 1.0,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Project Work (Internal Assessment)',
+                'topic_description' => 'Python + SQL based project integrating file handling, database operations, and logic building.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 5.0,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Board Exam Preparation and Practice',
+                'topic_description' => 'CBSE sample papers, previous year questions, and full-length mock tests with solutions.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 3.0,
+                'sequence' => 12,
+            ],
+        ]);
+
+        $course = Course::create([
+            'course_code' => 'WBCHSE_XI_CS',
+            'course_name' => 'WBCHSE Class XI Computer Science'
+        ]);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Computer System',
+                'topic_description' => 'Basic components of computer system, hardware, software, memory units, input/output devices.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Number System',
+                'topic_description' => 'Decimal, Binary, Octal, Hexadecimal systems, conversions, binary arithmetic, complements.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 1.5,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Boolean Algebra and Logic Gates',
+                'topic_description' => 'Boolean laws, simplification, truth tables, logic gates, Karnaugh maps.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 1.5,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Computer Languages and Translators',
+                'topic_description' => 'Machine, assembly, high-level languages, compiler, interpreter, assembler.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Introduction to C Programming',
+                'topic_description' => 'Structure of C program, tokens, keywords, variables, constants, and data types.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Operators and Expressions in C',
+                'topic_description' => 'Arithmetic, relational, logical, assignment operators, precedence and associativity.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.0,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Input and Output in C',
+                'topic_description' => 'Use of printf() and scanf(), formatted input/output, escape sequences.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Decision Making Statements',
+                'topic_description' => 'if, if-else, nested if, switch-case statements in C programming.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Looping Constructs',
+                'topic_description' => 'for, while, do-while loops, nested loops, break and continue statements.',
+                'theory_duration' => 3.5,
+                'practical_duration' => 3.0,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Functions in C',
+                'topic_description' => 'User-defined functions, parameters, return values, recursion basics.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Arrays and Strings in C',
+                'topic_description' => 'One-dimensional arrays, string handling, and basic array operations.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Computer Ethics and Cyber Safety',
+                'topic_description' => 'Ethical issues, cyber crimes, data privacy, and safe use of internet.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 0.5,
+                'sequence' => 12,
+            ],
+        ]);
+
+        $course = Course::create([
+            'course_code' => 'WBCHSE_XII_CS',
+            'course_name' => 'WBCHSE Class XII Computer Science'
+        ]);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Revision of Class XI (C Basics)',
+                'topic_description' => 'Recap of data types, operators, input/output, control structures, arrays, and functions in C.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Pointers in C',
+                'topic_description' => 'Concept of pointers, pointer arithmetic, pointers with arrays, call by reference.',
+                'theory_duration' => 3.5,
+                'practical_duration' => 3.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Structures and Unions',
+                'topic_description' => 'User-defined data types, structures, unions, nested structures, and arrays of structures.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'File Handling in C',
+                'topic_description' => 'File operations (open, close, read, write), file modes, text and binary files.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Data Structures: Stack',
+                'topic_description' => 'Stack operations (push, pop), implementation using arrays, applications.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Data Structures: Queue',
+                'topic_description' => 'Queue operations (enqueue, dequeue), linear and circular queues, applications.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Linked Lists',
+                'topic_description' => 'Concept of linked list, types (singly, doubly), operations (insertion, deletion, traversal).',
+                'theory_duration' => 3.5,
+                'practical_duration' => 3.0,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Searching and Sorting Techniques',
+                'topic_description' => 'Linear search, binary search, bubble sort, selection sort, and their efficiency.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Introduction to Database Management System',
+                'topic_description' => 'Concept of DBMS, advantages, data models, relational database basics.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 1.0,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Structured Query Language (SQL)',
+                'topic_description' => 'DDL, DML commands, table creation, queries, conditions, aggregate functions.',
+                'theory_duration' => 3.5,
+                'practical_duration' => 3.0,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Computer Networking',
+                'topic_description' => 'Types of networks, topology, protocols, internet basics, network devices.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Project Work and Practical Examination',
+                'topic_description' => 'Application-based project using C, data structures, and database concepts.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 5.0,
+                'sequence' => 12,
+            ],
+        ]);
+
+        $course = Course::create([
+            'course_code' => 'SCHOOL_CS',
+            'course_name' => 'School Computer'
+        ]);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Fundamentals of Computer',
+                'topic_description' => 'Basic components, hardware, software, input/output devices, memory and storage.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'Number System',
+                'topic_description' => 'Decimal, Binary, Octal, Hexadecimal systems, conversions and binary arithmetic.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 1.5,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'Boolean Algebra and Logic Gates',
+                'topic_description' => 'Boolean laws, simplification, truth tables, logic gates and basic K-map concepts.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 1.5,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'Computer Languages',
+                'topic_description' => 'Machine, assembly, high-level languages, compiler, interpreter, assembler.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Introduction to Programming',
+                'topic_description' => 'Basic programming concepts using Java/Python/C: variables, data types, syntax.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Operators and Expressions',
+                'topic_description' => 'Arithmetic, relational, logical operators and expression evaluation.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.0,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Input and Output',
+                'topic_description' => 'Taking input and displaying output using programming languages.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'Decision Making',
+                'topic_description' => 'Conditional statements: if, if-else, nested conditions, switch-case.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Loops and Iteration',
+                'topic_description' => 'for, while, do-while loops, nested loops, break and continue.',
+                'theory_duration' => 3.5,
+                'practical_duration' => 3.0,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Functions / Methods',
+                'topic_description' => 'User-defined functions, parameters, return values, recursion basics.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Arrays and Strings',
+                'topic_description' => 'Array concepts, string manipulation, searching, sorting basics.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 2.5,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'Data Structures (Basic)',
+                'topic_description' => 'Introduction to stack, queue, and simple data organization techniques.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.0,
+                'sequence' => 12,
+            ],
+            [
+                'topic_title' => 'Database Concepts',
+                'topic_description' => 'Introduction to DBMS, tables, keys, and basic SQL queries.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.0,
+                'sequence' => 13,
+            ],
+            [
+                'topic_title' => 'Computer Networks',
+                'topic_description' => 'Types of networks, topology, internet basics, and communication.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 0.5,
+                'sequence' => 14,
+            ],
+            [
+                'topic_title' => 'Cyber Safety and Ethics',
+                'topic_description' => 'Cyber security, digital footprint, ethical issues, and safe computing.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 0.5,
+                'sequence' => 15,
+            ],
+            [
+                'topic_title' => 'Project Work',
+                'topic_description' => 'Application-based project integrating programming, logic, and database concepts.',
+                'theory_duration' => 1.0,
+                'practical_duration' => 4.0,
+                'sequence' => 16,
+            ],
+        ]);
+
+        $course = Course::create([
+            'course_code' => 'FSD_101',
+            'course_name' => 'Full Stack Web Development (Beginner to Advanced)'
+        ]);
+
+        $course->details()->createMany([
+            [
+                'topic_title' => 'Introduction to Web Development',
+                'topic_description' => 'How the web works, client-server model, browsers, HTTP/HTTPS, frontend vs backend.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 1.0,
+                'sequence' => 1,
+            ],
+            [
+                'topic_title' => 'HTML Fundamentals',
+                'topic_description' => 'HTML structure, tags, forms, tables, semantic elements.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 3.0,
+                'sequence' => 2,
+            ],
+            [
+                'topic_title' => 'CSS and Responsive Design',
+                'topic_description' => 'CSS basics, Flexbox, Grid, responsive design, media queries.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 3.5,
+                'sequence' => 3,
+            ],
+            [
+                'topic_title' => 'JavaScript Basics',
+                'topic_description' => 'Variables, data types, operators, functions, DOM manipulation.',
+                'theory_duration' => 3.5,
+                'practical_duration' => 3.5,
+                'sequence' => 4,
+            ],
+            [
+                'topic_title' => 'Advanced JavaScript',
+                'topic_description' => 'ES6+, promises, async/await, closures, event loop.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 3.0,
+                'sequence' => 5,
+            ],
+            [
+                'topic_title' => 'Version Control with Git & GitHub',
+                'topic_description' => 'Git basics, repositories, commits, branches, collaboration using GitHub.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.0,
+                'sequence' => 6,
+            ],
+            [
+                'topic_title' => 'Frontend Framework (React)',
+                'topic_description' => 'Components, props, state, hooks, routing, API integration.',
+                'theory_duration' => 4.0,
+                'practical_duration' => 4.0,
+                'sequence' => 7,
+            ],
+            [
+                'topic_title' => 'TypeScript Basics',
+                'topic_description' => 'Static typing, interfaces, types, using TypeScript with React.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 8,
+            ],
+            [
+                'topic_title' => 'Backend Development (Node.js)',
+                'topic_description' => 'Node.js basics, modules, building server, REST APIs.',
+                'theory_duration' => 3.5,
+                'practical_duration' => 3.5,
+                'sequence' => 9,
+            ],
+            [
+                'topic_title' => 'Backend Framework (Express.js)',
+                'topic_description' => 'Routing, middleware, REST API design, error handling.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 3.0,
+                'sequence' => 10,
+            ],
+            [
+                'topic_title' => 'Database (SQL - MySQL/PostgreSQL)',
+                'topic_description' => 'Relational databases, tables, queries, joins, normalization.',
+                'theory_duration' => 3.0,
+                'practical_duration' => 3.0,
+                'sequence' => 11,
+            ],
+            [
+                'topic_title' => 'NoSQL Database (MongoDB)',
+                'topic_description' => 'Document-based database, CRUD operations, schema design.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 12,
+            ],
+            [
+                'topic_title' => 'Authentication & Authorization',
+                'topic_description' => 'JWT, sessions, login systems, role-based access control.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 13,
+            ],
+            [
+                'topic_title' => 'API Integration and Testing',
+                'topic_description' => 'Fetching APIs, Axios, testing APIs using Postman.',
+                'theory_duration' => 2.0,
+                'practical_duration' => 2.5,
+                'sequence' => 14,
+            ],
+            [
+                'topic_title' => 'Deployment and DevOps Basics',
+                'topic_description' => 'Hosting, domain, CI/CD basics, deploying frontend and backend apps.',
+                'theory_duration' => 2.5,
+                'practical_duration' => 2.5,
+                'sequence' => 15,
+            ],
+            [
+                'topic_title' => 'Final Project (Full Stack Application)',
+                'topic_description' => 'Build a complete project integrating frontend, backend, database, and authentication.',
+                'theory_duration' => 1.5,
+                'practical_duration' => 6.0,
+                'sequence' => 16,
+            ],
+        ]);
+
+
+        /****************************************************************************/
 
 
 
