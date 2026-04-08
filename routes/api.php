@@ -17,6 +17,7 @@ use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\SimpleFeesReceiptController;
 
 
 // Route::get('/user', function (Request $request) {
@@ -150,11 +151,19 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::delete('/{courseId}', 'destroy');
     });
 
-     Route::controller(ResultController::class)->prefix('results')->group(function () {
+    Route::controller(ResultController::class)->prefix('results')->group(function () {
         Route::get('/', 'index');
         Route::post('/', 'store');
         Route::put('/{result}', 'update');
         Route::delete('/{result}', 'destroy');
+    });
+
+    Route::controller(SimpleFeesReceiptController::class)->prefix('fees-receipts')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::get('/{simpleFeesReceipt}', 'show');
+        Route::put('/{simpleFeesReceipt}', 'update');
+        Route::delete('/{simpleFeesReceipt}', 'destroy');
     });
 });
 
@@ -178,7 +187,7 @@ Route::group(array('prefix' => 'dev'), function () {
         Route::put('/{studentId}', 'update');
         Route::delete('/{studentId}', 'destroy');
     });
-    
+
     Route::controller(AdmissionController::class)->prefix('admissions')->group(function () {
         Route::get('/', 'index');
         Route::post('/', 'store');
