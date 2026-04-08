@@ -3563,6 +3563,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // ******************************** fake students ********************************
+        /*
         DB::table('students')->insert([
             [
                 'registration_number' => 'REG2025001',
@@ -3680,6 +3681,7 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
         ]);
+        */
 
         //*******************************************************************************
         // ********** Seed Subjects, Chapters, and Topics for Python Programming **********
