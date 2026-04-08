@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //under Auth Controller
     Route::controller(AuthController::class)->group(function () {
         Route::get('me', 'getCurrentUser');
+        Route::get('me2', 'getCurrentUser2');
         Route::post('logout', 'logout');
         Route::get('revokeAll', 'revoke_all');
     });

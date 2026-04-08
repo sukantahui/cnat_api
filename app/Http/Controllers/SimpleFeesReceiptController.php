@@ -45,37 +45,9 @@ class SimpleFeesReceiptController extends Controller
                     );
                 }
 
-                $exists = SimpleFeesReceipt::where('student_id', $request->student_id)
-                    ->where('course_id', $request->course_id)
-                    ->where('period_from', $request->period_from)
-                    ->where('period_to', $request->period_to)
-                    ->exists();
-
-                if ($exists) {
-                    return ResponseHelper::error(
-                        "Fees already collected for this period",
-                        422
-                    );
-                }
             }
-
-            // ✅ Generate receipt number
-            $receiptNo = 'RCPT-' . now()->format('YmdHis');
-
-            $receipt = SimpleFeesReceipt::create([
-                'receipt_no' => $receiptNo,
-                'student_id' => $request->student_id,
-                'course_id' => $request->course_id,
-                'fee_type' => $request->fee_type,
-                'amount_paid' => $request->amount_paid,
-                'monthly_fee_amount' => $request->monthly_fee_amount,
-                'period_from' => $request->period_from,
-                'period_to' => $request->period_to,
-                'payment_date' => $request->payment_date,
-                'payment_mode' => $request->payment_mode,
-                'collected_by' => Auth::id(),
-            ]);
-
+            $data = $request->validated();
+            $receipt = SimpleFeesReceipt::create($data);
             $receipt->load(['student', 'course', 'collector']);
 
             return ResponseHelper::success(

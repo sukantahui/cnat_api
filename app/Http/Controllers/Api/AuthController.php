@@ -85,6 +85,19 @@ class AuthController extends Controller
                 return ResponseHelper::success('User fetched',new UserResource($user),200);
         }
     }
+
+    function getCurrentUser2(){
+
+        $user=auth()->user();
+        
+        if(!$user){
+                return ResponseHelper::error('token expired',401);
+        }else{
+                
+                return $user;
+        }
+    }
+
     public function logout()
     {
         $user=auth()->user();
