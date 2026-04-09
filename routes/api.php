@@ -129,11 +129,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::controller(TopicController::class)->prefix('topics')->group(function () {
         Route::get('/', 'index');
         Route::get('/unusedTopics', 'unused_topics');
-        Route::get('/{topicId}/questions', 'list_of_questions_in_topics');
-        Route::get('/{topicId}', 'show');
+        Route::get('/{topic}/questions', 'list_of_questions_in_topics');
+        Route::get('/{topic}', 'show');
         Route::post('/', 'store');
-        Route::put('/{topicId}', 'update');
-        Route::delete('/{topicId}', 'destroy');
+        Route::put('/{topic}', 'update');
+        Route::delete('/{topic}', 'destroy');
         //
     });
     Route::controller(StateController::class)->prefix('states')->group(function () {
