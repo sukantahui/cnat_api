@@ -97,7 +97,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/', 'index');
         Route::get('/{questionId}', 'show');
         Route::post('/', 'store');
-        Route::put('/{questionId}', 'update');
+        Route::put('/{question}', 'update');
         Route::delete('/{questionId}', 'destroy');
     });
     Route::controller(OptionController::class)->prefix('options')->group(function () {

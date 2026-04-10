@@ -63,7 +63,15 @@ class QuestionController extends Controller
      */
     public function update(UpdateQuestionRequest $request, Question $question)
     {
-        //
+        $updatedQuestion = DB::transaction(function () use ($request, $question) {
+            $data = $request->validated();
+            $question->update($data);
+            return $question;
+        });
+
+        return ResponseHelper::success("Question updated successfully", new QuestionResource($updatedQuestion));
+
+
     }
 
     /**
@@ -71,6 +79,15 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        $question=Topic::withCount('questions')->find($question->id);
+        if (!$question) {
+            return ResponseHelper::error("Topic not found", 404);
+        }
+        if($question->questions_count>0){
+            return ResponseHelper::error("sorry parchina delete korte!",$question,409);
+        }
+        
+        $question->delete();
+        return ResponseHelper::success("Topic deleted successfully");
     }
 }
