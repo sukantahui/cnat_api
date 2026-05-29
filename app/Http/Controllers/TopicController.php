@@ -27,13 +27,14 @@ class TopicController extends Controller
         return ResponseHelper::success("Topics fetched successfully", TopicResource::collection($topic));
     }
 
-    public function list_of_questions_in_topics(Topic $topic)
+    public function list_of_questions_in_topics($topicId)
     {
-        $question = Topic::find($topic->id)->Questions;
+        $question = Topic::find($topicId)->Questions;
         return ResponseHelper::success("Questions fetched successfully",TopicResource::collection($question));
     }
 
-    
+
+    //
     /**
      * Store a newly created resource in storage.
      */
@@ -47,7 +48,7 @@ class TopicController extends Controller
         return ResponseHelper::success("Topic created successfully", new TopicResource($topic));
         // return $request->validated();
     }//
-
+    
     /**
      * Display the specified resource.
      */
@@ -94,8 +95,8 @@ class TopicController extends Controller
             return ResponseHelper::error("Topic not found", 404);
         }
         if($topic->questions_count>0){
-            return ResponseHelper::error("sorry parchina delete korte!",$subject,409);
-        }
+            return ResponseHelper::error("sorry parchina delete korte!",$topic,409);
+        }   
         
         $topic->delete();
         return ResponseHelper::success("Topic deleted successfully");

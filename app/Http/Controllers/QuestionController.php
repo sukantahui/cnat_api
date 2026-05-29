@@ -21,7 +21,7 @@ class QuestionController extends Controller
         $questions = Question::all();
         return ResponseHelper::success("Questions fetched successfully", QuestionResource::collection($questions));
     }
-
+    
   
     /**
      * Store a newly created resource in storage.

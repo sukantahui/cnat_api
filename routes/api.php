@@ -20,6 +20,7 @@ use App\Http\Controllers\TopicController;
 use App\Http\Controllers\SimpleFeesReceiptController;
 
 
+
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
@@ -130,6 +131,15 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/', 'index');
         Route::get('/unusedTopics', 'unused_topics');
         Route::get('/{topic}/questions', 'list_of_questions_in_topics');
+        Route::get('/{topic}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{topic}', 'update');
+        Route::delete('/{topic}', 'destroy');
+        //
+    });
+    Route::controller(QuestionController::class)->prefix('questions')->group(function () {
+        Route::get('/', 'index');
+       
         Route::get('/{topic}', 'show');
         Route::post('/', 'store');
         Route::put('/{topic}', 'update');

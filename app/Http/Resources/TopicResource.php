@@ -18,6 +18,7 @@ class TopicResource extends JsonResource
             'topicId'=>$this->id,
             'chapterId'=>$this->chapter_id,
             'topicName'=>$this->topic_name,
+            'questionText'=>$this->question_text,
             'topicDescription'=>$this->topic_description,
             'createdAt'=>$this->created_at,
             'updatedAt'=>$this->updated_at

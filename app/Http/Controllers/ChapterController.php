@@ -93,7 +93,7 @@ class ChapterController extends Controller
             return ResponseHelper::error("Chapter not found", 404);
         }
         if($chapter->topic_count>0){
-            return ResponseHelper::error("sorry parchina delete korte!",$subject,409);
+            return ResponseHelper::error("sorry parchina delete korte!",$chapter,409);
         }
         
         $chapter->delete();

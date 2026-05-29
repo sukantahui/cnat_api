@@ -22,7 +22,7 @@ class StoreQuestionRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'question_text' => ['required', 'string'],
+            'question_text' => ['required', 'string','unique:questions,question_text'],
             'question_code' => ['nullable', 'string'],
             'question_image' => ['nullable', 'string'],
 
