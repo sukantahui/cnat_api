@@ -78,16 +78,15 @@ class QuestionController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Question $question)
-    {
-        $question=Topic::withCount('questions')->find($question->id);
-        if (!$question) {
-            return ResponseHelper::error("Topic not found", 404);
-        }
-        if($question->questions_count>0){
-            return ResponseHelper::error("sorry parchina delete korte!",$question,409);
-        }
-        
-        $question->delete();
-        return ResponseHelper::success("Topic deleted successfully");
+{
+    $question = Question::find($question->id);
+
+    if (!$question) {
+        return ResponseHelper::error("Question not found", 404);
     }
+
+    $question->delete();
+
+    return ResponseHelper::success("Question deleted successfully");
+}
 }
