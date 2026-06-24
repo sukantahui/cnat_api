@@ -1,17 +1,18 @@
 <?php
 
 namespace App\Http\Requests;
-
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class UpdateOptionRequest extends FormRequest
+class UpdateOptionRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +23,17 @@ class UpdateOptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'question_id' => [
+                'required',
+                'integer',
+                Rule::exists('questions', 'id'),
+            ],
+            'option_text' => [
+                'required',
+                'string',
+                'max:255',
+            ]
+        
         ];
-        //test 2
     }
 }

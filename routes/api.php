@@ -108,7 +108,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::put('/{optionId}', 'update');
         Route::delete('/{optionId}', 'destroy');
     });
-
+//
     Route::controller(SubjectController::class)->prefix('subjects')->group(function () {
         Route::get('/', 'index');
         Route::get('/unused', 'unused_subjects');

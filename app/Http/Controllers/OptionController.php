@@ -23,41 +23,43 @@ class OptionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    
+    
+public function store(StoreOptionRequest $request)
     {
-        //
-    }
+        $option = DB::transaction(function () use ($request) {
+            $data=$request->validated();
+            $option=Option::create($data);
+            return $option;
+        });
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreOptionRequest $request)
-    {
-        //
+        
+        return ResponseHelper::success("Option created successfully", new OptionResource($option));
     }
-
+    
     /**
      * Display the specified resource.
      */
-    public function show(Option $option)
+    public function show($optionId)
     {
-        //
+        $option = Option::find($optionId);
+        if (!$option) {
+            return ResponseHelper::error("Option not found", 404);
+        }
+        return ResponseHelper::success("Option fetched successfully", new OptionResource($option));
     }
+    
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Option $option)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(UpdateOptionRequest $request, Option $option)
     {
-        //
+        $updatedOption = DB::transaction(function () use ($request, $option) {
+            $data = $request->validated();
+            $option->update($data);
+            return $option;
+        });
+
+        return ResponseHelper::success("Option updated successfully", new OptionResource($updatedOption));
     }
 
     /**

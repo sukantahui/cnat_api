@@ -68,10 +68,7 @@ class QuestionController extends Controller
             $question->update($data);
             return $question;
         });
-
         return ResponseHelper::success("Question updated successfully", new QuestionResource($updatedQuestion));
-
-
     }
 
     /**

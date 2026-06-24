@@ -9,4 +9,10 @@ class Option extends Model
 {
     /** @use HasFactory<\Database\Factories\OptionFactory> */
     use HasFactory;
+    protected $guarded = ['id'];
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
+    
 }
