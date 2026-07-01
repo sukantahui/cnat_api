@@ -83,6 +83,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::controller(AdmissionController::class)->prefix('admissions')->group(function () {
         Route::get('/', 'index');
         Route::post('/', 'store');
+        Route::post('/admissionWithStudent', 'storeStudentWithAdmission');
         Route::put('/{admissionId}', 'update');
         Route::delete('/{admissionId}', 'destroy');
     });
@@ -176,6 +177,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::put('/{simpleFeesReceipt}', 'update');
         Route::delete('/{simpleFeesReceipt}', 'destroy');
     });
+
+
 });
 
 

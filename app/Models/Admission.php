@@ -16,10 +16,10 @@ class Admission extends Model
 
             $yearStart = now()->year % 100;
             $yearEnd = ($yearStart + 1) % 100;
-
+            $prefix= 'REGN';
             $academicYear = sprintf('%02d%02d', $yearStart, $yearEnd);
 
-            $last = self::where('admission_number', 'like', "REGN-%-$academicYear")
+            $last = self::where('admission_number', 'like', "$prefix-%-$academicYear")
                 ->latest('id')
                 ->first();
 
@@ -33,8 +33,7 @@ class Admission extends Model
                 $nextNumber = 10001;
             }
 
-            $admission->admission_number =
-                'CNATA-' . $nextNumber . '-' . $academicYear;
+            $admission->admission_number = $prefix . '-' . $nextNumber . '-' . $academicYear;
         });
     }
 
