@@ -19,6 +19,16 @@ class CertificateSeeder extends Seeder
                 'issue_date' => '2025-07-15',
                 'is_valid' => true,
                 'created_at' => now(),
-                'updated_at' => now(),]);
+                'updated_at' => now(),        
+        ]);
+
+        Certificate::create([
+                'admission_id' => 4,
+                'certificate_number' => 'CNAT-20260626130254',
+                'issue_date' => '2026-06-26',
+                'is_valid' => true,
+                'created_at' => now(),
+                'updated_at' => now(),        
+        ]);
     }
 }

@@ -14,7 +14,7 @@ class AdmissionSeeder extends Seeder
     {
         DB::table('admissions')->insert([
             [
-                'admission_number' => 'Regn-10231-2425',
+                'admission_number' => 'REGN-10231-2425',
                 'student_id' => 49,
                 'course_id' => 31,
                 'course_status_id' => 2, // Active
@@ -46,6 +46,18 @@ class AdmissionSeeder extends Seeder
                 'fee_modes_id'=> 1,
                 'admission_date' => '2026-04-09',
                 'completion_date' => null,
+                'created_at' => '2026-04-09 06:06:24',
+                'updated_at' => '2026-04-09 06:06:24',
+            ],
+            [
+                'admission_number' => 'REGN-00003-2627',
+                'student_id' => 50,
+                'course_id' => 6,          // You will fill this
+                'course_status_id' => 1,      // Active
+                'course_fees' => 6000,
+                'fee_modes_id'=> 2,
+                'admission_date' => '2026-01-09',
+                'completion_date' => '2026-05-10',
                 'created_at' => '2026-04-09 06:06:24',
                 'updated_at' => '2026-04-09 06:06:24',
             ],

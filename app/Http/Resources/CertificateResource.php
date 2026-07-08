@@ -15,7 +15,7 @@ class CertificateResource extends JsonResource
         $admission = $this->admission;
         $student = $admission->student;
         $course = $admission->course;
-        $result = $admission->result;
+        $results = $admission->results;
 
         return [
 
@@ -29,9 +29,10 @@ class CertificateResource extends JsonResource
                 'registrationNumber' => $student->registration_number,
                 'studentName' => $student->student_name,
                 'nickName' => $student->nickname,
-                'email' => $student->email,
-                'dateOfBirth' => $student->dob,
-                'aadharNumber'=>$student->aadhar_number,
+                'photo' => $student->photo? asset('storage/' . $student->photo): asset('storage/students/default-avatar.png'),
+                'email' => $this->maskEmail($student->email),
+                'dateOfBirth' => $this->maskDateOfBirth($student->dob),
+                'aadharNumber' => $this->maskAadhar($student->aadhar_number),
                 'bloodGroup' => $student->blood_group,
 
                 'fatherName' => $student->father_name,
@@ -41,9 +42,9 @@ class CertificateResource extends JsonResource
                 'guardianRelation' => $student->guardian_relation,
                 'guardianPhone' => $student->guardian_phone,
 
-                'phone1' => $student->phone1,
-                'phone2' => $student->phone2,
-                'whatsapp' => $student->whatsapp,
+                'phone1' => $this->maskPhone($student->phone1),
+                'phone2' => $this->maskPhone($student->phone2),
+                'whatsapp' => $this->maskPhone($student->whatsapp),
 
                 'address' => $student->address,
                 'city' => $student->city,
@@ -79,16 +80,61 @@ class CertificateResource extends JsonResource
             ],
 
             // Result
-            'result' => $result ? [
-                'attemptNo' => $result->attempt_no,
-                'theoryMarks' => $result->theory_marks,
-                'practicalMarks' => $result->practical_marks,
-                'totalTheoryMarks' => $result->total_theory_marks,
-                'totalPracticalMarks' => $result->total_practical_marks,
-                'grade' => $result->grade,
-                'isPassed' => $result->is_passed,
-                'resultDate' => $result->result_date,
-            ] : null,
+            'results' => $results->map(function ($result) {
+                return [
+                    'attemptNo'           => $result->attempt_no,
+                    'theoryMarks'         => $result->theory_marks,
+                    'practicalMarks'      => $result->practical_marks,
+                    'totalTheoryMarks'    => $result->total_theory_marks,
+                    'totalPracticalMarks' => $result->total_practical_marks,
+                    'grade'               => $result->grade,
+                    'isPassed'            => (bool) $result->is_passed,
+                    'resultDate'          => $result->result_date,
+                ];
+            })->sortBy('attemptNo')->values(),
         ];
+    }
+    private function maskPhone(?string $phone): ?string
+    {
+        if (empty($phone) || strlen($phone) < 10) {
+            return $phone;
+        }
+
+        return substr($phone, 0, 2) . '******' . substr($phone, -2);
+    }
+    private function maskEmail(?string $email): ?string
+    {
+        if (empty($email) || !str_contains($email, '@')) {
+            return $email;
+        }
+
+        [$name, $domain] = explode('@', $email);
+
+        if (strlen($name) <= 2) {
+            return $email;
+        }
+
+        return substr($name, 0, 2)
+            . str_repeat('*', strlen($name) - 2)
+            . '@'
+            . $domain;
+    }
+    private function maskAadhar(?string $aadhar): ?string
+    {
+        if (empty($aadhar)) {
+            return null;
+        }
+
+        return preg_replace('/\d(?=\d{4})/', '*', $aadhar);
+    }
+    private function maskDateOfBirth(?string $dob): ?string
+    {
+        if (empty($dob)) {
+            return null;
+        }
+
+        $year = date('Y', strtotime($dob));
+
+        return "{$year}-XX-XX";
     }
 }

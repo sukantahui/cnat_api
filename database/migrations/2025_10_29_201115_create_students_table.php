@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('registration_number',20)->unique();
             $table->string('student_name',100);
             $table->string('nickname',100)->unique()->nullable();
+            $table->string('photo')->nullable(true);
             $table->string('email',150)->unique()->nullable();
             $table->date('dob')->nullable();
             $table->string('aadhar_number')->nullable()->default("XXXX XXXX ");

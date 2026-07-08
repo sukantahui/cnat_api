@@ -19,11 +19,10 @@ class CertificateController extends Controller
             'admission.course',
             'admission.course.details',
             'admission.courseStatus',
-            'admission.result',
+            'admission.results',
         ])
         ->where('certificate_number', $certificate_number)
         ->firstOrFail();
-
         return new CertificateResource($certificate);
     }
     /**

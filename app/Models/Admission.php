@@ -55,9 +55,9 @@ class Admission extends Model
         return $this->belongsTo(CourseStatus::class);
     }
 
-    public function result()
+    public function results()
     {
-        return $this->hasOne(Result::class);
+        return $this->hasMany(Result::class);
     }
 
     // ✅ New relation to access course details directly through course
