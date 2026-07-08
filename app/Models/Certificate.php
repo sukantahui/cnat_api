@@ -10,8 +10,9 @@ class Certificate extends Model
     /** @use HasFactory<\Database\Factories\CertificateFactory> */
     use HasFactory;
     protected $guarded = ['id'];
-    public function result()
+
+    public function admission()
     {
-        return $this->belongsTo(Result::class);
+        return $this->belongsTo(Admission::class);
     }
 }

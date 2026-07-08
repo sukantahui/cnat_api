@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\ResultController;
@@ -207,6 +208,9 @@ Route::group(array('prefix' => 'dev'), function () {
         Route::post('/', 'store');
         Route::put('/{admissionId}', 'update');
         Route::delete('/{admissionId}', 'destroy');
+    });
+    Route::controller(CertificateController::class)->prefix('certificates')->group(function () {
+        Route::get('/{certificate_number}', 'index');
     });
 
 
