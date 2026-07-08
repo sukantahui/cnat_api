@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nickname',100)->unique()->nullable();
             $table->string('email',150)->unique()->nullable();
             $table->date('dob')->nullable();
+            $table->string('aadhar_number')->nullable()->default("XXXX XXXX ");
             $table->string('blood_group',5)->nullable();
             $table->string('father_name',100)->nullable();
             $table->string('mother_name',100)->nullable();

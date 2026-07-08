@@ -12,48 +12,83 @@ class CertificateResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $admission = $this->admission;
+        $student = $admission->student;
+        $course = $admission->course;
+        $result = $admission->result;
+
         return [
+
+            // Certificate
             'certificateNumber' => $this->certificate_number,
             'issueDate' => $this->issue_date,
             'isValid' => $this->is_valid,
 
+            // Student
             'student' => [
-                'registrationNumber' => $this->admission->student->registration_number,
-                'studentName'        => $this->admission->student->student_name,
-                'fatherName'         => $this->admission->student->father_name,
-                'motherName'         => $this->admission->student->mother_name,
-                'gender'             => $this->admission->student->gender->gender_name,
-                'dateOfBirth'        => $this->admission->student->dob,
-                'bloodGroup'         => $this->admission->student->blood_group,
-                'phone'              => $this->admission->student->phone1,
-                'whatsapp'           => $this->admission->student->whatsapp,
-                'email'              => $this->admission->student->email,
-                'address'            => $this->admission->student->address,
+                'registrationNumber' => $student->registration_number,
+                'studentName' => $student->student_name,
+                'nickName' => $student->nickname,
+                'email' => $student->email,
+                'dateOfBirth' => $student->dob,
+                'aadharNumber'=>$student->aadhar_number,
+                'bloodGroup' => $student->blood_group,
+
+                'fatherName' => $student->father_name,
+                'motherName' => $student->mother_name,
+
+                'guardianName' => $student->guardian_name,
+                'guardianRelation' => $student->guardian_relation,
+                'guardianPhone' => $student->guardian_phone,
+
+                'phone1' => $student->phone1,
+                'phone2' => $student->phone2,
+                'whatsapp' => $student->whatsapp,
+
+                'address' => $student->address,
+                'city' => $student->city,
+                'pin' => $student->pin,
+
+                'gender' => $student->gender?->gender_name,
             ],
 
-            'course' => [
-                'courseCode' => $this->admission->course->course_code,
-                'courseName' => $this->admission->course->course_name,
-            ],
-
+            // Admission
             'admission' => [
-                'admissionNumber' => $this->admission->admission_number,
-                'admissionDate'   => $this->admission->admission_date,
-                'completionDate'  => $this->admission->completion_date,
-                'courseFees'      => $this->admission->course_fees,
-                'courseStatus'    => $this->admission->courseStatus->course_status_name,
+                'admissionNumber' => $admission->admission_number,
+                'admissionDate' => $admission->admission_date,
+                'completionDate' => $admission->completion_date,
+                'courseFees' => $admission->course_fees,
+                'courseStatus' => $admission->courseStatus?->course_status_name,
             ],
 
-            'result' => [
-                'attemptNo'           => $this->admission->result?->attempt_no,
-                'theoryMarks'         => $this->admission->result?->theory_marks,
-                'practicalMarks'      => $this->admission->result?->practical_marks,
-                'totalTheoryMarks'    => $this->admission->result?->total_theory_marks,
-                'totalPracticalMarks' => $this->admission->result?->total_practical_marks,
-                'grade'               => $this->admission->result?->grade,
-                'isPassed'            => $this->admission->result?->is_passed,
-                'resultDate'          => $this->admission->result?->result_date,
+            // Course
+            'course' => [
+                'courseCode' => $course->course_code,
+                'courseName' => $course->course_name,
+
+                'courseDetails' => $course->details->map(function ($detail) {
+                    return [
+                        'id' => $detail->id,
+                        'topicTitle' => $detail->topic_title,
+                        'topicDescription' => $detail->topic_description,
+                        'theoryDuration' => $detail->theory_duration,
+                        'practicalDuration' => $detail->practical_duration,
+                        'sequence' => $detail->sequence,
+                    ];
+                })->values(),
             ],
+
+            // Result
+            'result' => $result ? [
+                'attemptNo' => $result->attempt_no,
+                'theoryMarks' => $result->theory_marks,
+                'practicalMarks' => $result->practical_marks,
+                'totalTheoryMarks' => $result->total_theory_marks,
+                'totalPracticalMarks' => $result->total_practical_marks,
+                'grade' => $result->grade,
+                'isPassed' => $result->is_passed,
+                'resultDate' => $result->result_date,
+            ] : null,
         ];
     }
 }

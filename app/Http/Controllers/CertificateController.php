@@ -17,6 +17,7 @@ class CertificateController extends Controller
         $certificate = Certificate::with([
             'admission.student.gender',
             'admission.course',
+            'admission.course.details',
             'admission.courseStatus',
             'admission.result',
         ])
