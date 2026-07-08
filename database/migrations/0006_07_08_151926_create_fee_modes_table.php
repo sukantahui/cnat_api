@@ -11,16 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('certificates', function (Blueprint $table) {
+        Schema::create('fee_modes', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('admission_id')
-                ->constrained('admissions')
-                ->onDelete('cascade');
-
-            $table->string('certificate_number', 50)->unique();
-            $table->date('issue_date');
-            $table->boolean('is_valid')->default(true);
+            $table->string('fee_modes_name');
             $table->timestamps();
         });
     }
@@ -30,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('certificates');
+        Schema::dropIfExists('fee_modes');
     }
 };

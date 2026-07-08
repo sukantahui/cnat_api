@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
 
             // link to admission
-            $table->foreignId('admission_id')
-                ->constrained('admissions')
-                ->onDelete('cascade');
+            $table->foreignId('admission_id')->constrained('admissions')->onDelete('cascade');
             $table->tinyInteger('attempt_no')->default(1);
             // marks information
             $table->decimal('theory_marks', 5, 2)->nullable();
