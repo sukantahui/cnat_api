@@ -4,22 +4,24 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\CourseDetailResource;
 
-class CourseResource extends BaseResource
+class CourseWithStudentsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
      * @return array<string, mixed>
      */
-    public function raw(Request $request): array
+    public function toArray($request): array
     {
         return [
-            'id' => $this->id,
+            'courseId' => $this->id,
             'courseCode' => $this->course_code,
             'courseName' => $this->course_name,
-            'details' => CourseDetailResource::collection($this->whenLoaded('details')),
+
+            'students' => StudentResource::collection(
+                $this->whenLoaded('students')
+            ),
         ];
     }
 }

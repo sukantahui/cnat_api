@@ -20,20 +20,18 @@ class AdmissionResource extends BaseResource
         return [
             'admissionId' => $this->id,
             'admissionNumber' => $this->admission_number,
-            'student' => $this->whenLoaded('student')
-                        ? new StudentResource($this->student)
-                        : new StudentResource(Student::find($this->student_id)), // return empty resource if not loaded
-            'course' => $this->whenLoaded('course')
-                        ? new CourseResource($this->course)
-                        : new CourseResource(Course::find($this->course_id)),
-            'courseStatus' => $this->whenLoaded('courseStatus')
-                        ? new CourseStatusResource($this->courseStatus)
-                        : new CourseStatusResource(CourseStatus::find($this->course_status_id)),
+
+            'student' => StudentResource::make($this->whenLoaded('student')),
+
+            'course' => CourseResource::make($this->whenLoaded('course')),
+
+            'courseStatus' => CourseStatusResource::make(
+                $this->whenLoaded('courseStatus')
+            ),
+
             'courseFees' => $this->course_fees,
             'admissionDate' => $this->admission_date,
             'completionDate' => $this->completion_date,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
         ];
     }
 }

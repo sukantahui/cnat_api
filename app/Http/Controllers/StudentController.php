@@ -25,11 +25,6 @@ class StudentController extends Controller
         return ResponseHelper::success("Students retrieved successfully", StudentResource::collection($students));
     }
 
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreStudentRequest $request)
     {
         $student = DB::transaction(function () use ($request) {
@@ -47,11 +42,11 @@ class StudentController extends Controller
 
             if (!$voucher) {
                 $voucher = CustomVoucher::create([
-                    'voucher_name'    => 'Student',
+                    'voucher_name' => 'Student',
                     'accounting_year' => $year,
-                    'last_counter'    => 0,
-                    'prefix'          => 'CNAT',
-                    'min_digits'      => 5,
+                    'last_counter' => 0,
+                    'prefix' => 'CNAT',
+                    'min_digits' => 5,
                 ]);
             }
 
@@ -92,11 +87,11 @@ class StudentController extends Controller
 
             if (!$voucher) {
                 $voucher = CustomVoucher::create([
-                    'voucher_name'    => 'Student',
+                    'voucher_name' => 'Student',
                     'accounting_year' => $year,
-                    'last_counter'    => 0,
-                    'prefix'          => 'CNAT',
-                    'min_digits'      => 5,
+                    'last_counter' => 0,
+                    'prefix' => 'CNAT',
+                    'min_digits' => 5,
                 ]);
             }
 
@@ -120,14 +115,6 @@ class StudentController extends Controller
         // Outside transaction: only reached if commit succeeded
         return ResponseHelper::success("Student created successfully", $student);
     }
-
-
-
-
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Student $student)
     {
         //
@@ -149,5 +136,22 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
+    }
+
+    public function admissions(Student $student)
+    {
+        return $student->load([
+            'courses',
+            'admissions.course',
+            'admissions.courseStatus'
+        ]);
+    }
+    public function studentsWithoutAdmission()
+    {
+        $students = Student::whereDoesntHave('admissions')
+            ->orderBy('student_name')
+            ->get();
+
+        return StudentResource::collection($students);
     }
 }

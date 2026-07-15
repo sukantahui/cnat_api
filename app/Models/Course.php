@@ -18,4 +18,13 @@ class Course extends Model
     {
         return $this->hasMany(Admission::class);
     }
+    public function students()
+    {
+        return $this->belongsToMany(
+            Student::class,
+            'admissions',
+            'course_id',
+            'student_id'
+        );
+    }
 }

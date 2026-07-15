@@ -9,6 +9,7 @@ use App\Traits\HandlesTransactions;
 use App\Helper\ResponseHelper;
 use App\Http\Requests\StoreCourseBasicRequest;
 use App\Http\Resources\CourseResource;
+use App\Http\Resources\CourseWithStudentsResource;
 
 class CourseController extends Controller
 {
@@ -50,13 +51,12 @@ class CourseController extends Controller
                 new CourseResource($course),
                 201
             );
-
         }, [
             'action' => 'create_course',
             'course_code' => $request->course_code
         ]);
     }
-     public function storeBasic(StoreCourseBasicRequest $request)
+    public function storeBasic(StoreCourseBasicRequest $request)
     {
         return $this->executeInTransaction(function () use ($request) {
 
@@ -69,13 +69,12 @@ class CourseController extends Controller
                 new CourseResource($course),
                 201
             );
-
         }, [
             'action' => 'create_course',
             'course_code' => $request->course_code
         ]);
     }
- 
+
 
     public function update(UpdateCourseRequest $request, Course $course)
     {
@@ -88,5 +87,11 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         //
+    }
+
+    public function students(Course $course)
+    {
+        $result =  $course->load('students');
+        return new CourseWithStudentsResource($result);
     }
 }

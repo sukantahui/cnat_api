@@ -12,8 +12,6 @@ class CourseStatusResource extends BaseResource
         return [
             'courseStatusId' => $this->id,
             'courseStatusName' => $this->course_status_name,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
         ];
     }
 }

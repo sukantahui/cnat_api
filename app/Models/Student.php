@@ -19,7 +19,7 @@ class Student extends Model
 
             $yearStart = now()->year % 100;
             $yearEnd = ($yearStart + 1) % 100;
-            $prefix= 'CNAT';
+            $prefix = 'CNAT';
             $academicYear = sprintf('%02d%02d', $yearStart, $yearEnd);
 
             $last = self::where('registration_number', 'like', "$prefix-%-$academicYear")
@@ -30,7 +30,6 @@ class Student extends Model
 
                 $lastNumber = intval(explode('-', $last->registration_number)[1]);
                 $nextNumber = $lastNumber + 1;
-
             } else {
 
                 $nextNumber = 10001;
@@ -63,5 +62,13 @@ class Student extends Model
     {
         return $this->hasMany(Admission::class);
     }
-    
+    public function courses()
+    {
+        return $this->belongsToMany(
+            Course::class,
+            'admissions',
+            'student_id',
+            'course_id'
+        );
+    }
 }

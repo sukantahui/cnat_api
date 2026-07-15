@@ -1,6 +1,7 @@
 <?php
 use App\Models\Question;
 use App\Models\Chapter;
+use App\Models\Course;
 use App\Models\Topic;
 use App\Models\Subject;
 use App\Models\State;
@@ -51,6 +52,14 @@ Route::get('/subject', function () {
     ]);
 });
 
+Route::get('/student-from-course/{courseId}', function ($courseId) {
+    $data = Course::findOrFail($courseId)->students;
+
+    return view('universal.viewer', [
+        'title' => 'JSON Inspector',
+        'data'  => $data->toArray()
+    ]);
+});
 
 
 

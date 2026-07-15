@@ -38,11 +38,8 @@ class StudentResource extends BaseResource
             'districtId' => $this->district_id,
             'city' => $this->city,
             'pin' => $this->pin,
-
             'genderId' => $this->gender_id,
 
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
         ];
     }
 }

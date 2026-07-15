@@ -20,46 +20,50 @@ class AdmissionController extends Controller
      */
     public function index()
     {
-        $admissions = Admission::with('student', 'course', 'courseStatus')->get();
-        return ResponseHelper::success("Admissions fetched successfully", AdmissionResource::collection($admissions));
+        return AdmissionResource::collection(
+            Admission::with([
+                'student',
+                'course',
+                'courseStatus'
+            ])->get()
+        );
     }
 
-    
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreAdmissionRequest $request)
     {
-       return $this->executeInTransaction(function () use ($request) {
+        return $this->executeInTransaction(function () use ($request) {
             $admission = Admission::create($request->validated());
             $admission->save();
             return ResponseHelper::success("Admission created successfully", AdmissionResource::make($admission));
         });
-       
     }
 
     public function storeStudentWithAdmission(StoreStudentWithAdmissionRequest $request)
     {
-        
+
         $admissionData = $request->validated()['admission'];
         // return($admissionData);
-       
+
         return $this->executeInTransaction(function () use ($request) {
             // Create the student
             $student = Student::create($request->validated()['student']);
             $student->save();
-         
+
             // Create the admission
             $admissionData = $request->validated()['admission'];
             $admissionData['student_id'] = $student->id;
             $admission = Admission::create($admissionData);
             $admission->save();
-            
+
             return ResponseHelper::success("Student and Admission created successfully", AdmissionResource::make($admission));
         });
     }
 
-    
+
 
     /**
      * Update the specified resource in storage.

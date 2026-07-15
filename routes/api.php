@@ -78,8 +78,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/', 'store');
         Route::post('/basic', 'storeBasic');
         Route::put('/{student}', 'update');
-        Route::delete('/{student}', 'destroy');
+        Route::delete('/{student}', 'destroy');        
+        Route::get('/{student}/admissions', 'admissions');   
+        Route::get('/without-admission', 'studentsWithoutAdmission');     
     });
+
+    // Route::get('/students/{student}/admissions', [StudentController::class, 'admissions']);
 
     Route::controller(AdmissionController::class)->prefix('admissions')->group(function () {
         Route::get('/', 'index');
@@ -162,6 +166,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/basic', 'storeBasic');
         Route::put('/{courseId}', 'update');
         Route::delete('/{courseId}', 'destroy');
+        Route::get('/{course}/students','students');
     });
 
     Route::controller(ResultController::class)->prefix('results')->group(function () {
