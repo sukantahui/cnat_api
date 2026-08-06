@@ -61,12 +61,9 @@ class SubjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSubjectRequest $request,  $subjectId)
+    public function update(UpdateSubjectRequest $request,Subject $subject)
     {
-        $subject = Subject::find($subjectId);
-        if (!$subject) {
-            return ResponseHelper::error("Subject not found", 404);
-        }
+        
         DB::transaction(function () use ($request, $subject) {
             $data = $request->validated();
             $subject->update($data);
@@ -77,15 +74,8 @@ class SubjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($subjectId)
+    public function destroy(Subject $subject)
     {
-        $subject=Subject::withCount('chapters')->find($subjectId);
-        if (!$subject) {
-            return ResponseHelper::error("Subject not found", 404);
-        }
-        if($subject->chapters_count>0){
-            return ResponseHelper::error("sorry parchina delete korte!",$subject,409);
-        }
         
         $subject->delete();
         return ResponseHelper::success("Subject deleted successfully");

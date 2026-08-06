@@ -74,10 +74,7 @@ class TopicController extends Controller
      */
     public function update(UpdateTopicRequest $request, Topic $topic)
     {
-        $topic = Topic::find($topic->id);
-        if(!$topic){
-            return ResponseHelper::error("Topic not found", 404);
-        }
+        
         DB::transaction(function () use ($request, $topic){
             $data = $request->validated();
             $topic->update($data);
@@ -90,14 +87,6 @@ class TopicController extends Controller
      */
     public function destroy(Topic $topic)
     {
-        $topic=Topic::withCount('questions')->find($topic->id);
-        if (!$topic) {
-            return ResponseHelper::error("Topic not found", 404);
-        }
-        if($topic->questions_count>0){
-            return ResponseHelper::error("sorry parchina delete korte!",$topic,409);
-        }   
-        
         $topic->delete();
         return ResponseHelper::success("Topic deleted successfully");
     }

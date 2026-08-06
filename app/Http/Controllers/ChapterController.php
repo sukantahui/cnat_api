@@ -68,33 +68,23 @@ class ChapterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateChapterRequest $request, $chapterId)
+    public function update(UpdateChapterRequest $request,Chapter $chapter)
     {
-        $chapter = Chapter::find($chapterId);
-        if (!$chapter) {
-            return ResponseHelper::error("Chapter not found", 404);
-        }
+        
         DB::transaction(function () use ($request, $chapter) {
             $data = $request->validated();
             $chapter->update($data);
         });
         
-        return ResponseHelper::success("Chapter created successfully", new ChapterResource($chapter));
+        return ResponseHelper::success("Chapter updated successfully", new ChapterResource($chapter));
 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($chapterId)
+    public function destroy(Chapter $chapter)
     {
-        $chapter=Chapter::withCount('topics')->find($chapterId);
-        if (!$chapter) {
-            return ResponseHelper::error("Chapter not found", 404);
-        }
-        if($chapter->topic_count>0){
-            return ResponseHelper::error("sorry parchina delete korte!",$chapter,409);
-        }
         
         $chapter->delete();
         return ResponseHelper::success("Chapter deleted successfully");

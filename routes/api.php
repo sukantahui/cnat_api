@@ -112,7 +112,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/{optionId}', 'show');
         Route::post('/', 'store');
         Route::put('/{optionId}', 'update');
-        Route::delete('/{optionId}', 'destroy');
+        Route::delete('/{option}', 'destroy');
     });
 //
     Route::controller(SubjectController::class)->prefix('subjects')->group(function () {
@@ -121,8 +121,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/{subjectId}/chapters', 'list_of_chapters_in_subjects');
         Route::get('/{subjectId}', 'show');
         Route::post('/', 'store');
-        Route::put('/{subjectId}', 'update');
-        Route::delete('/{subjectId}', 'destroy');
+        Route::put('/{subject}', 'update');
+        Route::delete('/{subject}', 'destroy');
     });
     Route::controller(ChapterController::class)->prefix('chapters')->group(function () {
         Route::get('/', 'index');
@@ -130,8 +130,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/{chapterId}/topics', 'list_of_topics_in_chapters');
         Route::get('/{chapterId}', 'show');
         Route::post('/', 'store');
-        Route::put('/{chapterId}', 'update');
-        Route::delete('/{chapterId}', 'destroy');
+        Route::put('/{chapter}', 'update');
+        Route::delete('/{chapter}', 'destroy');
     });
     Route::controller(TopicController::class)->prefix('topics')->group(function () {
         Route::get('/', 'index');

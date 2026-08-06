@@ -51,22 +51,26 @@ public function store(StoreOptionRequest $request)
     
 
     
-    public function update(UpdateOptionRequest $request, Option $option)
+    public function update(UpdateOptionRequest $request,Option $option)
     {
-        $updatedOption = DB::transaction(function () use ($request, $option) {
+        
+        DB::transaction(function () use ($request, $option) {
             $data = $request->validated();
             $option->update($data);
-            return $option;
         });
+        
+        return ResponseHelper::success("Option updated successfully", new OptionResource($option));
 
-        return ResponseHelper::success("Option updated successfully", new OptionResource($updatedOption));
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Option $option)
     {
-        //
+        $option->delete();
+        return ResponseHelper::success($option);
+        
     }
 }
