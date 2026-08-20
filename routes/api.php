@@ -69,29 +69,24 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/{id}', 'show');
         Route::post('/', 'store');
         Route::put('/', 'edit');
-        // Route::put('/{guestId}','update');
-        Route::delete('/{guestId}', 'destroy');
+        Route::put('/{guest}','update');
+        Route::delete('/{guest}', 'destroy');
     });
 
     Route::controller(StudentController::class)->prefix('students')->group(function () {
-        Route::get('/', 'index');
-        Route::post('/', 'store');
-        Route::post('/basic', 'storeBasic');
-        Route::put('/{student}', 'update');
-        Route::delete('/{student}', 'destroy');        
-        Route::get('/{student}/admissions', 'admissions');   
-        Route::get('/without-admission', 'studentsWithoutAdmission');     
+        Route::post('/basic', 'storeBasic'); //custom
+        Route::get('/{student}/admissions', 'admissions');//custom
+        Route::get('/without-admission', 'studentsWithoutAdmission');//custom
     });
+    Route::apiResource('students', StudentController::class);
 
     // Route::get('/students/{student}/admissions', [StudentController::class, 'admissions']);
 
+    //for custom route for admission with student creation
     Route::controller(AdmissionController::class)->prefix('admissions')->group(function () {
-        Route::get('/', 'index');
-        Route::post('/', 'store');
         Route::post('/admissionWithStudent', 'storeStudentWithAdmission');
-        Route::put('/{admissionId}', 'update');
-        Route::delete('/{admissionId}', 'destroy');
     });
+    Route::apiResource('admissions', AdmissionController::class);
 
     Route::controller(VisitorController::class)->prefix('visitors')->group(function () {
         Route::get('/', 'index');
@@ -100,58 +95,55 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::delete('/{visitorId}', 'destroy');
     });
 
-    Route::controller(QuestionController::class)->prefix('questions')->group(function () {
-        Route::get('/', 'index');
-        Route::get('/{questionId}', 'show');
-        Route::post('/', 'store');
-        Route::put('/{question}', 'update');
-        Route::delete('/{questionId}', 'destroy');
-    });
+    Route::apiResource('questions', QuestionController::class);
+
     Route::controller(OptionController::class)->prefix('options')->group(function () {
         Route::get('/', 'index');
         Route::get('/{optionId}', 'show');
         Route::post('/', 'store');
-        Route::put('/{optionId}', 'update');
+        Route::put('/{option}', 'update');
         Route::delete('/{option}', 'destroy');
     });
-//
+    //
     Route::controller(SubjectController::class)->prefix('subjects')->group(function () {
-        Route::get('/', 'index');
         Route::get('/unused', 'unused_subjects');
-        Route::get('/{subjectId}/chapters', 'list_of_chapters_in_subjects');
-        Route::get('/{subjectId}', 'show');
-        Route::post('/', 'store');
-        Route::put('/{subject}', 'update');
-        Route::delete('/{subject}', 'destroy');
+        Route::get('/{subject}/chapters', 'list_of_chapters_in_subjects');
     });
+    Route::apiResource('subjects', SubjectController::class);
+
     Route::controller(ChapterController::class)->prefix('chapters')->group(function () {
-        Route::get('/', 'index');
         Route::get('/unusedChapters', 'unused_chapters');
-        Route::get('/{chapterId}/topics', 'list_of_topics_in_chapters');
-        Route::get('/{chapterId}', 'show');
-        Route::post('/', 'store');
-        Route::put('/{chapter}', 'update');
-        Route::delete('/{chapter}', 'destroy');
+        Route::get('/{chapter}/topics', 'list_of_topics_in_chapters');
     });
-    Route::controller(TopicController::class)->prefix('topics')->group(function () {
-        Route::get('/', 'index');
+    Route::apiResource('chapters', ChapterController::class);
+
+    Route::prefix('topics')->controller(TopicController::class)->group(function () {
         Route::get('/unusedTopics', 'unused_topics');
         Route::get('/{topic}/questions', 'list_of_questions_in_topics');
-        Route::get('/{topic}', 'show');
-        Route::post('/', 'store');
-        Route::put('/{topic}', 'update');
-        Route::delete('/{topic}', 'destroy');
-        //
     });
-    Route::controller(QuestionController::class)->prefix('questions')->group(function () {
-        Route::get('/', 'index');
-       
-        Route::get('/{topic}', 'show');
-        Route::post('/', 'store');
-        Route::put('/{topic}', 'update');
-        Route::delete('/{topic}', 'destroy');
-        //
-    });
+    Route::apiResource('topics', TopicController::class);
+    /*
+    |--------------------------------------------------------------------------
+    | Topic API Routes
+    |--------------------------------------------------------------------------
+    |
+    | Route::apiResource() automatically creates the following RESTful API routes:
+    |
+    | GET       /topics             -> index()    // Get all topics
+    | POST      /topics             -> store()    // Create a new topic
+    | GET       /topics/{topic}     -> show()     // Get a single topic
+    | PUT       /topics/{topic}     -> update()   // Update a topic
+    | PATCH     /topics/{topic}     -> update()   // Partially update a topic
+    | DELETE    /topics/{topic}     -> destroy()  // Delete a topic
+    |
+    | Note:
+    | - Does NOT generate create() and edit() routes.
+    | - Intended for REST APIs that return JSON responses.
+    |
+    */
+
+
+    
     Route::controller(StateController::class)->prefix('states')->group(function () {
         Route::get('/', 'index');
         Route::get('/{stateId}', 'show');
@@ -166,23 +158,25 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/basic', 'storeBasic');
         Route::put('/{courseId}', 'update');
         Route::delete('/{courseId}', 'destroy');
-        Route::get('/{course}/students','students');
+        Route::get('/{course}/students', 'students');
     });
 
-    Route::controller(ResultController::class)->prefix('results')->group(function () {
-        Route::get('/', 'index');
-        Route::post('/', 'store');
-        Route::put('/{result}', 'update');
-        Route::delete('/{result}', 'destroy');
-    });
+    // Route::controller(ResultController::class)->prefix('results')->group(function () {
+    //     Route::get('/', 'index');
+    //     Route::post('/', 'store');
+    //     Route::put('/{result}', 'update');
+    //     Route::delete('/{result}', 'destroy');
+    // });
+    Route::apiResource('results', ResultController::class);
 
-    Route::controller(SimpleFeesReceiptController::class)->prefix('fees-receipts')->group(function () {
-        Route::get('/', 'index');
-        Route::post('/', 'store');
-        Route::get('/{simpleFeesReceipt}', 'show');
-        Route::put('/{simpleFeesReceipt}', 'update');
-        Route::delete('/{simpleFeesReceipt}', 'destroy');
-    });
+    // Route::controller(SimpleFeesReceiptController::class)->prefix('fees-receipts')->group(function () {
+    //     Route::get('/', 'index');
+    //     Route::post('/', 'store');
+    //     Route::get('/{simpleFeesReceipt}', 'show');
+    //     Route::put('/{simpleFeesReceipt}', 'update');
+    //     Route::delete('/{simpleFeesReceipt}', 'destroy');
+    // });
+    Route::apiResource('fees-receipts', SimpleFeesReceiptController::class);
 
 
 });

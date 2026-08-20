@@ -49,3 +49,4 @@ class GuestResource extends JsonResource
         return $firstTwo . $masked . $lastTwo;
     }
 }
+//

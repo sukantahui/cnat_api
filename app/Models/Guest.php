@@ -20,4 +20,10 @@ class Guest extends Model
     {
         return $this->belongsTo(Gender::class);
     }
+    protected function casts(): array
+    {
+        return [
+            'is_attending' => 'boolean'
+        ];
+    }
 }

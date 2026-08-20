@@ -12,7 +12,7 @@ class StoreAdmissionRequest extends BaseRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->check(); // Ensure the user is authenticated
     }
 
     /**
@@ -42,6 +42,9 @@ class StoreAdmissionRequest extends BaseRequest
         ],
             'course_status_id' => [
                 'bail', 'required', 'integer', 'exists:course_statuses,id'
+            ],
+            'fee_modes_id' => [
+                'bail', 'required', 'integer', 'exists:fee_modes,id'
             ],
             'course_fees' => [
                 'bail', 'required', 'integer', 'min:0'
@@ -82,7 +85,4 @@ class StoreAdmissionRequest extends BaseRequest
             'completion_date.after_or_equal' => 'Completion date cannot be before admission date.'
         ];
     }
-
-    
-
 }

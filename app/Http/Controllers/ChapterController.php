@@ -26,9 +26,9 @@ class ChapterController extends Controller
         $Chapters = Chapter::doesntHave('topics')->get();
         return ResponseHelper::success("Chapters fetched successfully", ChapterResource::collection($Chapters));
     }
-    public function list_of_topics_in_chapters($chapterId)
+    public function list_of_topics_in_chapters(Chapter $chapter)
     {
-        $Topics = Chapter::find($chapterId)->Topics;
+        $Topics = $chapter->Topics;
         return ResponseHelper::success("Topics fetched successfully",TopicResource::collection($Topics));
     }
     /**
@@ -48,12 +48,8 @@ class ChapterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($chapterId)
+    public function show(Chapter $Chapter)
     {
-        $Chapter = Chapter::find($chapterId);
-        if(!$Chapter){
-            return ResponseHelper::error("Chapter not found", 404);
-        }
         return ResponseHelper::success("Chapter fetched successfully", new ChapterResource($Chapter));
     }
 

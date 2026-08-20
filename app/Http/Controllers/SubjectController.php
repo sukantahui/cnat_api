@@ -26,9 +26,9 @@ class SubjectController extends Controller
         return ResponseHelper::success("Subjects fetched successfully", SubjectResource::collection($subjects));
     }
 
-    public function list_of_chapters_in_subjects($subjectId)
+    public function list_of_chapters_in_subjects(Subject $subject)
     {
-        $chapters = Subject::find($subjectId)->chapters;
+        $chapters = $subject->chapters;
         return ResponseHelper::success("Subjects fetched successfully",$chapters);
     }
 
@@ -49,12 +49,8 @@ class SubjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($subjectId)
+    public function show(Subject $subject)
     {
-        $subject = Subject::find($subjectId);
-        if (!$subject) {
-            return ResponseHelper::error("Subject not found", 404);
-        }
         return ResponseHelper::success("Subject fetched successfully", new SubjectResource($subject));
     }
 

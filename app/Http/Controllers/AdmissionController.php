@@ -83,6 +83,7 @@ class AdmissionController extends Controller
      */
     public function destroy(Admission $admission)
     {
-        //
+        $admission->delete();
+        return ResponseHelper::success("Admission deleted successfully");
     }
 }

@@ -61,6 +61,7 @@ class GuestController extends Controller
                 'genderId' => $guest->gender_id,
                 'genderName' => optional($guest->gender)->gender_name ?? null,
                 'foodPreferenceName' => optional($guest->foodPreference)->food_preference_name ?? null,
+                'isAttending' => $guest->is_attending,
                 'created_at' => $guest->created_at,
                 'updated_at' => $guest->updated_at,
             ];
@@ -124,7 +125,8 @@ class GuestController extends Controller
      */
     public function update(UpdateGuestRequest $request, Guest $guest)
     {
-        //
+        $guest->update($request->validated());
+        return ResponseHelper::success("Guest Updated successfully", $guest);
     }
 
     /**
@@ -132,6 +134,7 @@ class GuestController extends Controller
      */
     public function destroy(Guest $guest)
     {
-        //
+        $guest->delete();
+        return ResponseHelper::success("Guest deleted successfully");
     }
 }

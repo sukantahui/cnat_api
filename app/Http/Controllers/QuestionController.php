@@ -21,32 +21,28 @@ class QuestionController extends Controller
         $questions = Question::all();
         return ResponseHelper::success("Questions fetched successfully", QuestionResource::collection($questions));
     }
-    
-  
+
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreQuestionRequest $request)
     {
         $question = DB::transaction(function () use ($request) {
-            $data=$request->validated();
-            $question=Question::create($data);
+            $data = $request->validated();
+            $question = Question::create($data);
             return $question;
         });
 
-        
+
         return ResponseHelper::success("Question created successfully", new QuestionResource($question));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($questionId)
+    public function show(Question $question)
     {
-        $question = Question::find($questionId);
-        if (!$question) {
-            return ResponseHelper::error("Question not found", 404);
-        }
         return ResponseHelper::success("Question fetched successfully", new QuestionResource($question));
     }
 
@@ -75,15 +71,10 @@ class QuestionController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Question $question)
-{
-    $question = Question::find($question->id);
+    {
+        $question->delete();
 
-    if (!$question) {
-        return ResponseHelper::error("Question not found", 404);
+        return ResponseHelper::success("Question deleted successfully");
     }
-
-    $question->delete();
-
-    return ResponseHelper::success("Question deleted successfully");
 }
-}
+//
