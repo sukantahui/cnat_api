@@ -66,12 +66,14 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::controller(GuestController::class)->prefix('guests')->group(function () {
         Route::get('/', 'index');
-        Route::get('/{id}', 'show');
+        Route::get('/{guest}', 'show');
+        Route::get('/search/{year}', 'search');
         Route::post('/', 'store');
         Route::put('/', 'edit');
         Route::put('/{guest}','update');
         Route::delete('/{guest}', 'destroy');
     });
+    
 
     Route::controller(StudentController::class)->prefix('students')->group(function () {
         Route::post('/basic', 'storeBasic'); //custom

@@ -52,12 +52,15 @@ class GuestController extends Controller
         $guests = $guests->map(function ($guest) {
             return [
                 'id' => $guest->id,
+                'year' => $guest->year,
                 'token' => $guest->token,
                 'guestName' => $guest->guest_name,
                 'mobile' => $guest->mobile,
                 'mobileMasked' => $this->maskMobile($guest->mobile),
                 'wpNumber' => $guest->wp_number,
                 'wpNumberMasked' => $this->maskMobile($guest->wp_number),
+                'email' => $guest->email,
+                'address' => $guest->address,
                 'genderId' => $guest->gender_id,
                 'genderName' => optional($guest->gender)->gender_name ?? null,
                 'foodPreferenceName' => optional($guest->foodPreference)->food_preference_name ?? null,
@@ -104,10 +107,15 @@ class GuestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Guest $guest)
     {
-        $guest = Guest::findOrFail($id);
+        
         return ResponseHelper::success("Guest retrieved successfully", new GuestResource($guest));
+    }
+    public function search($year)
+    {
+        $guest = Guest::where('year', $year)->get();
+        return ResponseHelper::success("Guest retrieved successfully", GuestResource::collection($guest));
     }
 
     /**

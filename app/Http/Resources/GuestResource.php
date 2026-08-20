@@ -18,6 +18,7 @@ class GuestResource extends JsonResource
         $genderName = Gender::find($this->gender_id)->gender_name;
         return [
             'guestId' => $this->id,
+            'year' => $this->year,
             'token' => $this->token,
             'guestName' => $this->guest_name,
             'mobileMasked' => $this->maskMobile($this->mobile),
@@ -30,7 +31,7 @@ class GuestResource extends JsonResource
             'genderName' => $genderName,
             'foodPreferenceId' => $this->food_preference_id,
             'foodPreferenceName' => FoodPreference::find($this->food_preference_id)->food_preference_name,
-            'isPresent' => $this->is_present,
+            'isAttending' => $this->is_attending,
             'comment' => $this->comment,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,   
