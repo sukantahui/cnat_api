@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guest;
 use App\Http\Requests\StoreGuestRequest;
+use App\Http\Requests\SearchGuestRequest;
 use App\Http\Requests\UpdateGuestRequest;
 use App\Helper\ResponseHelper;
 use App\Http\Resources\GuestResource;
@@ -17,15 +18,16 @@ class GuestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index()
-    // {
-    //     $guests = Guest::with(['gender', 'foodPreference'])->get();
-    //     if ($guests->isEmpty()) {
-    //   !      return ResponseHelper::error("No guests found", null, statusCode: 404);
-    //     }
+    public function index_pagination(Request $request)
+    {
+         $perPage = $request->integer('per_page', 10); // Default to 10 if not provided
+         $guests = Guest::orderBy('guest_name')->paginate($perPage);
 
-    //     return ResponseHelper::success("Guests retrieved successfully", GuestResource::collection($guests));
-    // }
+         return $this->success(
+            GuestResource::collection($guests),
+            "Guests retrieved successfully",
+         );
+    }
 
     private function maskMobile($mobile)
     {
@@ -112,12 +114,23 @@ class GuestController extends Controller
         
         return ResponseHelper::success("Guest retrieved successfully", new GuestResource($guest));
     }
-    public function search($year)
+    public function search(SearchGuestRequest $request)
     {
-        $guest = Guest::where('year', $year)->get();
-        return ResponseHelper::success("Guest retrieved successfully", GuestResource::collection($guest));
-    }
+        $results = Guest::query()
+            ->where(function($query)use($request){
+                $query->where('guest_name', 'like', "%{$request->key}%")
+                    ->orWhere('year', 'like',"%{$request->key}%")
+                    ->orWhere('mobile', 'like',"%{$request->key}%");
+            })
+            ->orderBy('guest_name')
+            ->paginate($request->integer('per_page', 20));
 
+        return $this->success(
+            GuestResource::collection($results),
+            'Search completed successfully.'
+        );
+    }
+    
     /**
      * Show the form for editing the specified resource.
      */

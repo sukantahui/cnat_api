@@ -66,8 +66,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::controller(GuestController::class)->prefix('guests')->group(function () {
         Route::get('/', 'index');
+        Route::get('/pagination', 'index_pagination');
         Route::get('/{guest}', 'show');
-        Route::get('/search/{year}', 'search');
+        Route::get('/search/any', 'search');
         Route::post('/', 'store');
         Route::put('/', 'edit');
         Route::put('/{guest}','update');

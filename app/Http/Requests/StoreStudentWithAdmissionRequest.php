@@ -203,6 +203,11 @@ class StoreStudentWithAdmissionRequest extends BaseRequest
                 'exists:course_statuses,id',
             ],
 
+            'admission.fee_modes_id' => [
+                'required',
+                'exists:fee_modes,id',
+            ],
+
             'admission.course_fees' => [
                 'nullable',
                 'integer',
@@ -267,6 +272,9 @@ class StoreStudentWithAdmissionRequest extends BaseRequest
 
             'admission.course_status_id.required' => 'Course status is required.',
             'admission.course_status_id.exists' => 'Selected course status is invalid.',
+
+            'admission.fee_modes_id.required' => 'Fee mode is required.',
+            'admission.fee_modes_id.exists' => 'Selected fee mode is invalid.',
 
             'admission.admission_date.required' => 'Admission date is required.',
 
