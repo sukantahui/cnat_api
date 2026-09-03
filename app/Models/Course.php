@@ -14,6 +14,10 @@ class Course extends Model
     {
         return $this->hasMany(CourseDetail::class);
     }
+    public function feeMode()
+    {
+        return $this->belongsTo(FeeMode::class, 'fee_modes_id');
+    }
     public function admissions()
     {
         return $this->hasMany(Admission::class);

@@ -29,7 +29,6 @@ use App\Http\Controllers\CycleCalendarController;
 
 
 Route::controller(AuthController::class)->group(function () {
-    Route::post('register', 'register');
     Route::post('login', 'login')->name('login');
 });
 
@@ -64,6 +63,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     // Tier 1: Administration & System (Admin, Developer, Owner)
     // -------------------------------------------------------------------------
     Route::middleware('role:Admin,Developer,Owner')->group(function () {
+        // User & Role Management (Admin Only)
+        Route::controller(AuthController::class)->prefix('users')->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'register');
+        });
+
         // User roles lookup
         Route::get('user-types', [App\Http\Controllers\UserTypeController::class, 'index']);
 
@@ -85,9 +90,22 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 
     // -------------------------------------------------------------------------
+    // Tier 1.5: Academic & Admissions Management (Admin, Developer, Owner, Manager)
+    // -------------------------------------------------------------------------
+    Route::middleware('role:Admin,Developer,Owner,Manager')->group(function () {
+        // Register Student With Course Admission & Set Course Fees
+        Route::controller(AdmissionController::class)->prefix('admissions')->group(function () {
+            Route::post('/admissionWithStudent', 'storeStudentWithAdmission');
+        });
+    });
+
+    // -------------------------------------------------------------------------
     // Tier 2: Academic Staff (Admin, Developer, Owner, Manager, Teacher)
     // -------------------------------------------------------------------------
     Route::middleware('role:Admin,Developer,Owner,Manager,Teacher')->group(function () {
+        // Fee Modes
+        Route::get('fee-modes', [App\Http\Controllers\FeeModeController::class, 'index']);
+
         // Students
         Route::controller(StudentController::class)->prefix('students')->group(function () {
             Route::post('/basic', 'storeBasic');
@@ -96,10 +114,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         });
         Route::apiResource('students', StudentController::class);
 
-        // Admissions
-        Route::controller(AdmissionController::class)->prefix('admissions')->group(function () {
-            Route::post('/admissionWithStudent', 'storeStudentWithAdmission');
-        });
+        // Admissions resource
+        Route::get('admissions/{admissionId}/ledger', [AdmissionController::class, 'ledger']);
         Route::apiResource('admissions', AdmissionController::class);
 
         // Courses
@@ -157,9 +173,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 
     // -------------------------------------------------------------------------
-    // Tier 3: Event & Inquiries (Admin, Developer, Owner, Manager, Manager Sale)
+    // Tier 3: Event & Inquiries (Admin, Developer, Owner, Manager, Teacher, Manager Sale)
     // -------------------------------------------------------------------------
-    Route::middleware('role:Admin,Developer,Owner,Manager,Manager Sale')->group(function () {
+    Route::middleware('role:Admin,Developer,Owner,Manager,Teacher,Manager Sale')->group(function () {
         Route::controller(GuestController::class)->prefix('guests')->group(function () {
             Route::get('/', 'index');
             Route::get('/pagination', 'index_pagination');
@@ -214,6 +230,7 @@ Route::group(array('prefix' => 'dev'), function () {
         Route::post('/', 'store')->middleware('throttle:3,1');
     });
 });
+
 
 
 

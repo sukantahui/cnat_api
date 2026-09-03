@@ -14,14 +14,7 @@ class CourseWithDetailsSeeder extends Seeder
     public function run(): void
     {
          //adding courses
-        $course = Course::create([
-            'course_code' => 'RDBMS',
-            'course_name' => 'Relational Database Management System',
-            'fee_modes_id' => 2,
-            'course_fees' => 7000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 8000,
-        ]);
+        $course = Course::create(['course_code' => 'RDBMS', 'course_name' => 'Relational Database Management System']);
         $course->details()->createMany([
             [
                 'topic_title' => 'Introduction to Database Systems',
@@ -109,14 +102,7 @@ class CourseWithDetailsSeeder extends Seeder
             ],
         ]);
 
-        $course = Course::create([
-            'course_code' => 'JAVA',
-            'course_name' => 'JAVA Web Technologies',
-            'fee_modes_id' => 2,
-            'course_fees' => 8000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 9000,
-        ]);
+        $course = Course::create(['course_code' => 'JAVA', 'course_name' => 'JAVA Web Technologies']);
         $course->details()->createMany([
             [
                 'topic_title' => 'Introduction to Advanced Java',
@@ -217,14 +203,7 @@ class CourseWithDetailsSeeder extends Seeder
                 'sequence' => 14,
             ],
         ]);
-        $course = Course::create([
-            'course_code' => 'Tally01',
-            'course_name' => 'Tally Prime',
-            'fee_modes_id' => 2,
-            'course_fees' => 4500,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 5000,
-        ]);
+        $course = Course::create(['course_code' => 'Tally01', 'course_name' => 'Tally Prime']);
         $course->details()->createMany([
             [
                 'topic_title' => 'Introduction to Accounting and Tally Prime',
@@ -332,14 +311,7 @@ class CourseWithDetailsSeeder extends Seeder
                 'sequence' => 15,
             ],
         ]);
-        $course = Course::create([
-            'course_code' => 'Excel-01',
-            'course_name' => 'Advance Excel',
-            'fee_modes_id' => 2,
-            'course_fees' => 7000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 8000,
-        ]);
+        $course = Course::create(['course_code' => 'Excel-01', 'course_name' => 'Advance Excel']);
         $course->details()->createMany([
             [
                 'topic_title' => 'Introduction to Excel Environment',
@@ -448,14 +420,7 @@ class CourseWithDetailsSeeder extends Seeder
             ],
         ]);
 
-        $course = Course::create([
-            'course_code' => 'GST',
-            'course_name' => 'GST',
-            'fee_modes_id' => 2,
-            'course_fees' => 8000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 9000,
-        ]);
+        $course = Course::create(['course_code' => 'GST', 'course_name' => 'GST']);
         // 📘 Add detailed topics for the course
         $course->details()->createMany([
             [
@@ -495,14 +460,7 @@ class CourseWithDetailsSeeder extends Seeder
             ],
         ]);
 
-        $course = Course::create([
-            'course_code' => 'C01',
-            'course_name' => 'C Programming',
-            'fee_modes_id' => 2,
-            'course_fees' => 6000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 7000,
-        ]);
+        $course = Course::create(['course_code' => 'C01', 'course_name' => 'C Programming']);
         // 📘 Add topic details for this course
         $course->details()->createMany([
             [
@@ -560,10 +518,6 @@ class CourseWithDetailsSeeder extends Seeder
         $course = Course::create([
             'course_code' => 'P01',
             'course_name' => 'Python Programming',
-            'fee_modes_id' => 1,
-            'course_fees' => 8000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 9000,
         ]);
 
         // 📘 Add topic details for Python Programming
@@ -629,10 +583,6 @@ class CourseWithDetailsSeeder extends Seeder
         $course = Course::create([
             'course_code' => 'J01',
             'course_name' => 'Basic Java Programming',
-            'fee_modes_id' => 2,
-            'course_fees' => 7000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 8000,
         ]);
 
         // 📘 Add topic details for this course
@@ -698,10 +648,6 @@ class CourseWithDetailsSeeder extends Seeder
         $course = Course::create([
             'course_code' => 'J02',
             'course_name' => 'Advance Java',
-            'fee_modes_id' => 1,
-            'course_fees' => 15000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 18000,
         ]);
 
         // 📘 Add topic details for this course
@@ -809,10 +755,6 @@ class CourseWithDetailsSeeder extends Seeder
         $course = Course::create([
             'course_code' => 'O01',
             'course_name' => 'Office Procedure and Computer Fundamentals',
-            'fee_modes_id' => 1,
-            'course_fees' => 6500,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 8000,
         ]);
 
         // 📘 Add detailed topics for this course
@@ -907,10 +849,6 @@ class CourseWithDetailsSeeder extends Seeder
         $course = Course::create([
             'course_code' => 'DS01',
             'course_name' => 'Data Structure and Algorithm',
-            'fee_modes_id' => 1,
-            'course_fees' => 16000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 19500,
         ]);
 
         // 📘 Add detailed topics for this course
@@ -1009,11 +947,7 @@ class CourseWithDetailsSeeder extends Seeder
         ]);
         $course = Course::create([
             'course_code' => 'C06',
-            'course_name' => 'Full Stack Development',
-            'fee_modes_id' => 1,
-            'course_fees' => 35000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 42000,
+            'course_name' => 'Full Stack Development'
         ]);
 
         $course->details()->createMany([
@@ -1132,14 +1066,7 @@ class CourseWithDetailsSeeder extends Seeder
         ]);
 
         //Diploma in Computer Application
-        $course = Course::create([
-            'course_code' => 'DCA',
-            'course_name' => 'Diploma in Computer Application',
-            'fee_modes_id' => 1,
-            'course_fees' => 18000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 21000,
-        ]);
+        $course = Course::create(['course_code' => 'DCA', 'course_name' => 'Diploma in Computer Application']);
         $course->details()->createMany([
             [
                 'topic_title' => 'Computer Fundamentals',
@@ -1199,14 +1126,7 @@ class CourseWithDetailsSeeder extends Seeder
             ],
         ]);
 
-        $course = Course::create([
-            'course_code' => 'DFA',
-            'course_name' => 'Diploma in Financial Accounting',
-            'fee_modes_id' => 1,
-            'course_fees' => 15000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 17500,
-        ]);
+        $course = Course::create(['course_code' => 'DFA', 'course_name' => 'Diploma in Financial Accounting']);
 
         $course->details()->createMany([
             [
@@ -1253,14 +1173,7 @@ class CourseWithDetailsSeeder extends Seeder
             ],
         ]);
 
-        $course = Course::create([
-            'course_code' => 'AI01',
-            'course_name' => 'AI and Automation',
-            'fee_modes_id' => 1,
-            'course_fees' => 28000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 35000,
-        ]);
+        $course = Course::create(['course_code' => 'AI01', 'course_name' => 'AI and Automation']);
 
         $course->details()->createMany([
             [
@@ -1300,14 +1213,7 @@ class CourseWithDetailsSeeder extends Seeder
             ],
         ]);
 
-        $course = Course::create([
-            'course_code' => 'REACT01',
-            'course_name' => 'React Development',
-            'fee_modes_id' => 1,
-            'course_fees' => 16000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 19500,
-        ]);
+        $course = Course::create(['course_code' => 'REACT01', 'course_name' => 'React Development']);
 
         $course->details()->createMany([
             [
@@ -1354,14 +1260,7 @@ class CourseWithDetailsSeeder extends Seeder
             ],
         ]);
 
-        $course = Course::create([
-            'course_code' => 'WEBBOOT',
-            'course_name' => 'Web Development Bootcamp',
-            'fee_modes_id' => 1,
-            'course_fees' => 25000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 30000,
-        ]);
+        $course = Course::create(['course_code' => 'WEBBOOT', 'course_name' => 'Web Development Bootcamp']);
 
         $course->details()->createMany([
             [
@@ -1408,14 +1307,7 @@ class CourseWithDetailsSeeder extends Seeder
             ],
         ]);
 
-        $course = Course::create([
-            'course_code' => 'JS01',
-            'course_name' => 'JavaScript Basic',
-            'fee_modes_id' => 1,
-            'course_fees' => 8000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 10000,
-        ]);
+        $course = Course::create(['course_code' => 'JS01', 'course_name' => 'JavaScript Basic']);
 
         $course->details()->createMany([
             [
@@ -1455,14 +1347,7 @@ class CourseWithDetailsSeeder extends Seeder
             ],
         ]);
 
-        $course = Course::create([
-            'course_code' => 'JS02',
-            'course_name' => 'JavaScript Advance',
-            'fee_modes_id' => 1,
-            'course_fees' => 12000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 14500,
-        ]);
+        $course = Course::create(['course_code' => 'JS02', 'course_name' => 'JavaScript Advance']);
 
         $course->details()->createMany([
             [
@@ -1504,11 +1389,7 @@ class CourseWithDetailsSeeder extends Seeder
 
         $course = Course::create([
             'course_code' => 'ICSE_VIII_CS',
-            'course_name' => 'ICSE Class VIII Computer Studies',
-            'fee_modes_id' => 1,
-            'course_fees' => 12000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 14000,
+            'course_name' => 'ICSE Class VIII Computer Studies'
         ]);
 
         $course->details()->createMany([
@@ -1600,11 +1481,7 @@ class CourseWithDetailsSeeder extends Seeder
 
         $course = Course::create([
             'course_code' => 'ICSE_IX_CA',
-            'course_name' => 'ICSE Class IX Computer Applications',
-            'fee_modes_id' => 1,
-            'course_fees' => 14000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 16500,
+            'course_name' => 'ICSE Class IX Computer Applications'
         ]);
 
         $course->details()->createMany([
@@ -1698,11 +1575,7 @@ class CourseWithDetailsSeeder extends Seeder
 
         $course = Course::create([
             'course_code' => 'ICSE_X_CA',
-            'course_name' => 'ICSE Class X Computer Applications',
-            'fee_modes_id' => 1,
-            'course_fees' => 16000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 18500,
+            'course_name' => 'ICSE Class X Computer Applications'
         ]);
 
         $course->details()->createMany([
@@ -1794,11 +1667,7 @@ class CourseWithDetailsSeeder extends Seeder
 
         $course = Course::create([
             'course_code' => 'ISC_XI_CS',
-            'course_name' => 'ISC Class XI Computer Science',
-            'fee_modes_id' => 1,
-            'course_fees' => 18000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 21000,
+            'course_name' => 'ISC Class XI Computer Science'
         ]);
 
         $course->details()->createMany([
@@ -1890,11 +1759,7 @@ class CourseWithDetailsSeeder extends Seeder
 
         $course = Course::create([
             'course_code' => 'ISC_XII_CS',
-            'course_name' => 'ISC Class XII Computer Science',
-            'fee_modes_id' => 1,
-            'course_fees' => 20000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 24000,
+            'course_name' => 'ISC Class XII Computer Science'
         ]);
 
         $course->details()->createMany([
@@ -1986,11 +1851,7 @@ class CourseWithDetailsSeeder extends Seeder
 
         $course = Course::create([
             'course_code' => 'CBSE_XI_CS',
-            'course_name' => 'CBSE Class XI Computer Science (Python)',
-            'fee_modes_id' => 1,
-            'course_fees' => 18000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 21000,
+            'course_name' => 'CBSE Class XI Computer Science (Python)'
         ]);
 
         $course->details()->createMany([
@@ -2082,11 +1943,7 @@ class CourseWithDetailsSeeder extends Seeder
 
         $course = Course::create([
             'course_code' => 'CBSE_XII_CS',
-            'course_name' => 'CBSE Class XII Computer Science (Python + SQL)',
-            'fee_modes_id' => 1,
-            'course_fees' => 20000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 24000,
+            'course_name' => 'CBSE Class XII Computer Science (Python + SQL)'
         ]);
 
         $course->details()->createMany([
@@ -2178,11 +2035,7 @@ class CourseWithDetailsSeeder extends Seeder
 
         $course = Course::create([
             'course_code' => 'WBCHSE_XI_CS',
-            'course_name' => 'WBCHSE Class XI Computer Science',
-            'fee_modes_id' => 1,
-            'course_fees' => 15000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 18000,
+            'course_name' => 'WBCHSE Class XI Computer Science'
         ]);
 
         $course->details()->createMany([
@@ -2274,11 +2127,7 @@ class CourseWithDetailsSeeder extends Seeder
 
         $course = Course::create([
             'course_code' => 'WBCHSE_XII_CS',
-            'course_name' => 'WBCHSE Class XII Computer Science',
-            'fee_modes_id' => 1,
-            'course_fees' => 18000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 21000,
+            'course_name' => 'WBCHSE Class XII Computer Science'
         ]);
 
         $course->details()->createMany([
@@ -2370,11 +2219,7 @@ class CourseWithDetailsSeeder extends Seeder
 
         $course = Course::create([
             'course_code' => 'SCHOOL_CS',
-            'course_name' => 'School Computer',
-            'fee_modes_id' => 1,
-            'course_fees' => 500,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 600,
+            'course_name' => 'School Computer'
         ]);
 
         $course->details()->createMany([
@@ -2494,11 +2339,7 @@ class CourseWithDetailsSeeder extends Seeder
 
         $course = Course::create([
             'course_code' => 'FSD_101',
-            'course_name' => 'Full Stack Web Development (Beginner to Advanced)',
-            'fee_modes_id' => 1,
-            'course_fees' => 45000,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 52000,
+            'course_name' => 'Full Stack Web Development (Beginner to Advanced)'
         ]);
 
         $course->details()->createMany([
@@ -2619,11 +2460,7 @@ class CourseWithDetailsSeeder extends Seeder
         //office procedure
         $course = Course::create([
             'course_code' => 'OP01',
-            'course_name' => 'Office Procedure',
-            'fee_modes_id' => 1,
-            'course_fees' => 6500,
-            'fees_valid_up_to' => '2026-12-31',
-            'upcoming_fees' => 8000,
+            'course_name' => 'Office Procedure'
         ]);
 
         $course->details()->createMany([

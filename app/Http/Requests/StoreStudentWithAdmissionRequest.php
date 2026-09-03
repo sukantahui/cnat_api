@@ -35,6 +35,11 @@ class StoreStudentWithAdmissionRequest extends BaseRequest
             $student['gender_id'] = 1;
         }
 
+        // Allow empty blood group to become null if not available
+        if (empty($student['blood_group'])) {
+            $student['blood_group'] = null;
+        }
+
         $this->merge([
             'student' => $student,
             'admission' => $this->input('admission', []),
@@ -148,8 +153,7 @@ class StoreStudentWithAdmissionRequest extends BaseRequest
             'student.whatsapp' => [
                 'required',
                 'digits:10',
-                'unique:students,whatsapp',
-            ],
+                            ],
 
             'student.address' => [
                 'nullable',
@@ -224,6 +228,12 @@ class StoreStudentWithAdmissionRequest extends BaseRequest
                 'date',
                 'after_or_equal:admission.admission_date',
             ],
+            'initial_fee' => ['nullable', 'array'],
+            'initial_fee.amount_paid' => ['nullable', 'numeric', 'min:0'],
+            'initial_fee.payment_date' => ['nullable', 'date'],
+            'initial_fee.payment_mode' => ['nullable', 'string', 'max:50'],
+            'initial_fee.receipt_no' => ['nullable', 'string', 'max:255'],
+            'initial_fee.remarks' => ['nullable', 'string', 'max:255'],
         ];
     }
 
@@ -249,8 +259,7 @@ class StoreStudentWithAdmissionRequest extends BaseRequest
 
             'student.whatsapp.required' => 'WhatsApp number is required.',
             'student.whatsapp.digits' => 'WhatsApp number must be exactly 10 digits.',
-            'student.whatsapp.unique' => 'WhatsApp number already exists.',
-
+            
             'student.phone1.unique' => 'Phone 1 already exists.',
             'student.phone2.unique' => 'Phone 2 already exists.',
             'student.phone2.different' => 'Phone 2 must be different from Phone 1.',

@@ -247,9 +247,10 @@ The system enforces a **One User, One Role** architecture. Every user has exactl
 ### 3.1 Role Hierarchy & Tiers
 | Tier | Authorized Roles | Access Scope |
 | :--- | :--- | :--- |
-| **Tier 1: Administration** | `Admin`, `Developer`, `Owner` | Full system access, staff/employees, departments, role definitions. |
+| **Tier 1: Administration** | `Admin`, `Developer`, `Owner` | Full system access, staff/employees, departments, user provisioning & role governance. |
 | **Tier 2: Academic Staff** | `Admin`, `Developer`, `Owner`, `Manager`, `Teacher` | Students, admissions, courses, curriculum (subjects/chapters/topics), exams (questions/options/results), receipts. |
 | **Tier 3: Events & Operations**| `Admin`, `Developer`, `Owner`, `Manager`, `Manager Sale` | Guest invitations, RSVPs, attendance, and visitor inquiries. |
+| **Tier 4: Student** | `Student` | Student self-service, enrolled courses, certificates, exam result viewing. |
 | **Self-Service / Personal** | *Any Authenticated User* | Profile retrieval (`/api/me`), token logout, and personal Menstrual Cycle Calendar. |
 
 ### 3.2 Enforcement Mechanism
@@ -275,13 +276,14 @@ All routes reside under `/api` and return standardized JSON responses.
 ### 4.1 Authentication & User Roles (`/api`)
 | Method | URI | Auth & Role | Controller & Method | Description |
 | :--- | :--- | :---: | :--- | :--- |
-| `POST` | `/register` | Public | `Api\AuthController@register` | Registers new user account with employee relation. |
 | `POST` | `/login` | Public (`name:login`) | `Api\AuthController@login` | Validates credentials; issues Sanctum Bearer token. |
 | `GET` | `/me` | Any Authenticated | `Api\AuthController@getCurrentUser` | Returns current user profile with direct `role` attribute. |
 | `GET` | `/me2` | Any Authenticated | `Api\AuthController@getCurrentUser2` | Returns raw authenticated user object. |
 | `POST` | `/logout` | Any Authenticated | `Api\AuthController@logout` | Revokes current active access token. |
 | `GET` | `/revokeAll` | Any Authenticated | `Api\AuthController@revoke_all` | Revokes all issued tokens for the authenticated user. |
-| `GET` | `/user-types` | `role:Admin,Developer,Owner` | `UserTypeController@index` | Lists all 7 available roles in the system. |
+| `GET` | `/users` | `role:Admin,Developer,Owner` | `Api\AuthController@index` | Lists all registered users with roles and details. |
+| `POST` | `/users` | `role:Admin,Developer,Owner` | `Api\AuthController@register` | Admin creates user account and assigns role. |
+| `GET` | `/user-types` | `role:Admin,Developer,Owner` | `UserTypeController@index` | Lists all 8 available roles (including Student). |
 
 ---
 

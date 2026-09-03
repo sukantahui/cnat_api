@@ -24,6 +24,10 @@ class StoreCourseBasicRequest extends BaseRequest
         return [
             'course_code' => 'required|string|max:10|unique:courses,course_code',
             'course_name' => 'required|string|max:255|unique:courses,course_name',
+            'course_fees' => 'nullable|integer|min:0',
+            'fee_modes_id' => 'nullable|integer|exists:fee_modes,id',
+            'fees_valid_up_to' => 'nullable|date',
+            'upcoming_fees' => 'nullable|integer|min:0',
         ];
     }
     

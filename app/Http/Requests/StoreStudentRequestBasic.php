@@ -28,10 +28,10 @@ class StoreStudentRequestBasic extends BaseRequest
         return [
             // 'registration_number' => 'required|string|max:20|unique:students,registration_number',
             'student_name'        => 'required|string|max:100',
-            'nickname'            => 'required|string|max:100|unique:students,nickname',
+            'nickname'            => 'nullable|string|max:100|unique:students,nickname',
             'email'               => 'nullable|email|max:150|unique:students,email',
             'dob'                 => 'nullable|date|before:today',
-            'blood_group'         => 'nullable|string|max:3',
+            'blood_group'         => 'nullable|string|max:5',
             'father_name'         => 'nullable|string|max:100',
             'mother_name'         => 'nullable|string|max:100',
             'guardian_name'       => 'nullable|string|max:100',
@@ -52,7 +52,7 @@ class StoreStudentRequestBasic extends BaseRequest
                 'different:phone1'
             ],
 
-            'whatsapp'    => 'required|digits:10|unique:students,whatsapp',
+            'whatsapp'    => 'required|digits:10',
             'address'     => 'nullable|string|max:100',
             'district_id' => 'required|exists:districts,id',
             'city'        => 'nullable|string|max:100',
@@ -103,3 +103,4 @@ class StoreStudentRequestBasic extends BaseRequest
         }
     }
 }
+

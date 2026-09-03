@@ -19,7 +19,8 @@ class UserTypeSeeder extends Seeder
             ['user_type_name' => 'Manager'],
             ['user_type_name' => 'Teacher'],
             ['user_type_name' => 'Manager Sale'],
-            ['user_type_name' => 'Worker']
+            ['user_type_name' => 'Worker'],
+            ['user_type_name' => 'Student']
         ]);
     }
 }

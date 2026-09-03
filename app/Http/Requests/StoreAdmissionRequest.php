@@ -55,6 +55,12 @@ class StoreAdmissionRequest extends BaseRequest
             'completion_date' => [
                 'nullable', 'date_format:Y-m-d', 'after_or_equal:admission_date'
             ],
+            'initial_fee' => ['nullable', 'array'],
+            'initial_fee.amount_paid' => ['nullable', 'numeric', 'min:0'],
+            'initial_fee.payment_date' => ['nullable', 'date'],
+            'initial_fee.payment_mode' => ['nullable', 'string', 'max:50'],
+            'initial_fee.receipt_no' => ['nullable', 'string', 'max:255'],
+            'initial_fee.remarks' => ['nullable', 'string', 'max:255'],
         ];
     }
 
@@ -84,5 +90,22 @@ class StoreAdmissionRequest extends BaseRequest
             'course_fees.min' => 'Course fee cannot be negative.',
             'completion_date.after_or_equal' => 'Completion date cannot be before admission date.'
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge(
+            $this->convertCamelToSnake($this->all())
+        );
+
+        if (!$this->has('fee_modes_id') || empty($this->fee_modes_id)) {
+            $this->merge(['fee_modes_id' => 1]);
+        }
+        if (!$this->has('course_status_id') || empty($this->course_status_id)) {
+            $this->merge(['course_status_id' => 1]);
+        }
+        if (!$this->has('admission_date') || empty($this->admission_date)) {
+            $this->merge(['admission_date' => date('Y-m-d')]);
+        }
     }
 }

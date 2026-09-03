@@ -28,10 +28,10 @@ class StoreStudentRequest extends BaseRequest
         return [
             // 'registration_number' => 'required|string|max:20|unique:students,registration_number',
             'student_name'        => 'required|string|max:100',
-            'nickname'            => 'required|string|max:100|unique:students,nickname',
-            'email'               => 'required|email|max:150|unique:students,email',
-            'dob'                 => 'required|date|before:today',
-            'blood_group'         => 'required|string|max:3',
+            'nickname'            => 'nullable|string|max:100|unique:students,nickname',
+            'email'               => 'nullable|email|max:150|unique:students,email',
+            'dob'                 => 'nullable|date|before:today',
+            'blood_group'         => 'nullable|string|max:5',
             'father_name'         => 'nullable|string|max:100',
             'mother_name'         => 'nullable|string|max:100',
             'guardian_name'       => 'nullable|string|max:100',
@@ -52,7 +52,7 @@ class StoreStudentRequest extends BaseRequest
                 'different:phone1'
             ],
 
-            'whatsapp'    => 'nullable|digits:10|unique:students,whatsapp',
+            'whatsapp'    => 'nullable|digits:10',
             'address'     => 'nullable|string|max:100',
             'district_id' => 'required|exists:districts,id',
             'city'        => 'nullable|string|max:100',
@@ -82,9 +82,27 @@ class StoreStudentRequest extends BaseRequest
             $this->convertCamelToSnake($this->all())
         );
 
+        $merges = [];
+        if ($this->has('email') && trim((string)$this->email) === '') {
+            $merges['email'] = null;
+        }
+        if ($this->has('dob') && trim((string)$this->dob) === '') {
+            $merges['dob'] = null;
+        }
+        if ($this->has('nickname') && trim((string)$this->nickname) === '') {
+            $merges['nickname'] = null;
+        }
+        if ($this->has('blood_group') && trim((string)$this->blood_group) === '') {
+            $merges['blood_group'] = null;
+        }
+        if (!empty($merges)) {
+            $this->merge($merges);
+        }
+
         // Ensure inforce has a default value if not set
         if (!$this->has('inforce')) {
             $this->merge(['inforce' => true]);
         }
     }
 }
+

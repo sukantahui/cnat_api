@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateStudentRequest extends FormRequest
+class UpdateStudentRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,66 +22,72 @@ class UpdateStudentRequest extends FormRequest
     public function rules(): array
     {
         $student = $this->route('student');
+        if (is_object($student)) {
+            $studentId = $student->id;
+        } else {
+            $studentId = $student;
+        }
 
         return [
             'registration_number' => [
+                'sometimes',
                 'required',
                 'string',
                 'max:20',
-                Rule::unique('students')->ignore($student),
+                Rule::unique('students', 'registration_number')->ignore($studentId),
             ],
-            'student_name' => 'required|string|max:100',
+            'student_name' => 'sometimes|required|string|max:100',
 
             'nickname' => [
-                'required',
+                'nullable',
                 'string',
                 'max:100',
-                Rule::unique('students')->ignore($student),
+                Rule::unique('students', 'nickname')->ignore($studentId),
             ],
 
             'email' => [
-                'required',
+                'nullable',
                 'email',
                 'max:150',
-                Rule::unique('students')->ignore($student),
+                Rule::unique('students', 'email')->ignore($studentId),
             ],
 
-            'dob' => 'required|date',
-            'blood_group' => 'required|string|max:3',
+            'dob' => 'nullable|date',
+            'blood_group' => 'nullable|string|max:5',
 
             'father_name' => 'nullable|string|max:100',
             'mother_name' => 'nullable|string|max:100',
 
             'guardian_name' => 'nullable|string|max:100',
             'guardian_relation' => 'nullable|string|max:50',
-            'guardian_phone' => 'nullable|string|max:11',
+            'guardian_phone' => 'nullable|string|max:15',
 
             'phone1' => [
                 'nullable',
                 'string',
-                'max:11',
-                Rule::unique('students')->ignore($student),
+                'max:15',
+                Rule::unique('students', 'phone1')->ignore($studentId),
             ],
 
             'phone2' => [
                 'nullable',
                 'string',
-                'max:11',
-                Rule::unique('students')->ignore($student),
+                'max:15',
+                Rule::unique('students', 'phone2')->ignore($studentId),
             ],
 
             'whatsapp' => [
-                'nullable',
-                'string',
-                'max:10',
-                Rule::unique('students')->ignore($student),
-            ],
+                'sometimes',
+                'required',
+                'digits:10',
+                            ],
 
-            'address' => 'nullable|string|max:100',
-            'district_id' => 'required|exists:districts,id',
+            'address' => 'nullable|string|max:255',
+            'district_id' => 'nullable|exists:districts,id',
             'city' => 'nullable|string|max:100',
-            'pin' => 'nullable|string|max:6',
-            'gender_id' => 'required|exists:genders,id',
+            'pin' => 'nullable|string|max:10',
+            'gender_id' => 'nullable|exists:genders,id',
         ];
     }
 }
+

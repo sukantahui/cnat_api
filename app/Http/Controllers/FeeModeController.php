@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FeeMode;
+use App\Helper\ResponseHelper;
 use App\Http\Requests\StoreFeeModeRequest;
 use App\Http\Requests\UpdateFeeModeRequest;
 
@@ -13,7 +14,8 @@ class FeeModeController extends Controller
      */
     public function index()
     {
-        //
+        $feeModes = FeeMode::all();
+        return ResponseHelper::success("Fee modes retrieved successfully", $feeModes);
     }
 
     /**

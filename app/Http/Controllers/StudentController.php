@@ -127,7 +127,7 @@ class StudentController extends Controller
     {
         $student->update($request->validated());
 
-        return ResponseHelper::success("Student Updated successfully", $student);
+        return ResponseHelper::success("Student Updated successfully", new StudentResource($student));
     }
 
     /**

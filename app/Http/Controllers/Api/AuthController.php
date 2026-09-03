@@ -17,34 +17,46 @@ use Illuminate\Support\Facades\DB;
 class AuthController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
+    /**
+     * Display a listing of all users (Admin only).
      */
-
-
-    public function register(RegisterRequest $request)
+    public function index()
     {
-        try{
-            $user=User::create([
-                'email' => $request->email,
-                'password' =>  Hash::make($request->password),
-                'user_type_id' => $request->user_type_id,
-                'employee_id' => $request->employee_id,
-
-            ]);
-
-
-
-            if($user){
-                // Optionally, generate an authentication token for the user
-                $token = $user->createToken('auth_token')->plainTextToken;
-                return ResponseHelper::success(array('user'=>new UserResource($user),'token'=>$token), 'User registered successfully',201);
-            }else{
-                return ResponseHelper::error('Failed to register user');
-            }
-        }catch(Exception $e){
+        try {
+            $users = User::with(['userType', 'employee.department', 'employee.designation', 'student'])->orderBy('id', 'desc')->get();
+            return ResponseHelper::success('Users retrieved successfully', UserResource::collection($users));
+        } catch (Exception $e) {
             return ResponseHelper::error($e->getMessage());
         }
+    }
 
+    /**
+     * Store a newly created user (Admin provisioned).
+     */
+    public function register(RegisterRequest $request)
+    {
+        try {
+            $user = User::create([
+                'email'        => $request->email,
+                'password'     => Hash::make($request->password),
+                'user_type_id' => $request->user_type_id,
+                'employee_id'  => $request->employee_id,
+                'student_id'   => $request->student_id,
+            ]);
+
+            if ($user) {
+                $user->load(['userType', 'employee.department', 'employee.designation', 'student']);
+                return ResponseHelper::success(
+                    'User created successfully',
+                    ['user' => new UserResource($user)],
+                    201
+                );
+            } else {
+                return ResponseHelper::error('Failed to register user');
+            }
+        } catch (Exception $e) {
+            return ResponseHelper::error($e->getMessage());
+        }
     }
 
     public function login(LoginRequest $request){

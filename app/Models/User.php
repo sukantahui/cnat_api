@@ -56,6 +56,7 @@ class User extends Authenticatable
         'password',
         'user_type_id',
         'employee_id',
+        'student_id',
     ];
 
     /**
@@ -82,6 +83,12 @@ class User extends Authenticatable
     public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class);
+    }
+
+    // Relationship with Student
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class);
     }
 
     /**

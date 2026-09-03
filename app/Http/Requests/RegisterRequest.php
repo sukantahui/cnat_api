@@ -22,25 +22,26 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|confirmed',
-            'employee_id' => 'required|exists:employees,id',
+            'email'        => 'required|string|max:200|unique:users,email',
+            'password'     => 'required|min:8|confirmed',
             'user_type_id' => 'required|exists:user_types,id',
+            'employee_id'  => 'nullable|exists:employees,id',
+            'student_id'   => 'nullable|exists:students,id',
         ];
     }
+
     public function messages(): array
     {
         return [
-            'email.required' => 'Email is required',
-            'email.email' => 'Email must be a valid email address',
-            'email.unique' => 'Email is already registered',
-            'password.required' => 'Password is required',
-            'password.min' => 'Password must be at least 8 characters long',
-            'password.confirmed' => 'Password confirmation does not match',
-            'employee_id.required' => 'Employee ID is required',
-            'employee_id.exists' => 'Employee ID does not exist',
-            'user_type_id.required' => 'User Type ID is required',
-            'user_type_id.exists' => 'User Type ID does not exist',
+            'email.required'        => 'Login username or email is required',
+            'email.unique'          => 'This username or email is already registered',
+            'password.required'     => 'Password is required',
+            'password.min'          => 'Password must be at least 8 characters long',
+            'password.confirmed'    => 'Password confirmation does not match',
+            'user_type_id.required' => 'User role is required',
+            'user_type_id.exists'   => 'Selected role does not exist',
+            'employee_id.exists'    => 'Selected employee does not exist',
+            'student_id.exists'     => 'Selected student does not exist',
         ];
     }
 }

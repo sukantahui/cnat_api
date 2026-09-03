@@ -29,6 +29,8 @@ class AdmissionResource extends BaseResource
                 $this->whenLoaded('courseStatus')
             ),
 
+            'feeModesId' => $this->fee_modes_id,
+            'feeModeName' => $this->fee_modes_id == 1 ? 'Monthly' : 'Course Fee / Lumpsum',
             'courseFees' => $this->course_fees,
             'admissionDate' => $this->admission_date,
             'completionDate' => $this->completion_date,
