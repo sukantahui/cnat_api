@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 
 use App\Http\Controllers\AdmissionController;
@@ -19,7 +19,6 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\SimpleFeesReceiptController;
-use App\Http\Controllers\CycleCalendarController;
 
 
 
@@ -182,21 +181,41 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     // });
     Route::apiResource('fees-receipts', SimpleFeesReceiptController::class);
 
-    // Menstrual Cycle Calendar (auth:sanctum - user_id identified)
-    Route::prefix('cycle')->controller(CycleCalendarController::class)->group(function () {
-        Route::get('me',               'me');               // Load or auto-create profile
-        Route::put('me',               'updateProfile');    // Update health profile + settings
-        Route::post('period',          'addPeriodDate');    // Add one period start date
-        Route::put('period/{date}',    'editPeriodDate');   // Edit one period start date
-        Route::delete('period/{date}', 'deletePeriodDate'); // Delete one period start date
-        Route::post('periods/sync',    'syncPeriodDates');  // Bulk replace all period dates
-        Route::delete('periods',       'clearAllPeriods');  // Clear all period dates
-    });
 
-
-
-    
 });
+
+
+/
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Menstrual Cycle Calendar — Public Routes (phone-number identified, no auth)
+// ─────────────────────────────────────────────────────────────────────────────
+Route::prefix('cycle')->controller(CycleCalendarController::class)->group(function () {
+    // Identify or create user by phone — returns full profile + period dates
+    Route::post('/identify', 'identifyOrCreate');
+
+    // Get full user data by phone
+    Route::get('/{phone}', 'getFullData');
+
+    // Update health profile and/or cycle settings
+    Route::put('/profile/{phone}', 'updateProfile');
+
+    // Bulk sync (replace all) period dates from array
+    Route::post('/periods/{phone}', 'syncPeriodDates');
+
+    // Add single period start date
+    Route::post('/period/{phone}', 'addPeriodDate');
+
+    // Edit existing period date
+    Route::put('/period/{phone}/{oldDate}', 'editPeriodDate');
+
+    // Delete one period date
+    Route::delete('/period/{phone}/{date}', 'deletePeriodDate');
+
+    // Clear all period dates for user (keeps profile)
+    Route::delete('/periods/{phone}', 'clearAllPeriods');
+});
+/*****************************************************************************************************
 // 
 //  */
 // for development purpose no token required

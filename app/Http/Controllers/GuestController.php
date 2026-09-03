@@ -18,16 +18,7 @@ class GuestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index_pagination(Request $request)
-    {
-         $perPage = $request->integer('per_page', 10); // Default to 10 if not provided
-         $guests = Guest::orderBy('guest_name')->paginate($perPage);
-
-         return $this->success(
-            GuestResource::collection($guests),
-            "Guests retrieved successfully",
-         );
-    }
+    
 
     private function maskMobile($mobile)
     {
@@ -42,35 +33,47 @@ class GuestController extends Controller
         return $firstTwo . $masked . $lastTwo;
     }
 
-    public function index()
+    public function index_pagination(Request $request)
     {
-        $guests = Guest::orderBy('id', 'desc')->get();
+         $perPage = $request->integer('per_page', 10); // Default to 10 if not provided
+         $guests = Guest::orderBy('guest_name')->paginate($perPage);
+
+         return $this->success(
+            GuestResource::collection($guests),
+            "Guests retrieved successfully",
+         );
+    }
+
+    public function index(Request $request)
+    {
+        $perPage = $request->integer('per_page', 10); // Default to 10 if not provided
+        $guests = Guest::orderBy('guest_name')->paginate($perPage);
 
         if ($guests->isEmpty()) {
             return ResponseHelper::error("No guests found", null, 404);
         }
 
         // Add related data manually
-        $guests = $guests->map(function ($guest) {
-            return [
-                'id' => $guest->id,
-                'year' => $guest->year,
-                'token' => $guest->token,
-                'guestName' => $guest->guest_name,
-                'mobile' => $guest->mobile,
-                'mobileMasked' => $this->maskMobile($guest->mobile),
-                'wpNumber' => $guest->wp_number,
-                'wpNumberMasked' => $this->maskMobile($guest->wp_number),
-                'email' => $guest->email,
-                'address' => $guest->address,
-                'genderId' => $guest->gender_id,
-                'genderName' => optional($guest->gender)->gender_name ?? null,
-                'foodPreferenceName' => optional($guest->foodPreference)->food_preference_name ?? null,
-                'isAttending' => $guest->is_attending,
-                'created_at' => $guest->created_at,
-                'updated_at' => $guest->updated_at,
-            ];
-        });
+        // $guests = $guests->map(function ($guest) {
+        //     return [
+        //         'id' => $guest->id,
+        //         'year' => $guest->year,
+        //         'token' => $guest->token,
+        //         'guestName' => $guest->guest_name,
+        //         'mobile' => $guest->mobile,
+        //         'mobileMasked' => $this->maskMobile($guest->mobile),
+        //         'wpNumber' => $guest->wp_number,
+        //         'wpNumberMasked' => $this->maskMobile($guest->wp_number),
+        //         'email' => $guest->email,
+        //         'address' => $guest->address,
+        //         'genderId' => $guest->gender_id,
+        //         'genderName' => optional($guest->gender)->gender_name ?? null,
+        //         'foodPreferenceName' => optional($guest->foodPreference)->food_preference_name ?? null,
+        //         'isAttending' => $guest->is_attending,
+        //         'created_at' => $guest->created_at,
+        //         'updated_at' => $guest->updated_at,
+        //     ];
+        // });
 
         return ResponseHelper::success("Guests retrieved successfully", $guests);
     }
