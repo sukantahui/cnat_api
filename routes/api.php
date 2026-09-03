@@ -30,8 +30,7 @@ use App\Http\Controllers\CycleCalendarController;
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
-    Route::post('login', 'login');
-    Route::get('test', 'test');
+    Route::post('login', 'login')->name('login');
 });
 
 
@@ -39,7 +38,10 @@ Route::controller(AuthController::class)->group(function () {
 
 // token is required
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    //under Auth Controller
+
+    // -------------------------------------------------------------------------
+    // Any Authenticated User (Self-service & Personal)
+    // -------------------------------------------------------------------------
     Route::controller(AuthController::class)->group(function () {
         Route::get('me', 'getCurrentUser');
         Route::get('me2', 'getCurrentUser2');
@@ -47,155 +49,135 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('revokeAll', 'revoke_all');
     });
 
-
-    //department
-    Route::controller(DepartmentController::class)->group(function () {
-        Route::get('departments', 'index');
-        Route::post('departments', 'store');
-        Route::put('departments', 'update');
-    });
-
-    // for employees
-
-    Route::controller(EmployeeController::class)->prefix('employees')->group(function () {
-        Route::get('/', 'index');
-        Route::get('/{id}', 'show');
-        Route::post('/', 'store');
-        Route::put('/{employeeId}', 'update');
-        Route::delete('/{employeeId}', 'destroy');
-    });
-
-    Route::controller(GuestController::class)->prefix('guests')->group(function () {
-        Route::get('/pagination', 'index_pagination');
-        // Route::get('/pagination', 'index_pagination');
-        Route::get('/{guest}', 'show');
-        Route::get('/search/any', 'search');
-        Route::post('/', 'store');
-        Route::put('/', 'edit');
-        Route::put('/{guest}','update');
-        Route::delete('/{guest}', 'destroy');
-    });
-    
-
-    Route::controller(StudentController::class)->prefix('students')->group(function () {
-        Route::post('/basic', 'storeBasic'); //custom
-        Route::get('/{student}/admissions', 'admissions');//custom
-        Route::get('/without-admission', 'studentsWithoutAdmission');//custom
-    });
-    Route::apiResource('students', StudentController::class);
-
-    // Route::get('/students/{student}/admissions', [StudentController::class, 'admissions']);
-
-    //for custom route for admission with student creation
-    Route::controller(AdmissionController::class)->prefix('admissions')->group(function () {
-        Route::post('/admissionWithStudent', 'storeStudentWithAdmission');
-    });
-    Route::apiResource('admissions', AdmissionController::class);
-
-    Route::controller(VisitorController::class)->prefix('visitors')->group(function () {
-        Route::get('/', 'index');
-        Route::post('/', 'store')->middleware('throttle:3,1');
-        Route::put('/{visitorId}', 'update');
-        Route::delete('/{visitorId}', 'destroy');
-    });
-
-    Route::apiResource('questions', QuestionController::class);
-
-    Route::controller(OptionController::class)->prefix('options')->group(function () {
-        Route::get('/', 'index');
-        Route::get('/{optionId}', 'show');
-        Route::post('/', 'store');
-        Route::put('/{option}', 'update');
-        Route::delete('/{option}', 'destroy');
-    });
-    //
-    Route::controller(SubjectController::class)->prefix('subjects')->group(function () {
-        Route::get('/unused', 'unused_subjects');
-        Route::get('/{subject}/chapters', 'list_of_chapters_in_subjects');
-    });
-    Route::apiResource('subjects', SubjectController::class);
-
-    Route::controller(ChapterController::class)->prefix('chapters')->group(function () {
-        Route::get('/unusedChapters', 'unused_chapters');
-        Route::get('/{chapter}/topics', 'list_of_topics_in_chapters');
-    });
-    Route::apiResource('chapters', ChapterController::class);
-
-    Route::prefix('topics')->controller(TopicController::class)->group(function () {
-        Route::get('/unusedTopics', 'unused_topics');
-        Route::get('/{topic}/questions', 'list_of_questions_in_topics');
-    });
-    Route::apiResource('topics', TopicController::class);
-    /*
-    |--------------------------------------------------------------------------
-    | Topic API Routes
-    |--------------------------------------------------------------------------
-    |
-    | Route::apiResource() automatically creates the following RESTful API routes:
-    |
-    | GET       /topics             -> index()    // Get all topics
-    | POST      /topics             -> store()    // Create a new topic
-    | GET       /topics/{topic}     -> show()     // Get a single topic
-    | PUT       /topics/{topic}     -> update()   // Update a topic
-    | PATCH     /topics/{topic}     -> update()   // Partially update a topic
-    | DELETE    /topics/{topic}     -> destroy()  // Delete a topic
-    |
-    | Note:
-    | - Does NOT generate create() and edit() routes.
-    | - Intended for REST APIs that return JSON responses.
-    |
-    */
-
-
-    
-    Route::controller(StateController::class)->prefix('states')->group(function () {
-        Route::get('/', 'index');
-        Route::get('/{stateId}', 'show');
-        Route::post('/', 'store');
-        Route::put('/{stateId}', 'update');
-        Route::delete('/{stateId}', 'destroy');
-    });
-    Route::controller(CourseController::class)->prefix('courses')->group(function () {
-        Route::get('/', 'index');
-        Route::get('/details', 'courseWithDetails');
-        Route::post('/', 'store');
-        Route::post('/basic', 'storeBasic');
-        Route::put('/{courseId}', 'update');
-        Route::delete('/{courseId}', 'destroy');
-        Route::get('/{course}/students', 'students');
-    });
-
-    // Route::controller(ResultController::class)->prefix('results')->group(function () {
-    //     Route::get('/', 'index');
-    //     Route::post('/', 'store');
-    //     Route::put('/{result}', 'update');
-    //     Route::delete('/{result}', 'destroy');
-    // });
-    Route::apiResource('results', ResultController::class);
-
-    // Route::controller(SimpleFeesReceiptController::class)->prefix('fees-receipts')->group(function () {
-    //     Route::get('/', 'index');
-    //     Route::post('/', 'store');
-    //     Route::get('/{simpleFeesReceipt}', 'show');
-    //     Route::put('/{simpleFeesReceipt}', 'update');
-    //     Route::delete('/{simpleFeesReceipt}', 'destroy');
-    // });
-    Route::apiResource('fees-receipts', SimpleFeesReceiptController::class);
-
-    // Menstrual Cycle Calendar (auth:sanctum - user_id identified)
+    // Menstrual Cycle Calendar
     Route::prefix('cycle')->controller(CycleCalendarController::class)->group(function () {
-        Route::get('me',               'me');               // Load or auto-create profile
-        Route::put('me',               'updateProfile');    // Update health profile + settings
-        Route::post('period',          'addPeriodDate');    // Add one period start date
-        Route::put('period/{date}',    'editPeriodDate');   // Edit one period start date
-        Route::delete('period/{date}', 'deletePeriodDate'); // Delete one period start date
-        Route::post('periods/sync',    'syncPeriodDates');  // Bulk replace all period dates
-        Route::delete('periods',       'clearAllPeriods');  // Clear all period dates
+        Route::get('me',               'me');
+        Route::put('me',               'updateProfile');
+        Route::post('period',          'addPeriodDate');
+        Route::put('period/{date}',    'editPeriodDate');
+        Route::delete('period/{date}', 'deletePeriodDate');
+        Route::post('periods/sync',    'syncPeriodDates');
+        Route::delete('periods',       'clearAllPeriods');
     });
 
+    // -------------------------------------------------------------------------
+    // Tier 1: Administration & System (Admin, Developer, Owner)
+    // -------------------------------------------------------------------------
+    Route::middleware('role:Admin,Developer,Owner')->group(function () {
+        // User roles lookup
+        Route::get('user-types', [App\Http\Controllers\UserTypeController::class, 'index']);
 
+        // Department
+        Route::controller(DepartmentController::class)->group(function () {
+            Route::get('departments', 'index');
+            Route::post('departments', 'store');
+            Route::put('departments', 'update');
+        });
 
-    
+        // Employees
+        Route::controller(EmployeeController::class)->prefix('employees')->group(function () {
+            Route::get('/', 'index');
+            Route::get('/{id}', 'show');
+            Route::post('/', 'store');
+            Route::put('/{employeeId}', 'update');
+            Route::delete('/{employeeId}', 'destroy');
+        });
+    });
+
+    // -------------------------------------------------------------------------
+    // Tier 2: Academic Staff (Admin, Developer, Owner, Manager, Teacher)
+    // -------------------------------------------------------------------------
+    Route::middleware('role:Admin,Developer,Owner,Manager,Teacher')->group(function () {
+        // Students
+        Route::controller(StudentController::class)->prefix('students')->group(function () {
+            Route::post('/basic', 'storeBasic');
+            Route::get('/{student}/admissions', 'admissions');
+            Route::get('/without-admission', 'studentsWithoutAdmission');
+        });
+        Route::apiResource('students', StudentController::class);
+
+        // Admissions
+        Route::controller(AdmissionController::class)->prefix('admissions')->group(function () {
+            Route::post('/admissionWithStudent', 'storeStudentWithAdmission');
+        });
+        Route::apiResource('admissions', AdmissionController::class);
+
+        // Courses
+        Route::controller(CourseController::class)->prefix('courses')->group(function () {
+            Route::get('/', 'index');
+            Route::get('/details', 'courseWithDetails');
+            Route::post('/', 'store');
+            Route::post('/basic', 'storeBasic');
+            Route::put('/{courseId}', 'update');
+            Route::delete('/{courseId}', 'destroy');
+            Route::get('/{course}/students', 'students');
+        });
+
+        // Curriculum hierarchy
+        Route::controller(SubjectController::class)->prefix('subjects')->group(function () {
+            Route::get('/unused', 'unused_subjects');
+            Route::get('/{subject}/chapters', 'list_of_chapters_in_subjects');
+        });
+        Route::apiResource('subjects', SubjectController::class);
+
+        Route::controller(ChapterController::class)->prefix('chapters')->group(function () {
+            Route::get('/unusedChapters', 'unused_chapters');
+            Route::get('/{chapter}/topics', 'list_of_topics_in_chapters');
+        });
+        Route::apiResource('chapters', ChapterController::class);
+
+        Route::prefix('topics')->controller(TopicController::class)->group(function () {
+            Route::get('/unusedTopics', 'unused_topics');
+            Route::get('/{topic}/questions', 'list_of_questions_in_topics');
+        });
+        Route::apiResource('topics', TopicController::class);
+
+        // Question Bank & Exams
+        Route::apiResource('questions', QuestionController::class);
+
+        Route::controller(OptionController::class)->prefix('options')->group(function () {
+            Route::get('/', 'index');
+            Route::get('/{optionId}', 'show');
+            Route::post('/', 'store');
+            Route::put('/{option}', 'update');
+            Route::delete('/{option}', 'destroy');
+        });
+
+        Route::apiResource('results', ResultController::class);
+        Route::apiResource('fees-receipts', SimpleFeesReceiptController::class);
+
+        // States
+        Route::controller(StateController::class)->prefix('states')->group(function () {
+            Route::get('/', 'index');
+            Route::get('/{stateId}', 'show');
+            Route::post('/', 'store');
+            Route::put('/{stateId}', 'update');
+            Route::delete('/{stateId}', 'destroy');
+        });
+    });
+
+    // -------------------------------------------------------------------------
+    // Tier 3: Event & Inquiries (Admin, Developer, Owner, Manager, Manager Sale)
+    // -------------------------------------------------------------------------
+    Route::middleware('role:Admin,Developer,Owner,Manager,Manager Sale')->group(function () {
+        Route::controller(GuestController::class)->prefix('guests')->group(function () {
+            Route::get('/', 'index');
+            Route::get('/pagination', 'index_pagination');
+            Route::get('/{guest}', 'show');
+            Route::get('/search/any', 'search');
+            Route::post('/', 'store');
+            Route::put('/{guest}','update');
+            Route::delete('/{guest}', 'destroy');
+        });
+
+        Route::controller(VisitorController::class)->prefix('visitors')->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store')->middleware('throttle:3,1');
+            Route::put('/{visitorId}', 'update');
+            Route::delete('/{visitorId}', 'destroy');
+        });
+    });
+
 });
 // 
 //  */

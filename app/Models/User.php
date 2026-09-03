@@ -85,6 +85,58 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the user's role name (e.g. "Admin", "Teacher").
+     */
+    public function getRoleNameAttribute(): ?string
+    {
+        return $this->userType?->user_type_name;
+    }
+
+    /**
+     * Check if the user has one or any of the given roles.
+     * Supports single string, array of strings, or comma-separated list.
+     * Case-insensitive matching.
+     *
+     * @param string|array ...$roles
+     * @return bool
+     */
+    public function hasRole(string|array ...$roles): bool
+    {
+        $currentRole = $this->role_name;
+        if (!$currentRole) {
+            return false;
+        }
+
+        // Flatten nested arrays or multiple arguments
+        $flatRoles = [];
+        foreach ($roles as $role) {
+            if (is_array($role)) {
+                $flatRoles = array_merge($flatRoles, $role);
+            } elseif (is_string($role)) {
+                // Support comma-separated e.g. "Admin,Manager" or pipe "Admin|Manager"
+                $parts = preg_split('/[,|]/', $role);
+                $flatRoles = array_merge($flatRoles, $parts);
+            }
+        }
+
+        foreach ($flatRoles as $role) {
+            if (strcasecmp(trim($role), trim($currentRole)) === 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Quick check if the user is an Administrator.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('Admin', 'Developer', 'Owner');
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>

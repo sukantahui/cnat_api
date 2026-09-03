@@ -21,6 +21,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'http://localhost/solid_gold/solid_gold_api/public/api/*',
             'api/*'
         ]);
+
+        $middleware->alias([
+            'role' => \App\Http\Middleware\CheckRole::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->renderable(function (NotFoundHttpException $e, $request) {

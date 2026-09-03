@@ -15,7 +15,8 @@ class UserTypeController extends Controller
      */
     public function index()
     {
-        //
+        $types = UserType::all();
+        return \App\Helper\ResponseHelper::success("User roles retrieved successfully", \App\Http\Resources\UserTypeResource::collection($types));
     }
 
     /**
