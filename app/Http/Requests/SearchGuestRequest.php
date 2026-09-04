@@ -22,8 +22,11 @@ class SearchGuestRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'key' => 'required|string|max:255',
+            'key' => 'nullable|string|max:255',
             'per_page' => 'nullable|integer|min:1|max:100',
+            'year' => 'nullable|integer|min:2025|max:2040',
+            'mobile' => 'nullable|string|max:20',
+            'name' => 'nullable|string|max:255',
         ];
     }
     public function messages(): array

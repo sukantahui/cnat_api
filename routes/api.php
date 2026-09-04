@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('revokeAll', 'revoke_all');
     });
 
-    // Menstrual Cycle Calendar
+    // Menstrual Cycle Calendar (auth:sanctum - user_id identified)
     Route::prefix('cycle')->controller(CycleCalendarController::class)->group(function () {
         Route::get('me',               'me');
         Route::put('me',               'updateProfile');

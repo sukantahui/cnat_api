@@ -33,17 +33,7 @@ class GuestController extends Controller
         return $firstTwo . $masked . $lastTwo;
     }
 
-    public function index_pagination(Request $request)
-    {
-         $perPage = $request->integer('per_page', 10); // Default to 10 if not provided
-         $guests = Guest::orderBy('guest_name')->paginate($perPage);
-
-         return $this->success(
-            GuestResource::collection($guests),
-            "Guests retrieved successfully",
-         );
-    }
-
+    
     public function index(Request $request)
     {
         $perPage = $request->integer('per_page', 10); // Default to 10 if not provided
@@ -53,29 +43,7 @@ class GuestController extends Controller
             return ResponseHelper::error("No guests found", null, 404);
         }
 
-        // Add related data manually
-        // $guests = $guests->map(function ($guest) {
-        //     return [
-        //         'id' => $guest->id,
-        //         'year' => $guest->year,
-        //         'token' => $guest->token,
-        //         'guestName' => $guest->guest_name,
-        //         'mobile' => $guest->mobile,
-        //         'mobileMasked' => $this->maskMobile($guest->mobile),
-        //         'wpNumber' => $guest->wp_number,
-        //         'wpNumberMasked' => $this->maskMobile($guest->wp_number),
-        //         'email' => $guest->email,
-        //         'address' => $guest->address,
-        //         'genderId' => $guest->gender_id,
-        //         'genderName' => optional($guest->gender)->gender_name ?? null,
-        //         'foodPreferenceName' => optional($guest->foodPreference)->food_preference_name ?? null,
-        //         'isAttending' => $guest->is_attending,
-        //         'created_at' => $guest->created_at,
-        //         'updated_at' => $guest->updated_at,
-        //     ];
-        // });
-
-        return ResponseHelper::success("Guests retrieved successfully", $guests);
+        return ResponseHelper::success("Guests retrieved successfully", GuestResource::collection($guests));
     }
 
     /**
@@ -118,21 +86,42 @@ class GuestController extends Controller
         return ResponseHelper::success("Guest retrieved successfully", new GuestResource($guest));
     }
     public function search(SearchGuestRequest $request)
-    {
-        $results = Guest::query()
-            ->where(function($query)use($request){
-                $query->where('guest_name', 'like', "%{$request->key}%")
-                    ->orWhere('year', 'like',"%{$request->key}%")
-                    ->orWhere('mobile', 'like',"%{$request->key}%");
-            })
-            ->orderBy('guest_name')
-            ->paginate($request->integer('per_page', 20));
+{
+    $results = Guest::query()
 
-        return $this->success(
-            GuestResource::collection($results),
-            'Search completed successfully.'
-        );
-    }
+        // General search: key searches name, year and mobile
+        ->when($request->filled('key'), function ($query) use ($request) {
+            $query->where(function ($query) use ($request) {
+                $query->where('guest_name', 'like', "%{$request->key}%")
+                    ->orWhere('year', 'like', "%{$request->key}%")
+                    ->orWhere('mobile', 'like', "%{$request->key}%");
+            });
+        })
+
+        // Specific name search
+        ->when($request->filled('name'), function ($query) use ($request) {
+            $query->where('guest_name', 'like', "%{$request->name}%");
+        })
+
+        // Specific year filter
+        ->when($request->filled('year'), function ($query) use ($request) {
+            $query->where('year', $request->year);
+        })
+
+        // Specific mobile search
+        ->when($request->filled('mobile'), function ($query) use ($request) {
+            $query->where('mobile', 'like', "%{$request->mobile}%");
+        })
+
+        ->orderBy('guest_name')
+        ->paginate($request->integer('per_page', 20));
+
+    return $this->success(
+        GuestResource::collection($results),
+        'Search completed successfully.'
+    );
+}
+
     
     /**
      * Show the form for editing the specified resource.
