@@ -416,11 +416,10 @@ Route::group(['prefix' => 'dev'], function () {
     // Guests — open CRUD for dev/testing
     Route::controller(GuestController::class)->prefix('guests')->group(function () {
         Route::get('/', 'index');
-        Route::get('/{id}', 'show');
+        Route::get('/{guest}', 'show');
         Route::post('/', 'store');
-        // Route::put('/{guestId}','update');  // standard update (disabled in dev)
-        Route::put('/{guestId}', 'edit');       // uses 'edit' action for dev convenience
-        Route::delete('/{guestId}', 'destroy');
+        Route::put('/{guest}', 'update');
+        Route::delete('/{guest}', 'destroy');
     });
 
     // Students — open CRUD for dev/testing

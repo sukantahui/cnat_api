@@ -2,14 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use App\Traits\ConvertsCamelToSnake;
 use Illuminate\Validation\Rule;
 
-class StoreGuestRequest extends FormRequest
+class StoreGuestRequest extends BaseRequest
 {
-    use ConvertsCamelToSnake;
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -28,7 +24,7 @@ class StoreGuestRequest extends FormRequest
         return [
             'guest_name' => ['required', 'string', 'max:100'],
 
-            // must be unique in combination with guest_name
+            // Must be unique in combination with guest_name
             'mobile' => [
                 'required',
                 'string',
@@ -39,29 +35,22 @@ class StoreGuestRequest extends FormRequest
                 ),
             ],
 
-            // must be unique in combination with guest_name (if provided)
             'wp_number' => [
                 'nullable',
                 'string',
                 'max:20',
-                Rule::unique('guests')->where(
-                    fn($query) =>
-                    $query->where('guest_name', $this->guest_name)
-                ),
             ],
 
             'address' => ['nullable', 'string', 'max:191'],
-
-            // not globally unique anymore (since removed from migration),
-            // but still you may want to validate format
             'email' => ['nullable', 'email', 'max:191'],
-            'pin' => ['required', 'string', 'max:4', 'min:4'],
-            'token' => ['nullable', 'string', 'max:50', 'min:4'],
+            'pin' => ['required', 'string', 'min:4', 'max:4'],
+            'token' => ['nullable', 'string', 'max:50'],
 
             'gender_id' => ['required', 'exists:genders,id'],
             'food_preference_id' => ['required', 'exists:food_preferences,id'],
-            'is_attending' => ['boolean'],
-            'comment' => ['nullable', 'string'],
+            'is_attending' => ['nullable', 'boolean'],
+            'is_present' => ['nullable', 'boolean'],
+            'comment' => ['nullable', 'string', 'max:191'],
         ];
     }
 
@@ -70,14 +59,19 @@ class StoreGuestRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        // Convert camelCase to snake_case before validation
-        $this->merge(
-            $this->convertCamelToSnake($this->all())
-        );
+        parent::prepareForValidation();
 
-        // Ensure inforce has a default value if not set
-        if (!$this->has('inforce')) {
-            $this->merge(['inforce' => true]);
-        }
+        // Normalize is_present to is_attending
+        $isAttending = $this->has('is_attending')
+            ? $this->boolean('is_attending')
+            : ($this->has('is_present') ? $this->boolean('is_present') : true);
+
+        $this->merge([
+            'is_attending' => $isAttending,
+            'email' => $this->filled('email') ? $this->email : null,
+            'address' => $this->filled('address') ? $this->address : null,
+            'comment' => $this->filled('comment') ? $this->comment : null,
+            'wp_number' => $this->filled('wp_number') ? $this->wp_number : null,
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Guest;
 use Illuminate\Validation\Rule;
 
 class UpdateGuestRequest extends BaseRequest
@@ -21,55 +22,59 @@ class UpdateGuestRequest extends BaseRequest
      */
     public function rules(): array
     {
+        $guestParam = $this->route('guest') ?? $this->route('guestId');
+        $guestId = $guestParam instanceof Guest ? $guestParam->id : $guestParam;
+
         return [
-            "guest_name" => [
-                'required',
-                'string',
-                'max:255',
+            'guest_name' => ['required', 'string', 'max:100'],
 
-                Rule::unique('guests', 'guest_name')
-                    ->ignore(optional($this->route('guest'))->id),
-            ],
-            "mobile" => [
+            'mobile' => [
                 'required',
                 'string',
                 'max:20',
-
-                Rule::unique('guests', 'mobile')
-                    ->ignore(optional($this->route('guest'))->id),
+                Rule::unique('guests')->where(
+                    fn($query) =>
+                    $query->where('guest_name', $this->guest_name)
+                )->ignore($guestId),
             ],
-            "wp_number" => [
+
+            'wp_number' => [
                 'nullable',
                 'string',
                 'max:20',
+            ],
 
-                Rule::unique('guests', 'wp_number')
-                    ->ignore(optional($this->route('guest'))->id),
-            ],
-            "email" => [
-                'nullable',
-                'string',
-                'max:255',
+            'address' => ['nullable', 'string', 'max:191'],
+            'email' => ['nullable', 'email', 'max:191'],
+            'pin' => ['nullable', 'string', 'min:4', 'max:4'],
 
-                Rule::unique('guests', 'email')
-                    ->ignore(optional($this->route('guest'))->id),
-            ],
-            "gender_id" => [
-                'nullable',
-                'integer',
-                
-                Rule::exists('genders', 'id'),
-            ],
-            "food_preference_id" => [
-                'nullable',
-                'integer',
-                Rule::exists('food_preferences', 'id'),
-            ],
-            "is_attending" => [
-                'nullable',
-                'boolean',
-                Rule::in([0, 1]),
-            ],
+            'gender_id' => ['required', 'exists:genders,id'],
+            'food_preference_id' => ['required', 'exists:food_preferences,id'],
+            'is_attending' => ['nullable', 'boolean'],
+            'is_present' => ['nullable', 'boolean'],
+            'comment' => ['nullable', 'string', 'max:191'],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        parent::prepareForValidation();
+
+        // Normalize is_present to is_attending if provided
+        if ($this->has('is_present') && !$this->has('is_attending')) {
+            $this->merge([
+                'is_attending' => $this->boolean('is_present'),
+            ]);
+        }
+
+        $this->merge([
+            'email' => $this->filled('email') ? $this->email : null,
+            'address' => $this->filled('address') ? $this->address : null,
+            'comment' => $this->filled('comment') ? $this->comment : null,
+            'wp_number' => $this->filled('wp_number') ? $this->wp_number : null,
+        ]);
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Gender;
 use App\Models\FoodPreference;
+
 class GuestResource extends JsonResource
 {
     /**
@@ -15,28 +16,40 @@ class GuestResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $genderName = Gender::find($this->gender_id)->gender_name;
+        $genderName = $this->relationLoaded('gender')
+            ? $this->gender?->gender_name
+            : (Gender::find($this->gender_id)?->gender_name ?? null);
+
+        $foodPreferenceName = $this->relationLoaded('foodPreference')
+            ? $this->foodPreference?->food_preference_name
+            : (FoodPreference::find($this->food_preference_id)?->food_preference_name ?? null);
+
         return [
-            'guestId' => $this->id,
-            'year' => $this->year,
-            'token' => $this->token,
-            'guestName' => $this->guest_name,
-            'mobileMasked' => $this->maskMobile($this->mobile),
-            'mobile' => $this->mobile,
-            'wpNumberMasked' => $this->maskMobile($this->wp_number),
-            'wpNumber' => $this->wp_number,
-            'address' => $this->address,
-            'email' => $this->email,
-            'genderId' => $this->gender_id,
-            'genderName' => $genderName,
-            'foodPreferenceId' => $this->food_preference_id,
-            'foodPreferenceName' => FoodPreference::find($this->food_preference_id)->food_preference_name,
-            'isAttending' => $this->is_attending,
-            'comment' => $this->comment,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,   
+            'id'                 => $this->id,
+            'guestId'            => $this->id,
+            'year'               => $this->year,
+            'token'              => $this->token,
+            'guestName'          => $this->guest_name,
+            'mobileMasked'       => $this->maskMobile($this->mobile),
+            'mobile'             => $this->mobile,
+            'wpNumberMasked'     => $this->maskMobile($this->wp_number),
+            'wpNumber'           => $this->wp_number,
+            'address'            => $this->address,
+            'email'              => $this->email,
+            'pin'                => $this->pin,
+            'genderId'           => (string) $this->gender_id,
+            'genderName'         => $genderName,
+            'foodPreferenceId'   => (string) $this->food_preference_id,
+            'foodPreferenceName' => $foodPreferenceName,
+            'isAttending'        => (bool) $this->is_attending,
+            'is_present'         => (bool) $this->is_attending,
+            'is_attending'       => (bool) $this->is_attending,
+            'comment'            => $this->comment,
+            'createdAt'          => $this->created_at?->toIso8601String(),
+            'updatedAt'          => $this->updated_at?->toIso8601String(),
         ];
     }
+
     private function maskMobile($mobile)
     {
         if (!$mobile || strlen($mobile) < 4) {
@@ -50,4 +63,3 @@ class GuestResource extends JsonResource
         return $firstTwo . $masked . $lastTwo;
     }
 }
-//
