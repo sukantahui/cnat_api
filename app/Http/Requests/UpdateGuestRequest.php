@@ -27,6 +27,7 @@ class UpdateGuestRequest extends BaseRequest
 
         return [
             'guest_name' => ['required', 'string', 'max:100'],
+            'age'        => ['nullable', 'integer', 'min:1', 'max:120'],
 
             'mobile' => [
                 'required',
@@ -78,3 +79,4 @@ class UpdateGuestRequest extends BaseRequest
         ]);
     }
 }
+

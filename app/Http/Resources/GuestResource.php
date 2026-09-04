@@ -30,6 +30,7 @@ class GuestResource extends JsonResource
             'year'               => $this->year,
             'token'              => $this->token,
             'guestName'          => $this->guest_name,
+            'age'                => $this->age,
             'mobileMasked'       => $this->maskMobile($this->mobile),
             'mobile'             => $this->mobile,
             'wpNumberMasked'     => $this->maskMobile($this->wp_number),

@@ -23,6 +23,7 @@ class StoreGuestRequest extends BaseRequest
     {
         return [
             'guest_name' => ['required', 'string', 'max:100'],
+            'age'        => ['required', 'integer', 'min:1', 'max:120'],
 
             // Must be unique in combination with guest_name
             'mobile' => [
@@ -75,3 +76,4 @@ class StoreGuestRequest extends BaseRequest
         ]);
     }
 }
+
