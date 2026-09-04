@@ -86,41 +86,102 @@ class GuestController extends Controller
         return ResponseHelper::success("Guest retrieved successfully", new GuestResource($guest));
     }
     public function search(SearchGuestRequest $request)
-{
-    $results = Guest::query()
+    {
+        $results = Guest::query()
 
-        // General search: key searches name, year and mobile
-        ->when($request->filled('key'), function ($query) use ($request) {
-            $query->where(function ($query) use ($request) {
-                $query->where('guest_name', 'like', "%{$request->key}%")
-                    ->orWhere('year', 'like', "%{$request->key}%")
-                    ->orWhere('mobile', 'like', "%{$request->key}%");
-            });
-        })
+            // ── General keyword ─────────────────────────────────────────────
+            // ?key=ravi  →  matches guest_name, mobile, wp_number, email, token
+            ->when($request->filled('key'), function ($query) use ($request) {
+                $k = $request->key;
+                $query->where(function ($q) use ($k) {
+                    $q->where('guest_name', 'like', "%{$k}%")
+                      ->orWhere('mobile',     'like', "%{$k}%")
+                      ->orWhere('wp_number',  'like', "%{$k}%")
+                      ->orWhere('email',      'like', "%{$k}%")
+                      ->orWhere('token',      'like', "%{$k}%");
+                });
+            })
 
-        // Specific name search
-        ->when($request->filled('name'), function ($query) use ($request) {
-            $query->where('guest_name', 'like', "%{$request->name}%");
-        })
+            // ── Name ─────────────────────────────────────────────────────────
+            // ?name=ravi  →  partial match on guest_name
+            ->when($request->filled('name'), function ($query) use ($request) {
+                $query->where('guest_name', 'like', "%{$request->name}%");
+            })
 
-        // Specific year filter
-        ->when($request->filled('year'), function ($query) use ($request) {
-            $query->where('year', $request->year);
-        })
+            // ── Year ─────────────────────────────────────────────────────────
+            // ?year=2026  →  exact match on year column
+            ->when($request->filled('year'), function ($query) use ($request) {
+                $query->where('year', $request->year);
+            })
 
-        // Specific mobile search
-        ->when($request->filled('mobile'), function ($query) use ($request) {
-            $query->where('mobile', 'like', "%{$request->mobile}%");
-        })
+            // ── Mobile ───────────────────────────────────────────────────────
+            // ?mobile=9800  →  partial match on mobile OR wp_number
+            ->when($request->filled('mobile'), function ($query) use ($request) {
+                $query->where(function ($q) use ($request) {
+                    $q->where('mobile',    'like', "%{$request->mobile}%")
+                      ->orWhere('wp_number', 'like', "%{$request->mobile}%");
+                });
+            })
 
-        ->orderBy('guest_name')
-        ->paginate($request->integer('per_page', 20));
+            // ── Email ─────────────────────────────────────────────────────────
+            // ?email=gmail  →  partial match on email
+            ->when($request->filled('email'), function ($query) use ($request) {
+                $query->where('email', 'like', "%{$request->email}%");
+            })
 
-    return $this->success(
-        GuestResource::collection($results),
-        'Search completed successfully.'
-    );
-}
+            // ── Address ───────────────────────────────────────────────────────
+            // ?address=mumbai  →  partial match on address
+            ->when($request->filled('address'), function ($query) use ($request) {
+                $query->where('address', 'like', "%{$request->address}%");
+            })
+
+            // ── Attending status ──────────────────────────────────────────────
+            // ?is_attending=1   →  only guests who are attending
+            // ?is_attending=0   →  only guests who are not attending
+            ->when($request->has('is_attending') && $request->is_attending !== null, function ($query) use ($request) {
+                $query->where('is_attending', filter_var($request->is_attending, FILTER_VALIDATE_BOOLEAN));
+            })
+
+            // ── Gender ────────────────────────────────────────────────────────
+            // ?gender_id=2  →  exact match
+            ->when($request->filled('gender_id'), function ($query) use ($request) {
+                $query->where('gender_id', $request->gender_id);
+            })
+
+            // ── Food Preference ───────────────────────────────────────────────
+            // ?food_preference_id=1  →  exact match
+            ->when($request->filled('food_preference_id'), function ($query) use ($request) {
+                $query->where('food_preference_id', $request->food_preference_id);
+            })
+
+            // ── Token ─────────────────────────────────────────────────────────
+            // ?token=CNAT-1023  →  exact match on CNAT token
+            ->when($request->filled('token'), function ($query) use ($request) {
+                $query->where('token', $request->token);
+            })
+
+            // ── Date range (by created_at) ────────────────────────────────────
+            // ?date_from=2026-01-01&date_to=2026-12-31
+            ->when($request->filled('date_from'), function ($query) use ($request) {
+                $query->whereDate('created_at', '>=', $request->date_from);
+            })
+            ->when($request->filled('date_to'), function ($query) use ($request) {
+                $query->whereDate('created_at', '<=', $request->date_to);
+            })
+
+            // ── Sorting ───────────────────────────────────────────────────────
+            // ?sort_by=year&sort_dir=desc  (default: guest_name asc)
+            ->orderBy(
+                in_array($request->sort_by, ['guest_name', 'year', 'mobile', 'email', 'created_at'])
+                    ? $request->sort_by
+                    : 'guest_name',
+                $request->sort_dir === 'desc' ? 'desc' : 'asc'
+            )
+
+            ->paginate($request->integer('per_page', 20));
+
+        return ResponseHelper::success('Search completed successfully.', GuestResource::collection($results));
+    }
 
     
     /**

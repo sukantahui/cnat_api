@@ -1,0 +1,2666 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-09-04",
+  "__export_source": "cnat_api.routes.api",
+  "resources": [
+    {
+      "_id": "wrk_cnat",
+      "_type": "workspace",
+      "name": "CNAT API",
+      "description": "Complete CNAT API collection. Activate the CNAT Local environment, run Login, copy the token into the env variable.",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_cnat",
+      "_type": "environment",
+      "parentId": "wrk_cnat",
+      "name": "CNAT Local (WAMP)",
+      "data": {
+        "base_url": "http://localhost/cnat_api/public/api",
+        "token": "PASTE_YOUR_SANCTUM_TOKEN_HERE"
+      }
+    },
+    {
+      "_id": "jar_cnat",
+      "_type": "cookie_jar",
+      "parentId": "wrk_cnat",
+      "name": "Default Jar",
+      "cookies": []
+    },
+    {
+      "_id": "fld_pub",
+      "_type": "request_group",
+      "parentId": "wrk_cnat",
+      "name": "PUBLIC (No Auth)",
+      "description": ""
+    },
+    {
+      "_id": "req_login",
+      "_type": "request",
+      "parentId": "fld_pub",
+      "name": "POST /login — Authenticate",
+      "method": "POST",
+      "url": "{{ base_url }}/login",
+      "description": "Returns Sanctum Bearer token. Copy token to environment.",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password\"\n}"
+      }
+    },
+    {
+      "_id": "fld_auth",
+      "_type": "request_group",
+      "parentId": "wrk_cnat",
+      "name": "AUTH Self-Service (All Users)",
+      "description": ""
+    },
+    {
+      "_id": "req_me",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "GET /me — Current User",
+      "method": "GET",
+      "url": "{{ base_url }}/me",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_me2",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "GET /me2 — Extended User Info",
+      "method": "GET",
+      "url": "{{ base_url }}/me2",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_logout",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "POST /logout — Revoke Token",
+      "method": "POST",
+      "url": "{{ base_url }}/logout",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_revoke",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "GET /revokeAll — Sign Out Everywhere",
+      "method": "GET",
+      "url": "{{ base_url }}/revokeAll",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_cycle",
+      "_type": "request_group",
+      "parentId": "wrk_cnat",
+      "name": "Cycle Calendar (All Auth Users)",
+      "description": "Personal health tracker. No role restriction."
+    },
+    {
+      "_id": "req_cy_get",
+      "_type": "request",
+      "parentId": "fld_cycle",
+      "name": "GET /cycle/me — Load Profile",
+      "method": "GET",
+      "url": "{{ base_url }}/cycle/me",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_cy_put",
+      "_type": "request",
+      "parentId": "fld_cycle",
+      "name": "PUT /cycle/me — Update Profile",
+      "method": "PUT",
+      "url": "{{ base_url }}/cycle/me",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"cycle_length\": 28,\n  \"period_length\": 5,\n  \"notifications_enabled\": true\n}"
+      }
+    },
+    {
+      "_id": "req_cy_add",
+      "_type": "request",
+      "parentId": "fld_cycle",
+      "name": "POST /cycle/period — Add Date",
+      "method": "POST",
+      "url": "{{ base_url }}/cycle/period",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"date\": \"2026-09-01\"\n}"
+      }
+    },
+    {
+      "_id": "req_cy_edit",
+      "_type": "request",
+      "parentId": "fld_cycle",
+      "name": "PUT /cycle/period/{date} — Edit Date",
+      "method": "PUT",
+      "url": "{{ base_url }}/cycle/period/2026-09-01",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"date\": \"2026-09-02\"\n}"
+      }
+    },
+    {
+      "_id": "req_cy_del",
+      "_type": "request",
+      "parentId": "fld_cycle",
+      "name": "DELETE /cycle/period/{date} — Delete Date",
+      "method": "DELETE",
+      "url": "{{ base_url }}/cycle/period/2026-09-01",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_cy_sync",
+      "_type": "request",
+      "parentId": "fld_cycle",
+      "name": "POST /cycle/periods/sync — Bulk Sync",
+      "method": "POST",
+      "url": "{{ base_url }}/cycle/periods/sync",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"dates\": [\n    \"2026-07-01\",\n    \"2026-08-03\",\n    \"2026-09-01\"\n  ]\n}"
+      }
+    },
+    {
+      "_id": "req_cy_clear",
+      "_type": "request",
+      "parentId": "fld_cycle",
+      "name": "DELETE /cycle/periods — Clear All",
+      "method": "DELETE",
+      "url": "{{ base_url }}/cycle/periods",
+      "description": "WARNING: Wipes all period dates for the user.",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_t1",
+      "_type": "request_group",
+      "parentId": "wrk_cnat",
+      "name": "TIER 1 — Administration (Admin, Developer, Owner)",
+      "description": ""
+    },
+    {
+      "_id": "req_users",
+      "_type": "request",
+      "parentId": "fld_t1",
+      "name": "GET /users — List All Users",
+      "method": "GET",
+      "url": "{{ base_url }}/users",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_reg",
+      "_type": "request",
+      "parentId": "fld_t1",
+      "name": "POST /users — Register User",
+      "method": "POST",
+      "url": "{{ base_url }}/users",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password\",\n  \"password_confirmation\": \"password\",\n  \"role\": \"Teacher\"\n}"
+      }
+    },
+    {
+      "_id": "req_utypes",
+      "_type": "request",
+      "parentId": "fld_t1",
+      "name": "GET /user-types — List Roles",
+      "method": "GET",
+      "url": "{{ base_url }}/user-types",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_dept_i",
+      "_type": "request",
+      "parentId": "fld_t1",
+      "name": "GET /departments — List",
+      "method": "GET",
+      "url": "{{ base_url }}/departments",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_dept_s",
+      "_type": "request",
+      "parentId": "fld_t1",
+      "name": "POST /departments — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/departments",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Science\",\n  \"description\": \"Science dept\"\n}"
+      }
+    },
+    {
+      "_id": "req_dept_u",
+      "_type": "request",
+      "parentId": "fld_t1",
+      "name": "PUT /departments — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/departments",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id\": 1,\n  \"name\": \"Science & Technology\"\n}"
+      }
+    },
+    {
+      "_id": "req_emp_i",
+      "_type": "request",
+      "parentId": "fld_t1",
+      "name": "GET /employees — List",
+      "method": "GET",
+      "url": "{{ base_url }}/employees",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_emp_sh",
+      "_type": "request",
+      "parentId": "fld_t1",
+      "name": "GET /employees/{id} — Show",
+      "method": "GET",
+      "url": "{{ base_url }}/employees/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_emp_s",
+      "_type": "request",
+      "parentId": "fld_t1",
+      "name": "POST /employees — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/employees",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Jane Smith\",\n  \"email\": \"jane@example.com\",\n  \"phone\": \"9876543210\",\n  \"department_id\": 1,\n  \"designation\": \"Teacher\",\n  \"joining_date\": \"2026-01-15\"\n}"
+      }
+    },
+    {
+      "_id": "req_emp_u",
+      "_type": "request",
+      "parentId": "fld_t1",
+      "name": "PUT /employees/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/employees/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"designation\": \"Senior Teacher\"\n}"
+      }
+    },
+    {
+      "_id": "req_emp_d",
+      "_type": "request",
+      "parentId": "fld_t1",
+      "name": "DELETE /employees/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/employees/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_t15",
+      "_type": "request_group",
+      "parentId": "wrk_cnat",
+      "name": "TIER 1.5 — Admissions Mgmt (+ Manager)",
+      "description": ""
+    },
+    {
+      "_id": "req_aws",
+      "_type": "request",
+      "parentId": "fld_t15",
+      "name": "POST /admissions/admissionWithStudent — Register Student+Admission",
+      "method": "POST",
+      "url": "{{ base_url }}/admissions/admissionWithStudent",
+      "description": "Creates Student AND Admission in one transaction.",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"student\": {\n    \"name\": \"Ravi Kumar\",\n    \"email\": \"ravi@example.com\",\n    \"phone\": \"9000000001\",\n    \"dob\": \"2005-06-15\",\n    \"state_id\": 1\n  },\n  \"admission\": {\n    \"course_id\": 2,\n    \"admission_date\": \"2026-09-04\"\n  },\n  \"fees\": {\n    \"total_fees\": 15000,\n    \"fee_mode_id\": 1\n  }\n}"
+      }
+    },
+    {
+      "_id": "fld_t2",
+      "_type": "request_group",
+      "parentId": "wrk_cnat",
+      "name": "TIER 2 — Academic Staff (+ Teacher)",
+      "description": ""
+    },
+    {
+      "_id": "req_fmodes",
+      "_type": "request",
+      "parentId": "fld_t2",
+      "name": "GET /fee-modes — List Payment Modes",
+      "method": "GET",
+      "url": "{{ base_url }}/fee-modes",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_stu",
+      "_type": "request_group",
+      "parentId": "fld_t2",
+      "name": "Students",
+      "description": ""
+    },
+    {
+      "_id": "req_stu_i",
+      "_type": "request",
+      "parentId": "fld_stu",
+      "name": "GET /students — List All",
+      "method": "GET",
+      "url": "{{ base_url }}/students",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_stu_sh",
+      "_type": "request",
+      "parentId": "fld_stu",
+      "name": "GET /students/{id} — Show",
+      "method": "GET",
+      "url": "{{ base_url }}/students/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_stu_s",
+      "_type": "request",
+      "parentId": "fld_stu",
+      "name": "POST /students — Create (full)",
+      "method": "POST",
+      "url": "{{ base_url }}/students",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Priya Sharma\",\n  \"email\": \"priya@example.com\",\n  \"phone\": \"9000000002\",\n  \"dob\": \"2006-03-10\",\n  \"gender\": \"female\",\n  \"state_id\": 1,\n  \"address\": \"123 Main St\"\n}"
+      }
+    },
+    {
+      "_id": "req_stu_sb",
+      "_type": "request",
+      "parentId": "fld_stu",
+      "name": "POST /students/basic — Create (minimal)",
+      "method": "POST",
+      "url": "{{ base_url }}/students/basic",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Priya Sharma\",\n  \"phone\": \"9000000002\"\n}"
+      }
+    },
+    {
+      "_id": "req_stu_u",
+      "_type": "request",
+      "parentId": "fld_stu",
+      "name": "PUT /students/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/students/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"phone\": \"9111111111\"\n}"
+      }
+    },
+    {
+      "_id": "req_stu_d",
+      "_type": "request",
+      "parentId": "fld_stu",
+      "name": "DELETE /students/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/students/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_stu_adm",
+      "_type": "request",
+      "parentId": "fld_stu",
+      "name": "GET /students/{id}/admissions — Admissions",
+      "method": "GET",
+      "url": "{{ base_url }}/students/1/admissions",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_stu_wo",
+      "_type": "request",
+      "parentId": "fld_stu",
+      "name": "GET /students/without-admission — No Admission",
+      "method": "GET",
+      "url": "{{ base_url }}/students/without-admission",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_adm",
+      "_type": "request_group",
+      "parentId": "fld_t2",
+      "name": "Admissions",
+      "description": ""
+    },
+    {
+      "_id": "req_adm_i",
+      "_type": "request",
+      "parentId": "fld_adm",
+      "name": "GET /admissions — List All",
+      "method": "GET",
+      "url": "{{ base_url }}/admissions",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_adm_sh",
+      "_type": "request",
+      "parentId": "fld_adm",
+      "name": "GET /admissions/{id} — Show",
+      "method": "GET",
+      "url": "{{ base_url }}/admissions/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_adm_s",
+      "_type": "request",
+      "parentId": "fld_adm",
+      "name": "POST /admissions — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/admissions",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"student_id\": 1,\n  \"course_id\": 2,\n  \"admission_date\": \"2026-09-04\",\n  \"total_fees\": 15000,\n  \"fee_mode_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_adm_u",
+      "_type": "request",
+      "parentId": "fld_adm",
+      "name": "PUT /admissions/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/admissions/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"total_fees\": 16000\n}"
+      }
+    },
+    {
+      "_id": "req_adm_d",
+      "_type": "request",
+      "parentId": "fld_adm",
+      "name": "DELETE /admissions/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/admissions/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_adm_led",
+      "_type": "request",
+      "parentId": "fld_adm",
+      "name": "GET /admissions/{id}/ledger — Fee Ledger",
+      "method": "GET",
+      "url": "{{ base_url }}/admissions/1/ledger",
+      "description": "Payments made + outstanding balance.",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_crs",
+      "_type": "request_group",
+      "parentId": "fld_t2",
+      "name": "Courses",
+      "description": ""
+    },
+    {
+      "_id": "req_crs_i",
+      "_type": "request",
+      "parentId": "fld_crs",
+      "name": "GET /courses — List All",
+      "method": "GET",
+      "url": "{{ base_url }}/courses",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_crs_det",
+      "_type": "request",
+      "parentId": "fld_crs",
+      "name": "GET /courses/details — With Details",
+      "method": "GET",
+      "url": "{{ base_url }}/courses/details",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_crs_s",
+      "_type": "request",
+      "parentId": "fld_crs",
+      "name": "POST /courses — Create (full)",
+      "method": "POST",
+      "url": "{{ base_url }}/courses",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Full Stack Web Dev\",\n  \"duration_months\": 6,\n  \"fees\": 25000,\n  \"department_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_crs_sb",
+      "_type": "request",
+      "parentId": "fld_crs",
+      "name": "POST /courses/basic — Create (minimal)",
+      "method": "POST",
+      "url": "{{ base_url }}/courses/basic",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Digital Marketing\"\n}"
+      }
+    },
+    {
+      "_id": "req_crs_u",
+      "_type": "request",
+      "parentId": "fld_crs",
+      "name": "PUT /courses/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/courses/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"fees\": 27000\n}"
+      }
+    },
+    {
+      "_id": "req_crs_d",
+      "_type": "request",
+      "parentId": "fld_crs",
+      "name": "DELETE /courses/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/courses/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_crs_stu",
+      "_type": "request",
+      "parentId": "fld_crs",
+      "name": "GET /courses/{id}/students — Enrolled Students",
+      "method": "GET",
+      "url": "{{ base_url }}/courses/1/students",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_cur",
+      "_type": "request_group",
+      "parentId": "fld_t2",
+      "name": "Curriculum — Subjects, Chapters, Topics",
+      "description": ""
+    },
+    {
+      "_id": "req_sub_i",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "GET /subjects — List",
+      "method": "GET",
+      "url": "{{ base_url }}/subjects",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_sub_sh",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "GET /subjects/{id} — Show",
+      "method": "GET",
+      "url": "{{ base_url }}/subjects/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_sub_un",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "GET /subjects/unused — Unlinked",
+      "method": "GET",
+      "url": "{{ base_url }}/subjects/unused",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_sub_ch",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "GET /subjects/{id}/chapters — Chapters",
+      "method": "GET",
+      "url": "{{ base_url }}/subjects/1/chapters",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_sub_s",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "POST /subjects — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/subjects",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Mathematics\",\n  \"code\": \"MATH101\"\n}"
+      }
+    },
+    {
+      "_id": "req_sub_u",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "PUT /subjects/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/subjects/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Advanced Mathematics\"\n}"
+      }
+    },
+    {
+      "_id": "req_sub_d",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "DELETE /subjects/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/subjects/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_chp_i",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "GET /chapters — List",
+      "method": "GET",
+      "url": "{{ base_url }}/chapters",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_chp_un",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "GET /chapters/unusedChapters — Unassigned",
+      "method": "GET",
+      "url": "{{ base_url }}/chapters/unusedChapters",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_chp_tp",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "GET /chapters/{id}/topics — Topics",
+      "method": "GET",
+      "url": "{{ base_url }}/chapters/1/topics",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_chp_s",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "POST /chapters — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/chapters",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Algebra\",\n  \"subject_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_chp_u",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "PUT /chapters/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/chapters/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Linear Algebra\"\n}"
+      }
+    },
+    {
+      "_id": "req_chp_d",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "DELETE /chapters/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/chapters/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_top_i",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "GET /topics — List",
+      "method": "GET",
+      "url": "{{ base_url }}/topics",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_top_un",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "GET /topics/unusedTopics — Unlinked",
+      "method": "GET",
+      "url": "{{ base_url }}/topics/unusedTopics",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_top_q",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "GET /topics/{id}/questions — Questions",
+      "method": "GET",
+      "url": "{{ base_url }}/topics/1/questions",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_top_s",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "POST /topics — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/topics",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Matrices\",\n  \"chapter_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_top_u",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "PUT /topics/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/topics/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Matrices & Determinants\"\n}"
+      }
+    },
+    {
+      "_id": "req_top_d",
+      "_type": "request",
+      "parentId": "fld_cur",
+      "name": "DELETE /topics/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/topics/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_qb",
+      "_type": "request_group",
+      "parentId": "fld_t2",
+      "name": "Question Bank & Options",
+      "description": ""
+    },
+    {
+      "_id": "req_q_i",
+      "_type": "request",
+      "parentId": "fld_qb",
+      "name": "GET /questions — List",
+      "method": "GET",
+      "url": "{{ base_url }}/questions",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_q_sh",
+      "_type": "request",
+      "parentId": "fld_qb",
+      "name": "GET /questions/{id} — Show",
+      "method": "GET",
+      "url": "{{ base_url }}/questions/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_q_s",
+      "_type": "request",
+      "parentId": "fld_qb",
+      "name": "POST /questions — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/questions",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"topic_id\": 1,\n  \"question_text\": \"What is 2 + 2?\",\n  \"type\": \"MCQ\",\n  \"marks\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_q_u",
+      "_type": "request",
+      "parentId": "fld_qb",
+      "name": "PUT /questions/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/questions/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"marks\": 2\n}"
+      }
+    },
+    {
+      "_id": "req_q_d",
+      "_type": "request",
+      "parentId": "fld_qb",
+      "name": "DELETE /questions/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/questions/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_opt_i",
+      "_type": "request",
+      "parentId": "fld_qb",
+      "name": "GET /options — List",
+      "method": "GET",
+      "url": "{{ base_url }}/options",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_opt_sh",
+      "_type": "request",
+      "parentId": "fld_qb",
+      "name": "GET /options/{id} — Show",
+      "method": "GET",
+      "url": "{{ base_url }}/options/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_opt_s",
+      "_type": "request",
+      "parentId": "fld_qb",
+      "name": "POST /options — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/options",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"question_id\": 1,\n  \"option_text\": \"4\",\n  \"is_correct\": true\n}"
+      }
+    },
+    {
+      "_id": "req_opt_u",
+      "_type": "request",
+      "parentId": "fld_qb",
+      "name": "PUT /options/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/options/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"is_correct\": false\n}"
+      }
+    },
+    {
+      "_id": "req_opt_d",
+      "_type": "request",
+      "parentId": "fld_qb",
+      "name": "DELETE /options/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/options/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_res",
+      "_type": "request_group",
+      "parentId": "fld_t2",
+      "name": "Results",
+      "description": ""
+    },
+    {
+      "_id": "req_r_i",
+      "_type": "request",
+      "parentId": "fld_res",
+      "name": "GET /results — List",
+      "method": "GET",
+      "url": "{{ base_url }}/results",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_r_sh",
+      "_type": "request",
+      "parentId": "fld_res",
+      "name": "GET /results/{id} — Show",
+      "method": "GET",
+      "url": "{{ base_url }}/results/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_r_s",
+      "_type": "request",
+      "parentId": "fld_res",
+      "name": "POST /results — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/results",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"student_id\": 1,\n  \"admission_id\": 1,\n  \"marks_obtained\": 85,\n  \"total_marks\": 100,\n  \"exam_date\": \"2026-09-04\"\n}"
+      }
+    },
+    {
+      "_id": "req_r_u",
+      "_type": "request",
+      "parentId": "fld_res",
+      "name": "PUT /results/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/results/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"marks_obtained\": 90\n}"
+      }
+    },
+    {
+      "_id": "req_r_d",
+      "_type": "request",
+      "parentId": "fld_res",
+      "name": "DELETE /results/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/results/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_fee",
+      "_type": "request_group",
+      "parentId": "fld_t2",
+      "name": "Fee Receipts",
+      "description": ""
+    },
+    {
+      "_id": "req_f_i",
+      "_type": "request",
+      "parentId": "fld_fee",
+      "name": "GET /fees-receipts — List",
+      "method": "GET",
+      "url": "{{ base_url }}/fees-receipts",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_f_sh",
+      "_type": "request",
+      "parentId": "fld_fee",
+      "name": "GET /fees-receipts/{id} — Show",
+      "method": "GET",
+      "url": "{{ base_url }}/fees-receipts/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_f_s",
+      "_type": "request",
+      "parentId": "fld_fee",
+      "name": "POST /fees-receipts — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/fees-receipts",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"admission_id\": 1,\n  \"amount_paid\": 5000,\n  \"payment_date\": \"2026-09-04\",\n  \"fee_mode_id\": 1,\n  \"remarks\": \"First installment\"\n}"
+      }
+    },
+    {
+      "_id": "req_f_u",
+      "_type": "request",
+      "parentId": "fld_fee",
+      "name": "PUT /fees-receipts/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/fees-receipts/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"remarks\": \"Corrected first installment\"\n}"
+      }
+    },
+    {
+      "_id": "req_f_d",
+      "_type": "request",
+      "parentId": "fld_fee",
+      "name": "DELETE /fees-receipts/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/fees-receipts/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_st",
+      "_type": "request_group",
+      "parentId": "fld_t2",
+      "name": "States (Reference Data)",
+      "description": ""
+    },
+    {
+      "_id": "req_st_i",
+      "_type": "request",
+      "parentId": "fld_st",
+      "name": "GET /states — List",
+      "method": "GET",
+      "url": "{{ base_url }}/states",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_st_sh",
+      "_type": "request",
+      "parentId": "fld_st",
+      "name": "GET /states/{id} — Show",
+      "method": "GET",
+      "url": "{{ base_url }}/states/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_st_s",
+      "_type": "request",
+      "parentId": "fld_st",
+      "name": "POST /states — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/states",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Maharashtra\",\n  \"code\": \"MH\"\n}"
+      }
+    },
+    {
+      "_id": "req_st_u",
+      "_type": "request",
+      "parentId": "fld_st",
+      "name": "PUT /states/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/states/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"code\": \"MH\"\n}"
+      }
+    },
+    {
+      "_id": "req_st_d",
+      "_type": "request",
+      "parentId": "fld_st",
+      "name": "DELETE /states/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/states/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_t3",
+      "_type": "request_group",
+      "parentId": "wrk_cnat",
+      "name": "TIER 3 — Events & Inquiries (+ Manager Sale)",
+      "description": ""
+    },
+    {
+      "_id": "fld_gst",
+      "_type": "request_group",
+      "parentId": "fld_t3",
+      "name": "Guests (Inquiries / Leads)",
+      "description": ""
+    },
+    {
+      "_id": "req_g_i",
+      "_type": "request",
+      "parentId": "fld_gst",
+      "name": "GET /guests — List All",
+      "method": "GET",
+      "url": "{{ base_url }}/guests",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_g_pag",
+      "_type": "request",
+      "parentId": "fld_gst",
+      "name": "GET /guests/pagination — Paginated",
+      "method": "GET",
+      "url": "{{ base_url }}/guests/pagination",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_g_srch",
+      "_type": "request",
+      "parentId": "fld_gst",
+      "name": "GET /guests/search/any?q= — Search",
+      "method": "GET",
+      "url": "{{ base_url }}/guests/search/any?q=priya",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_g_sh",
+      "_type": "request",
+      "parentId": "fld_gst",
+      "name": "GET /guests/{id} — Show",
+      "method": "GET",
+      "url": "{{ base_url }}/guests/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_g_s",
+      "_type": "request",
+      "parentId": "fld_gst",
+      "name": "POST /guests — Create Inquiry",
+      "method": "POST",
+      "url": "{{ base_url }}/guests",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Anita Rao\",\n  \"phone\": \"9000000099\",\n  \"email\": \"anita@example.com\",\n  \"inquiry_for\": \"Full Stack Web Dev\",\n  \"source\": \"walk-in\"\n}"
+      }
+    },
+    {
+      "_id": "req_g_u",
+      "_type": "request",
+      "parentId": "fld_gst",
+      "name": "PUT /guests/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/guests/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"converted\"\n}"
+      }
+    },
+    {
+      "_id": "req_g_d",
+      "_type": "request",
+      "parentId": "fld_gst",
+      "name": "DELETE /guests/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/guests/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_vis",
+      "_type": "request_group",
+      "parentId": "fld_t3",
+      "name": "Visitors (Walk-in Log)",
+      "description": ""
+    },
+    {
+      "_id": "req_v_i",
+      "_type": "request",
+      "parentId": "fld_vis",
+      "name": "GET /visitors — List All",
+      "method": "GET",
+      "url": "{{ base_url }}/visitors",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_v_s",
+      "_type": "request",
+      "parentId": "fld_vis",
+      "name": "POST /visitors — Log Walk-in (throttle 3/min)",
+      "method": "POST",
+      "url": "{{ base_url }}/visitors",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Walk-in Visitor\",\n  \"phone\": \"9000000011\",\n  \"purpose\": \"Course inquiry\",\n  \"visited_at\": \"2026-09-04 10:30:00\"\n}"
+      }
+    },
+    {
+      "_id": "req_v_u",
+      "_type": "request",
+      "parentId": "fld_vis",
+      "name": "PUT /visitors/{id} — Update Entry",
+      "method": "PUT",
+      "url": "{{ base_url }}/visitors/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"purpose\": \"Admission inquiry\"\n}"
+      }
+    },
+    {
+      "_id": "req_v_d",
+      "_type": "request",
+      "parentId": "fld_vis",
+      "name": "DELETE /visitors/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/visitors/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "fld_dev",
+      "_type": "request_group",
+      "parentId": "wrk_cnat",
+      "name": "DEV — No Auth (Local Only)",
+      "description": "WARNING: No authentication. Local dev only. Never expose in production."
+    },
+    {
+      "_id": "req_dg_i",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] GET /dev/guests — List",
+      "method": "GET",
+      "url": "{{ base_url }}/dev/guests",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_dg_sh",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] GET /dev/guests/{id} — Show",
+      "method": "GET",
+      "url": "{{ base_url }}/dev/guests/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_dg_s",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] POST /dev/guests — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/dev/guests",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Test Guest\",\n  \"phone\": \"9000000000\"\n}"
+      }
+    },
+    {
+      "_id": "req_dg_e",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] PUT /dev/guests/{id} — Edit",
+      "method": "PUT",
+      "url": "{{ base_url }}/dev/guests/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Updated Guest\"\n}"
+      }
+    },
+    {
+      "_id": "req_dg_d",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] DELETE /dev/guests/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/dev/guests/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_ds_i",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] GET /dev/students — List",
+      "method": "GET",
+      "url": "{{ base_url }}/dev/students",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_ds_s",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] POST /dev/students — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/dev/students",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Test Student\",\n  \"phone\": \"9100000000\"\n}"
+      }
+    },
+    {
+      "_id": "req_ds_u",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] PUT /dev/students/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/dev/students/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Updated Student\"\n}"
+      }
+    },
+    {
+      "_id": "req_ds_d",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] DELETE /dev/students/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/dev/students/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_da_i",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] GET /dev/admissions — List",
+      "method": "GET",
+      "url": "{{ base_url }}/dev/admissions",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_da_s",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] POST /dev/admissions — Create",
+      "method": "POST",
+      "url": "{{ base_url }}/dev/admissions",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"student_id\": 1,\n  \"course_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "req_da_u",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] PUT /dev/admissions/{id} — Update",
+      "method": "PUT",
+      "url": "{{ base_url }}/dev/admissions/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"course_id\": 2\n}"
+      }
+    },
+    {
+      "_id": "req_da_d",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] DELETE /dev/admissions/{id} — Delete",
+      "method": "DELETE",
+      "url": "{{ base_url }}/dev/admissions/1",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_dc",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] GET /dev/certificates/{number} — Lookup",
+      "method": "GET",
+      "url": "{{ base_url }}/dev/certificates/CERT-2026-001",
+      "description": "Replace CERT-2026-001 with real cert number.",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_dv_s",
+      "_type": "request",
+      "parentId": "fld_dev",
+      "name": "[DEV] POST /dev/visitors — Log Visitor",
+      "method": "POST",
+      "url": "{{ base_url }}/dev/visitors",
+      "description": "",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Test Visitor\",\n  \"phone\": \"9200000000\",\n  \"purpose\": \"Testing\"\n}"
+      }
+    }
+  ]
+}
