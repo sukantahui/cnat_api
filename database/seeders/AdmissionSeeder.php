@@ -15,7 +15,7 @@ class AdmissionSeeder extends Seeder
         DB::table('admissions')->insert([
             [
                 'admission_number' => 'REGN-10231-2425',
-                'student_id' => 49,
+                'student_id' => 37,
                 'course_id' => 31,
                 'course_status_id' => 2, // Active
                 'course_fees' => 5500,
@@ -51,7 +51,7 @@ class AdmissionSeeder extends Seeder
             ],
             [
                 'admission_number' => 'REGN-00003-2627',
-                'student_id' => 50,
+                'student_id' => 38,
                 'course_id' => 6,          // You will fill this
                 'course_status_id' => 1,      // Active
                 'course_fees' => 6000,
