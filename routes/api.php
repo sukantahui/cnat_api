@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /**
  * =============================================================================
@@ -216,23 +216,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
         // ── Database Backups ──────────────────────────────────────────────────
         // Admin / Developer / Owner only. Generates and manages SQL dump files.
-        // Base prefix: /api/backups
-        Route::controller(BackupController::class)->prefix('backups')->group(function () {
-            /** GET    /api/backups              → index()      List all backup files (newest first) */
-            Route::get('/', 'index');
-
-            /** POST   /api/backups              → create()     Run mysqldump, save .sql file */
-            Route::post('/', 'create');
-
-            /** GET    /api/backups/{filename}   → download()   Stream backup file as download */
-            Route::get('/{filename}', 'download');
-
-            /** DELETE /api/backups/{filename}   → destroy()    Delete a single backup file */
-            Route::delete('/{filename}', 'destroy');
-
-            /** DELETE /api/backups              → destroyAll() Delete ALL backups (needs confirm:true) */
-            Route::delete('/', 'destroyAll');
-        });
 
     }); // end Tier 1.5
 
@@ -439,6 +422,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::delete('/{visitorId}', 'destroy');
         });
 
+
     }); // end Tier 3
 
 }); // end auth:sanctum
@@ -490,6 +474,15 @@ Route::group(['prefix' => 'dev'], function () {
     // Visitors — open POST for dev/testing (throttle still applied)
     Route::controller(VisitorController::class)->prefix('visitors')->group(function () {
         Route::post('/', 'store')->middleware('throttle:3,1');
+    });
+
+    // Backups - open backup endpoints for dev/testing
+    Route::controller(BackupController::class)->prefix('backups')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'create');
+        Route::get('/{filename}', 'download');
+        Route::delete('/{filename}', 'destroy');
+        Route::delete('/', 'destroyAll');
     });
 });
 

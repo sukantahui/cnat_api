@@ -59,6 +59,18 @@ class UpdateGuestRequest extends BaseRequest
         ];
     }
 
+    public function messages(): array
+    {
+        return [
+            'wp_number.unique'          => 'This WhatsApp number is already registered under this attendee name.',
+            'wp_number.required'        => 'A 10-digit WhatsApp phone number is required.',
+            'pin.min'                   => 'Security PIN must be exactly 4 digits.',
+            'pin.max'                   => 'Security PIN must be exactly 4 digits.',
+            'gender_id.exists'          => 'The selected gender is invalid.',
+            'food_preference_id.exists' => 'The selected feast meal preference is invalid.',
+        ];
+    }
+
     /**
      * Prepare the data for validation.
      */
@@ -74,16 +86,18 @@ class UpdateGuestRequest extends BaseRequest
         }
 
         // Auto-fallback wp_number to mobile if wp_number is omitted but mobile is present
+        $mobile = $this->filled('mobile') ? (string) $this->mobile : null;
         $wpNumber = $this->filled('wp_number')
-            ? $this->wp_number
-            : ($this->filled('mobile') ? $this->mobile : $this->wp_number);
+            ? (string) $this->wp_number
+            : ($mobile ?? (string) $this->wp_number);
 
         $this->merge([
             'wp_number' => $wpNumber,
-            'email'     => $this->filled('email') ? $this->email : null,
-            'address'   => $this->filled('address') ? $this->address : null,
-            'comment'   => $this->filled('comment') ? $this->comment : null,
+            'mobile'    => $mobile,
+            'pin'       => $this->filled('pin') ? (string) $this->pin : null,
+            'email'     => $this->filled('email') ? trim((string) $this->email) : null,
+            'address'   => $this->filled('address') ? trim((string) $this->address) : null,
+            'comment'   => $this->filled('comment') ? trim((string) $this->comment) : null,
         ]);
     }
 }
-

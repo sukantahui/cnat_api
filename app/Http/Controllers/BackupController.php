@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Log;
  *
  * Backup storage : storage/app/backups/
  * Filename format: cnat_db_backup_YYYY-MM-DD_HH-MM-SS.sql
- * Dump tool      : mysqldump (WampServer -- E:\wamp64\bin\mysql\mysql9.1.0\bin)
+ * Dump tool      : mysqldump (WampServer or environment path)
  *
  * Endpoints (prefix: /api/backups)
  * ---------------------------------
@@ -30,9 +30,9 @@ use Illuminate\Support\Facades\Log;
 class BackupController extends Controller
 {
     /**
-     * Absolute path to the mysqldump binary (WampServer on E:\).
+     * Default absolute path to the mysqldump binary (WampServer on E:\).
      */
-    private const MYSQLDUMP_PATH = 'E:\wamp64\bin\mysql\mysql9.1.0\bin\mysqldump.exe';
+    private const DEFAULT_MYSQLDUMP_PATH = 'E:\\wamp64\\bin\\mysql\\mysql9.1.0\\bin\\mysqldump.exe';
 
     /**
      * Storage disk sub-directory where .sql files are kept.
@@ -44,9 +44,35 @@ class BackupController extends Controller
     // Helpers
     // -------------------------------------------------------------------------
 
-    private function backupDiskPath(): string
+    /**
+     * Resolves the mysqldump binary executable path.
+     */
+    public function getMysqldumpPath(): string
     {
-        $path = storage_path('app/' . self::BACKUP_DIR);
+        $configured = env('MYSQLDUMP_PATH');
+        if (!empty($configured) && file_exists($configured)) {
+            return $configured;
+        }
+
+        if (file_exists(self::DEFAULT_MYSQLDUMP_PATH)) {
+            return self::DEFAULT_MYSQLDUMP_PATH;
+        }
+
+        // Try finding mysqldump from system PATH
+        $which = PHP_OS_FAMILY === 'Windows'
+            ? @exec('where mysqldump 2>nul')
+            : @exec('which mysqldump 2>/dev/null');
+
+        if (!empty($which) && file_exists($which)) {
+            return $which;
+        }
+
+        return self::DEFAULT_MYSQLDUMP_PATH;
+    }
+
+    public function backupDiskPath(): string
+    {
+        $path = storage_path('app' . DIRECTORY_SEPARATOR . self::BACKUP_DIR);
         if (!is_dir($path)) {
             mkdir($path, 0755, true);
         }
@@ -100,47 +126,93 @@ class BackupController extends Controller
     // -------------------------------------------------------------------------
     public function create()
     {
+        $mysqldump = $this->getMysqldumpPath();
+
+        if (!file_exists($mysqldump)) {
+            Log::error('mysqldump binary not found', ['path' => $mysqldump]);
+            return ResponseHelper::error(
+                "mysqldump binary not found at: {$mysqldump}. Please set MYSQLDUMP_PATH in .env or verify MySQL installation.",
+                null,
+                500
+            );
+        }
+
         $host     = config('database.connections.mysql.host',     '127.0.0.1');
         $port     = config('database.connections.mysql.port',     '3306');
         $database = config('database.connections.mysql.database', '');
         $username = config('database.connections.mysql.username', '');
         $password = config('database.connections.mysql.password', '');
 
+        if (empty($database)) {
+            return ResponseHelper::error('Database name not configured.', null, 500);
+        }
+
         $timestamp = now()->format('Y-m-d_H-i-s');
         $filename  = "cnat_db_backup_{$timestamp}.sql";
         $filePath  = $this->backupDiskPath() . DIRECTORY_SEPARATOR . $filename;
 
-        $mysqldump   = self::MYSQLDUMP_PATH;
-        $hostArg     = escapeshellarg($host);
-        $portArg     = escapeshellarg($port);
-        $userArg     = escapeshellarg($username);
-        $databaseArg = escapeshellarg($database);
-        $fileArg     = escapeshellarg($filePath);
-
-        if ($password !== '') {
-            $escapedPassword = str_replace('"', '""', $password);
-            $command = "SET \"MYSQL_PWD={$escapedPassword}\" && \"{$mysqldump}\" --host={$hostArg} --port={$portArg} --user={$userArg} --single-transaction --routines --triggers --add-drop-table {$databaseArg} > {$fileArg} 2>&1";
-        } else {
-            $command = "\"{$mysqldump}\" --host={$hostArg} --port={$portArg} --user={$userArg} --single-transaction --routines --triggers --add-drop-table {$databaseArg} > {$fileArg} 2>&1";
+        $fp = fopen($filePath, 'wb');
+        if (!$fp) {
+            Log::error('Could not open file for writing backup', ['path' => $filePath]);
+            return ResponseHelper::error('Failed to create backup file on disk.', null, 500);
         }
 
-        $output     = [];
-        $returnCode = 0;
-        exec("cmd /c {$command}", $output, $returnCode);
+        $descriptors = [
+            0 => ['pipe', 'r'],
+            1 => $fp,            // stdout directly to file stream
+            2 => ['pipe', 'w'],  // stderr to pipe for capturing errors
+        ];
 
-        if ($returnCode !== 0 || !file_exists($filePath) || filesize($filePath) === 0) {
-            if (file_exists($filePath)) unlink($filePath);
-            $errorMsg = implode(' ', $output);
-            Log::error('Database backup failed', ['return_code' => $returnCode, 'output' => $output]);
+        // Construct mysqldump command
+        $cmd = "\"{$mysqldump}\" --host={$host} --port={$port} --user={$username} --single-transaction --routines --triggers --add-drop-table {$database}";
+
+        // Inject MYSQL_PWD into child process environment (avoids CLI password exposure and Windows cmd quoting issues)
+        $env = array_merge($_ENV, getenv(), [
+            'MYSQL_PWD' => (string)$password,
+        ]);
+
+        $process = proc_open($cmd, $descriptors, $pipes, null, $env);
+
+        if (!is_resource($process)) {
+            fclose($fp);
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+            Log::error('proc_open failed to spawn mysqldump process');
+            return ResponseHelper::error('Failed to execute mysqldump process.', null, 500);
+        }
+
+        // Close stdin pipe
+        fclose($pipes[0]);
+
+        // Capture stderr
+        $stderr = stream_get_contents($pipes[2]);
+        fclose($pipes[2]);
+
+        // Close file handle
+        fclose($fp);
+
+        $exitCode = proc_close($process);
+
+        if ($exitCode !== 0 || !file_exists($filePath) || filesize($filePath) === 0) {
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+            $errorMsg = trim($stderr);
+            Log::error('Database backup failed', ['exit_code' => $exitCode, 'error' => $errorMsg]);
+
             return ResponseHelper::error(
                 'Database backup failed. Check server logs for details.',
-                ['mysqldump_error' => $errorMsg],
+                ['mysqldump_error' => $errorMsg, 'exit_code' => $exitCode],
                 500
             );
         }
 
         $size = filesize($filePath);
-        Log::info('Database backup created', ['filename' => $filename, 'size' => $size]);
+        Log::info('Database backup created successfully', [
+            'filename' => $filename,
+            'size'     => $size,
+        ]);
 
         return ResponseHelper::success('Database backup created successfully.', [
             'filename'   => $filename,
