@@ -10,20 +10,45 @@ class Guest extends Model
 {
     /** @use HasFactory<\Database\Factories\GuestFactory> */
     use HasFactory;
-    protected $guarded = ['id'];
-    function foodPreference(): BelongsTo
+
+    protected $fillable = [
+        'year',
+        'guest_name',
+        'age',
+        'mobile',
+        'wp_number',
+        'address',
+        'email',
+        'pin',
+        'token',
+        'gender_id',
+        'food_preference_id',
+        'previous_guest_id',
+        'is_attending',
+        'comment',
+    ];
+
+    public function foodPreference(): BelongsTo
     {
         return $this->belongsTo(FoodPreference::class);
     }
 
-    function gender(): BelongsTo
+    public function gender(): BelongsTo
     {
         return $this->belongsTo(Gender::class);
     }
+
+    public function previousGuest(): BelongsTo
+    {
+        return $this->belongsTo(Guest::class, 'previous_guest_id');
+    }
+
     protected function casts(): array
     {
         return [
-            'is_attending' => 'boolean'
+            'age'          => 'integer',
+            'year'         => 'integer',
+            'is_attending' => 'boolean',
         ];
     }
 }

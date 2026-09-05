@@ -43,7 +43,9 @@ class SearchGuestRequest extends BaseRequest
             // Specific field filters
             'name'              => 'nullable|string|max:255',
             'year'              => 'nullable|integer|min:2000|max:2100',
+            'age'               => 'nullable|integer|min:1|max:120',
             'mobile'            => 'nullable|string|max:20',
+            'wp_number'         => 'nullable|string|max:20',
             'email'             => 'nullable|string|max:191',
             'address'           => 'nullable|string|max:191',
             'is_attending'      => 'nullable|boolean',

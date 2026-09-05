@@ -42,6 +42,8 @@ class GuestResource extends JsonResource
             'genderName'         => $genderName,
             'foodPreferenceId'   => (string) $this->food_preference_id,
             'foodPreferenceName' => $foodPreferenceName,
+            'previousGuestId'    => $this->previous_guest_id,
+            'previous_guest_id'  => $this->previous_guest_id,
             'isAttending'        => (bool) $this->is_attending,
             'is_present'         => (bool) $this->is_attending,
             'is_attending'       => (bool) $this->is_attending,

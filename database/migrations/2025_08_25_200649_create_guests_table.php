@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->integer('year')->default(date('Y'));
             $table->string('guest_name', 100);
-            $table->string('mobile', 20);
-            $table->string('wp_number', 20)->nullable();
+            $table->unsignedTinyInteger('age')->nullable();
+            $table->string('mobile', 20)->nullable();
+            $table->string('wp_number', 20)->nullable(false);
             $table->string('address', 191)->nullable();
             $table->string('email', 191)->nullable(true);
             $table->string('pin', 4);
@@ -30,7 +31,6 @@ return new class extends Migration
             $table->timestamps();
 
             // Composite unique constraints
-            $table->unique(['guest_name', 'mobile']);
             $table->unique(['guest_name', 'wp_number']);
             
         });

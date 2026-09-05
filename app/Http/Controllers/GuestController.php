@@ -20,7 +20,7 @@ class GuestController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Guest::with(['gender', 'foodPreference'])->orderBy('guest_name');
+        $query = Guest::with(['gender', 'foodPreference', 'previousGuest'])->orderBy('guest_name');
 
         // If 'per_page' is explicitly provided, return paginated results; otherwise return full collection
         if ($request->has('per_page') && !$request->boolean('all')) {
@@ -34,24 +34,48 @@ class GuestController extends Controller
     }
 
     /**
+     * Display a paginated listing of the resource.
+     */
+    public function index_pagination(Request $request)
+    {
+        $perPage = $request->integer('per_page', 20);
+        $guests = Guest::with(['gender', 'foodPreference', 'previousGuest'])
+            ->orderBy('guest_name')
+            ->paginate($perPage);
+
+        return ResponseHelper::success("Guests retrieved successfully", GuestResource::collection($guests));
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreGuestRequest $request)
     {
         return $this->executeInTransaction(function () use ($request) {
             $data = $request->validated();
+            unset($data['is_present']);
 
-            // Link to previous guest if phone matches
-            $previousGuest = Guest::where('mobile', $data['mobile'])->first();
-            if ($previousGuest) {
-                $data['previous_guest_id'] = $previousGuest->id;
+            // Default year to current year if not provided
+            $data['year'] = $data['year'] ?? (int) date('Y');
+
+            // Link to previous guest if phone matches (safely guard against null)
+            if (!empty($data['mobile'])) {
+                $previousGuest = Guest::where('mobile', $data['mobile'])->latest()->first();
+                if ($previousGuest) {
+                    $data['previous_guest_id'] = $previousGuest->id;
+                }
+            } elseif (!empty($data['wp_number'])) {
+                $previousGuest = Guest::where('wp_number', $data['wp_number'])->latest()->first();
+                if ($previousGuest) {
+                    $data['previous_guest_id'] = $previousGuest->id;
+                }
             }
 
             $guest = Guest::create($data);
             $guest->token = "CNAT-" . ($guest->id + 1000);
             $guest->save();
 
-            $guest->load(['gender', 'foodPreference']);
+            $guest->load(['gender', 'foodPreference', 'previousGuest']);
 
             return ResponseHelper::success("Guest created successfully", new GuestResource($guest));
         });
@@ -66,7 +90,7 @@ class GuestController extends Controller
             $guest = Guest::findOrFail($guest);
         }
 
-        $guest->load(['gender', 'foodPreference']);
+        $guest->load(['gender', 'foodPreference', 'previousGuest']);
 
         return ResponseHelper::success("Guest retrieved successfully", new GuestResource($guest));
     }
@@ -77,7 +101,7 @@ class GuestController extends Controller
     public function search(SearchGuestRequest $request)
     {
         $results = Guest::query()
-            ->with(['gender', 'foodPreference'])
+            ->with(['gender', 'foodPreference', 'previousGuest'])
             ->when($request->filled('key'), function ($query) use ($request) {
                 $k = $request->key;
                 $query->where(function ($q) use ($k) {
@@ -99,6 +123,12 @@ class GuestController extends Controller
                     $q->where('mobile',    'like', "%{$request->mobile}%")
                       ->orWhere('wp_number', 'like', "%{$request->mobile}%");
                 });
+            })
+            ->when($request->filled('wp_number'), function ($query) use ($request) {
+                $query->where('wp_number', 'like', "%{$request->wp_number}%");
+            })
+            ->when($request->filled('age'), function ($query) use ($request) {
+                $query->where('age', $request->age);
             })
             ->when($request->filled('email'), function ($query) use ($request) {
                 $query->where('email', 'like', "%{$request->email}%");
@@ -141,7 +171,7 @@ class GuestController extends Controller
     public function edit($guestId, Request $request)
     {
         $guest = Guest::findOrFail($guestId);
-        $guest->load(['gender', 'foodPreference']);
+        $guest->load(['gender', 'foodPreference', 'previousGuest']);
         return ResponseHelper::success("Guest retrieved successfully", new GuestResource($guest));
     }
 
@@ -154,8 +184,16 @@ class GuestController extends Controller
             $guest = Guest::findOrFail($guest);
         }
 
-        $guest->update($request->validated());
-        $guest->load(['gender', 'foodPreference']);
+        $data = $request->validated();
+        unset($data['is_present']);
+
+        // Don't overwrite pin with null if pin was omitted or empty
+        if (array_key_exists('pin', $data) && empty($data['pin'])) {
+            unset($data['pin']);
+        }
+
+        $guest->update($data);
+        $guest->load(['gender', 'foodPreference', 'previousGuest']);
 
         return ResponseHelper::success("Guest updated successfully", new GuestResource($guest));
     }

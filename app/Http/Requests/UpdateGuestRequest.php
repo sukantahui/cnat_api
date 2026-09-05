@@ -30,6 +30,13 @@ class UpdateGuestRequest extends BaseRequest
             'age'        => ['nullable', 'integer', 'min:1', 'max:120'],
 
             'mobile' => [
+                'nullable',
+                'string',
+                'max:20',
+            ],
+
+            // wp_number is NOT NULL in database and has composite unique with guest_name
+            'wp_number' => [
                 'required',
                 'string',
                 'max:20',
@@ -39,21 +46,16 @@ class UpdateGuestRequest extends BaseRequest
                 )->ignore($guestId),
             ],
 
-            'wp_number' => [
-                'nullable',
-                'string',
-                'max:20',
-            ],
-
             'address' => ['nullable', 'string', 'max:191'],
-            'email' => ['nullable', 'email', 'max:191'],
-            'pin' => ['nullable', 'string', 'min:4', 'max:4'],
+            'email'   => ['nullable', 'email', 'max:191'],
+            'pin'     => ['nullable', 'string', 'min:4', 'max:4'],
+            'year'    => ['nullable', 'integer', 'min:2000', 'max:2100'],
 
-            'gender_id' => ['required', 'exists:genders,id'],
+            'gender_id'          => ['required', 'exists:genders,id'],
             'food_preference_id' => ['required', 'exists:food_preferences,id'],
-            'is_attending' => ['nullable', 'boolean'],
-            'is_present' => ['nullable', 'boolean'],
-            'comment' => ['nullable', 'string', 'max:191'],
+            'is_attending'       => ['nullable', 'boolean'],
+            'is_present'         => ['nullable', 'boolean'],
+            'comment'            => ['nullable', 'string', 'max:191'],
         ];
     }
 
@@ -71,11 +73,16 @@ class UpdateGuestRequest extends BaseRequest
             ]);
         }
 
+        // Auto-fallback wp_number to mobile if wp_number is omitted but mobile is present
+        $wpNumber = $this->filled('wp_number')
+            ? $this->wp_number
+            : ($this->filled('mobile') ? $this->mobile : $this->wp_number);
+
         $this->merge([
-            'email' => $this->filled('email') ? $this->email : null,
-            'address' => $this->filled('address') ? $this->address : null,
-            'comment' => $this->filled('comment') ? $this->comment : null,
-            'wp_number' => $this->filled('wp_number') ? $this->wp_number : null,
+            'wp_number' => $wpNumber,
+            'email'     => $this->filled('email') ? $this->email : null,
+            'address'   => $this->filled('address') ? $this->address : null,
+            'comment'   => $this->filled('comment') ? $this->comment : null,
         ]);
     }
 }
