@@ -1,0 +1,160 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Resources\StudentResource;
+use App\Models\Student;
+use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
+use App\Traits\HandlesTransactions;
+use App\Helper\ResponseHelper;
+use App\Models\CustomVoucher;
+use App\Helper\CommonHelper;
+use App\Http\Requests\StoreStudentRequestBasic;
+use Illuminate\Support\Facades\DB;
+
+class StudentController extends Controller
+{
+    use HandlesTransactions;
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $students = Student::all();
+        return ResponseHelper::success("Students retrieved successfully", StudentResource::collection($students));
+    }
+
+    public function store(StoreStudentRequest $request)
+    {
+        $student = DB::transaction(function () use ($request) {
+
+            $data = $request->validated();
+
+            // 1) Get current accounting year
+            $year = CommonHelper::getCurrentAccountingYear();
+
+            // 2) Lock / create voucher row for "Student" in this year
+            $voucher = CustomVoucher::where('voucher_name', 'Student')
+                ->where('accounting_year', $year)
+                ->lockForUpdate()
+                ->first();
+
+            if (!$voucher) {
+                $voucher = CustomVoucher::create([
+                    'voucher_name' => 'Student',
+                    'accounting_year' => $year,
+                    'last_counter' => 0,
+                    'prefix' => 'CNAT',
+                    'min_digits' => 5,
+                ]);
+            }
+
+            // 3) Increment counter
+            $voucher->last_counter++;
+            $voucher->save();
+
+            // 4) Build registration number
+            $data['registration_number'] =
+                $voucher->prefix . '-' .
+                str_pad($voucher->last_counter, $voucher->min_digits, '0', STR_PAD_LEFT) .
+                '-' . $voucher->accounting_year;
+
+            // 5) Try to create student (this is where unique constraint may fail)
+            $student = Student::create($data);
+
+            // If we reached here, no exception, transaction will COMMIT
+            return $student;
+        });
+
+        // Outside transaction: only reached if commit succeeded
+        return ResponseHelper::success("Student created successfully", $student);
+    }
+    public function storeBasic(StoreStudentRequestBasic $request)
+    {
+        $student = DB::transaction(function () use ($request) {
+
+            $data = $request->validated();
+
+            // 1) Get current accounting year
+            $year = CommonHelper::getCurrentAccountingYear();
+
+            // 2) Lock / create voucher row for "Student" in this year
+            $voucher = CustomVoucher::where('voucher_name', 'Student')
+                ->where('accounting_year', $year)
+                ->lockForUpdate()
+                ->first();
+
+            if (!$voucher) {
+                $voucher = CustomVoucher::create([
+                    'voucher_name' => 'Student',
+                    'accounting_year' => $year,
+                    'last_counter' => 0,
+                    'prefix' => 'CNAT',
+                    'min_digits' => 5,
+                ]);
+            }
+
+            // 3) Increment counter
+            $voucher->last_counter++;
+            $voucher->save();
+
+            // 4) Build registration number
+            $data['registration_number'] =
+                $voucher->prefix . '-' .
+                str_pad($voucher->last_counter, $voucher->min_digits, '0', STR_PAD_LEFT) .
+                '-' . $voucher->accounting_year;
+
+            // 5) Try to create student (this is where unique constraint may fail)
+            $student = Student::create($data);
+
+            // If we reached here, no exception, transaction will COMMIT
+            return $student;
+        });
+
+        // Outside transaction: only reached if commit succeeded
+        return ResponseHelper::success("Student created successfully", $student);
+    }
+    public function edit(Student $student)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateStudentRequest $request, Student $student)
+    {
+        $student->update($request->validated());
+
+        return ResponseHelper::success("Student Updated successfully", new StudentResource($student));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Student $student)
+    {
+        //
+    }
+
+    public function admissions(Student $student)
+    {
+        $data = $student->load([
+            'courses',
+            'admissions.course',
+            'admissions.courseStatus'
+        ]);
+
+        return ResponseHelper::success("Student admissions retrieved successfully", $data);
+    }
+
+    public function studentsWithoutAdmission()
+    {
+        $students = Student::whereDoesntHave('admissions')
+            ->orderBy('student_name')
+            ->get();
+
+        return ResponseHelper::success("Students without admission retrieved successfully", StudentResource::collection($students));
+    }
+}

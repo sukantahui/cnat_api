@@ -43,8 +43,8 @@ class DatabaseSeeder extends Seeder
             PythonOperatorsExpressionsSeeder::class,
             PythonVariablesSyntaxSeeder::class,
             TuplesSeeder::class,
-            
-
+            // To restore/seed the full database dump in one shot:
+            // SqlDumpSeeder::class,
         ]);
     }
 }

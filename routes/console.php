@@ -28,3 +28,12 @@ Artisan::command('db:backup', function () {
     }
     return 1;
 })->purpose('Create a new MySQL database backup (.sql)');
+
+Artisan::command('db:restore {file? : Optional path to the SQL backup file}', function (?string $file = null) {
+    if ($file) {
+        putenv("SQL_DUMP_PATH={$file}");
+        $_ENV['SQL_DUMP_PATH'] = $file;
+    }
+    return $this->call('db:seed', ['--class' => 'DatabaseRestoreSeeder']);
+})->purpose('Restore the MySQL database from an SQL backup file');
+

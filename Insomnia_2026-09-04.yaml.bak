@@ -1179,35 +1179,6 @@ collection:
                 store: true
               rebuildPath: true
 
-
-          - url: "{{base_url}}/students/1/previous-admissions"
-            name: "GET /students/{id}/previous-admissions — Previous Admissions & Payment Details"
-            meta:
-              id: req_stu_prev_adm
-              created: 1789586000000
-              modified: 1789586000000
-              isPrivate: false
-              sortKey: -1780000000885
-            method: GET
-            body:
-              mimeType: application/json
-            headers:
-              - name: Accept
-                value: application/json
-              - name: User-Agent
-                value: insomnia/11.0.2
-            authentication:
-              type: bearer
-              token: "{{ auth.bearerToken }}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-
           - url: "{{base_url}}/students/without-admission"
             name: "GET /students/without-admission — No Admission"
             meta:

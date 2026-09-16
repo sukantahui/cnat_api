@@ -260,7 +260,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
          * GET /api/admissions/{admissionId}/ledger  →  AdmissionController@ledger
          * Full fee payment ledger: all payments made + outstanding balance.
          */
-        Route::get('admissions/dues', [AdmissionController::class, 'dues']);
         Route::get('admissions/{admissionId}/ledger', [AdmissionController::class, 'ledger']);
         // Standard REST: GET/POST/PUT/PATCH/DELETE /api/admissions{/{admission}}
         Route::apiResource('admissions', AdmissionController::class);

@@ -254,85 +254,32 @@ class AdmissionController extends Controller
             ];
         }
 
-        $now = new \DateTime();
         $admDate = new \DateTime($admission->admission_date ?? 'now');
         $clearedMonths = [];
         $nextDueMonth = null;
         $dueAmount = 0;
         $balanceDue = 0;
         $statusBadge = '';
-        $elapsedMonths = 1;
-        $unpaidMonthsCount = 0;
-        $pendingMonths = [];
-        $pendingMonthsText = null;
-        $chargeableFee = 0;
 
         if ($isMonthly) {
             $rate = $monthlyRate > 0 ? $monthlyRate : 600;
-            
-            // Determine billing period: from admission month up to current month (e.g. April to September = 6 months)
-            $admYear = (int)$admDate->format('Y');
-            $admMonth = (int)$admDate->format('n');
-            
-            $endDate = $admission->completion_date ? new \DateTime($admission->completion_date) : $now;
-            if ($endDate > $now) {
-                $endDate = $now;
-            }
-            $endYear = (int)$endDate->format('Y');
-            $endMonth = (int)$endDate->format('n');
-
-            $elapsedMonths = (($endYear - $admYear) * 12) + ($endMonth - $admMonth) + 1;
-            if ($elapsedMonths < 1) {
-                $elapsedMonths = 1;
-            }
-
-            // Total chargeable / accrued fees to date (e.g. 6 months * 600 = 3,600)
-            $chargeableFee = $elapsedMonths * $rate;
             $totalMonthsCovered = (int)floor($runningTotal / $rate);
-
             for ($i = 0; $i < $totalMonthsCovered; $i++) {
                 $m = (clone $admDate)->modify("+{$i} months");
                 $clearedMonths[] = $m->format('F Y');
             }
             $nextDue = (clone $admDate)->modify("+{$totalMonthsCovered} months");
             $nextDueMonth = $nextDue->format('F Y');
-
-            $unpaidMonthsCount = max(0, $elapsedMonths - $totalMonthsCovered);
-            for ($i = $totalMonthsCovered; $i < $elapsedMonths; $i++) {
-                $m = (clone $admDate)->modify("+{$i} months");
-                $pendingMonths[] = $m->format('F Y');
-            }
-
-            if (count($pendingMonths) === 0) {
-                $pendingMonthsText = null;
-            } elseif (count($pendingMonths) === 1) {
-                $pendingMonthsText = $pendingMonths[0];
-            } else {
-                $pendingMonthsText = $pendingMonths[0] . " to " . end($pendingMonths);
-            }
-
-            $balanceDue = max(0, $chargeableFee - $runningTotal);
-            $dueAmount = $balanceDue;
-            $isPaidInFull = ($balanceDue <= 0);
-
-            if ($unpaidMonthsCount > 0) {
-                $statusBadge = "{$unpaidMonthsCount} Month" . ($unpaidMonthsCount > 1 ? "s" : "") . " Overdue ({$pendingMonthsText} : ₹" . number_format($balanceDue) . "/-)";
-            } elseif ($totalMonthsCovered > $elapsedMonths) {
-                $advance = $totalMonthsCovered - $elapsedMonths;
-                $statusBadge = "Advance Paid: {$advance} Month" . ($advance > 1 ? "s" : "") . " Ahead (Paid up to " . end($clearedMonths) . ")";
-            } else {
-                $statusBadge = "All Fees Cleared Up to Date (Next Due: {$nextDueMonth})";
-            }
+            $dueAmount = $rate;
+            $statusBadge = count($clearedMonths) > 0 
+                ? "Cleared up to " . end($clearedMonths) . " (Next Due: {$nextDueMonth})"
+                : "No payments recorded yet (Due: {$nextDueMonth})";
         } else {
-            $chargeableFee = $totalCourseFee;
             $balanceDue = max(0, $totalCourseFee - $runningTotal);
             $dueAmount = $balanceDue;
-            $isPaidInFull = ($balanceDue <= 0);
-            $unpaidMonthsCount = $balanceDue > 0 ? 1 : 0;
-            $elapsedMonths = null;
             $statusBadge = $balanceDue <= 0 
                 ? "PAID IN FULL" 
-                : "PARTIAL PAYMENT (Balance Due: ₹" . number_format($balanceDue) . "/-)";
+                : "PARTIAL PAYMENT (Balance Due: ?" . number_format($balanceDue) . "/-)";
         }
 
         $ledgerData = [
@@ -361,20 +308,15 @@ class AdmissionController extends Controller
             ],
             'summary' => [
                 'totalPaid' => $runningTotal,
-                'totalCourseFee' => $isMonthly ? $chargeableFee : $totalCourseFee,
+                'totalCourseFee' => $isMonthly ? null : $totalCourseFee,
                 'monthlyRate' => $isMonthly ? $monthlyRate : null,
-                'elapsedMonths' => $elapsedMonths,
-                'chargeableFee' => $chargeableFee,
                 'clearedMonthsCount' => count($clearedMonths),
                 'clearedMonths' => $clearedMonths,
                 'clearedMonthsText' => count($clearedMonths) > 0 ? implode(', ', $clearedMonths) : null,
-                'unpaidMonthsCount' => $unpaidMonthsCount,
-                'pendingMonths' => $pendingMonths,
-                'pendingMonthsText' => $pendingMonthsText,
                 'nextDueMonth' => $nextDueMonth,
                 'dueAmount' => $dueAmount,
                 'balanceDue' => $balanceDue,
-                'isPaidInFull' => $isPaidInFull,
+                'isPaidInFull' => $isMonthly ? true : ($balanceDue <= 0),
                 'statusBadge' => $statusBadge,
             ],
             'transactions' => $transactions,
@@ -382,181 +324,7 @@ class AdmissionController extends Controller
 
         return ResponseHelper::success("Student fee ledger fetched successfully", $ledgerData);
     }
-
-    /**
-     * GET /api/admissions/dues
-     * Summary and student/course itemization of all outstanding fees.
-     */
-    public function dues()
-    {
-        $now = new \DateTime();
-        $admissions = Admission::with(['student', 'course'])
-            ->orderBy('id', 'desc')
-            ->get();
-
-        $allReceipts = SimpleFeesReceipt::all()->groupBy(function($r) {
-            return $r->student_id . '_' . $r->course_id;
-        });
-
-        $studentsMap = [];
-        $enrollments = [];
-        $totalOutstandingDue = 0;
-
-        foreach ($admissions as $adm) {
-            $student = $adm->student;
-            $course = $adm->course;
-            if (!$student) continue;
-
-            $sId = $student->id;
-            $admDate = new \DateTime($adm->admission_date ?? 'now');
-            $isMonthly = (int)$adm->fee_modes_id === 1;
-            $monthlyRate = (float)($adm->course_fees ?? 600);
-            $totalCourseFee = (float)($adm->course_fees ?? $course?->course_fees ?? 0);
-
-            $key = $adm->student_id . '_' . $adm->course_id;
-            $admReceipts = $allReceipts->get($key, collect());
-            $coursePaid = (float)$admReceipts->sum('amount_paid');
-
-            $clearedMonths = [];
-            $nextDueMonth = null;
-            $unpaidMonths = [];
-            $pendingMonthsText = null;
-            $chargeableFee = 0;
-
-            if ($isMonthly) {
-                $rate = $monthlyRate > 0 ? $monthlyRate : 600;
-                $admYear = (int)$admDate->format('Y');
-                $admMonth = (int)$admDate->format('n');
-                
-                $endDate = $adm->completion_date ? new \DateTime($adm->completion_date) : $now;
-                if ($endDate > $now) {
-                    $endDate = $now;
-                }
-                $endYear = (int)$endDate->format('Y');
-                $endMonth = (int)$endDate->format('n');
-
-                $elapsedMonths = (($endYear - $admYear) * 12) + ($endMonth - $admMonth) + 1;
-                if ($elapsedMonths < 1) {
-                    $elapsedMonths = 1;
-                }
-
-                $chargeableFee = $elapsedMonths * $rate;
-                $balanceDue = max(0, $chargeableFee - $coursePaid);
-                $totalMonthsCovered = (int)floor($coursePaid / $rate);
-
-                for ($i = 0; $i < $totalMonthsCovered; $i++) {
-                    $m = (clone $admDate)->modify("+{$i} months");
-                    $clearedMonths[] = $m->format('F Y');
-                }
-                $nextDue = (clone $admDate)->modify("+{$totalMonthsCovered} months");
-                $nextDueMonth = $nextDue->format('F Y');
-
-                $unpaidMonthsCount = max(0, $elapsedMonths - $totalMonthsCovered);
-                for ($i = $totalMonthsCovered; $i < $elapsedMonths; $i++) {
-                    $m = (clone $admDate)->modify("+{$i} months");
-                    $unpaidMonths[] = $m->format('F Y');
-                }
-
-                if (count($unpaidMonths) === 0) {
-                    $pendingMonthsText = null;
-                } elseif (count($unpaidMonths) === 1) {
-                    $pendingMonthsText = $unpaidMonths[0];
-                } else {
-                    $pendingMonthsText = $unpaidMonths[0] . " to " . end($unpaidMonths);
-                }
-
-                if ($unpaidMonthsCount > 0) {
-                    $statusText = "{$unpaidMonthsCount} Mos Due (" . ($pendingMonthsText ?? $nextDueMonth) . ")";
-                } elseif ($totalMonthsCovered > $elapsedMonths) {
-                    $statusText = "Advance Paid";
-                } else {
-                    $statusText = "Dues Cleared (Next: {$nextDueMonth})";
-                }
-            } else {
-                $chargeableFee = $totalCourseFee;
-                $balanceDue = max(0, $totalCourseFee - $coursePaid);
-                $unpaidMonthsCount = $balanceDue > 0 ? 1 : 0;
-                $statusText = $balanceDue <= 0 ? "Paid in Full" : "Part Payment";
-            }
-
-            $totalOutstandingDue += $balanceDue;
-
-            $courseItem = [
-                'admissionId' => $adm->id,
-                'admissionNo' => $adm->admission_number,
-                'admissionDate' => $adm->admission_date,
-                'courseId' => $course?->id,
-                'courseName' => $course?->course_name ?? 'Unknown Course',
-                'courseCode' => $course?->course_code ?? 'CRS',
-                'isMonthly' => $isMonthly,
-                'feeMode' => $isMonthly ? 'Monthly' : 'Lump sum',
-                'monthlyRate' => $isMonthly ? ($monthlyRate > 0 ? $monthlyRate : 600) : null,
-                'totalCourseFee' => $chargeableFee,
-                'totalPaid' => $coursePaid,
-                'balanceDue' => $balanceDue,
-                'status' => $statusText,
-                'nextDueMonth' => $nextDueMonth,
-                'unpaidMonthsCount' => $unpaidMonthsCount,
-                'pendingMonthsText' => $pendingMonthsText,
-            ];
-
-            // Flat enrollment entry
-            $enrollments[] = array_merge($courseItem, [
-                'studentId' => $sId,
-                'studentName' => $student->student_name,
-                'studentRegNo' => $student->registration_number,
-                'studentPhone' => $student->whatsapp ?? $student->phone1,
-            ]);
-
-            // Group by student
-            if (!isset($studentsMap[$sId])) {
-                $studentsMap[$sId] = [
-                    'studentId' => $sId,
-                    'studentName' => $student->student_name,
-                    'studentRegNo' => $student->registration_number,
-                    'studentPhone' => $student->whatsapp ?? $student->phone1,
-                    'totalAgreedFee' => 0,
-                    'totalPaid' => 0,
-                    'totalDue' => 0,
-                    'hasMultipleCourses' => false,
-                    'courses' => [],
-                ];
-            }
-
-            $studentsMap[$sId]['totalAgreedFee'] += $chargeableFee;
-            $studentsMap[$sId]['totalPaid'] += $coursePaid;
-            $studentsMap[$sId]['totalDue'] += $balanceDue;
-            $studentsMap[$sId]['courses'][] = $courseItem;
-        }
-
-        $studentsList = array_values($studentsMap);
-        $multiCourseStudentsCount = 0;
-        $studentsWithDuesCount = 0;
-
-        foreach ($studentsList as &$s) {
-            $s['hasMultipleCourses'] = count($s['courses']) > 1;
-            if ($s['hasMultipleCourses']) {
-                $multiCourseStudentsCount++;
-            }
-            if ($s['totalDue'] > 0) {
-                $studentsWithDuesCount++;
-            }
-        }
-        unset($s);
-
-        $response = [
-            'summary' => [
-                'totalOutstandingDue' => $totalOutstandingDue,
-                'studentsWithDuesCount' => $studentsWithDuesCount,
-                'totalStudents' => count($studentsList),
-                'multiCourseStudentsCount' => $multiCourseStudentsCount,
-                'totalEnrollments' => count($enrollments),
-                'asOfDate' => date('d M Y'),
-            ],
-            'students' => $studentsList,
-            'enrollments' => $enrollments,
-        ];
-
-        return ResponseHelper::success("Student dues statement fetched successfully", $response);
-    }
 }
+
+
+

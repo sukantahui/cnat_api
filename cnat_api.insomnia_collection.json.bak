@@ -794,25 +794,6 @@
       ]
     },
     {
-      "_id": "req_stu_prev_adm",
-      "_type": "request",
-      "parentId": "fld_stu",
-      "name": "GET /students/{id}/previous-admissions — Previous Admissions & Payment Details",
-      "method": "GET",
-      "url": "{{ base_url }}/students/1/previous-admissions",
-      "description": "Fetch student profile along with all previous course admissions, course statuses, fee modes, agreed fees, and per-course fee payment ledger (total paid, balance due, cleared billing months, next due month, and receipt transaction history). Supports numeric ID (e.g. 1) or registration number string (e.g. CNAT-00001-2627).",
-      "headers": [
-        {
-          "name": "Authorization",
-          "value": "Bearer {{ token }}"
-        },
-        {
-          "name": "Accept",
-          "value": "application/json"
-        }
-      ]
-    },
-    {
       "_id": "req_stu_wo",
       "_type": "request",
       "parentId": "fld_stu",

@@ -248,9 +248,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
             /** GET  /api/students/without-admission    → studentsWithoutAdmission() Students not yet enrolled in any course */
             Route::get('/without-admission', 'studentsWithoutAdmission');
-
-            /** GET  /api/students/{student}/previous-admissions → previousAdmissions() All previous course admissions & per-course fee payment ledger */
-            Route::get('/{student}/previous-admissions', 'previousAdmissions');
         });
         // Standard REST: GET/POST/PUT/PATCH/DELETE /api/students{/{student}}
         Route::apiResource('students', StudentController::class);
@@ -260,7 +257,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
          * GET /api/admissions/{admissionId}/ledger  →  AdmissionController@ledger
          * Full fee payment ledger: all payments made + outstanding balance.
          */
-        Route::get('admissions/dues', [AdmissionController::class, 'dues']);
         Route::get('admissions/{admissionId}/ledger', [AdmissionController::class, 'ledger']);
         // Standard REST: GET/POST/PUT/PATCH/DELETE /api/admissions{/{admission}}
         Route::apiResource('admissions', AdmissionController::class);
@@ -459,7 +455,6 @@ if (app()->environment('local')) {
         Route::controller(StudentController::class)->prefix('students')->group(function () {
             Route::get('/', 'index');
             Route::post('/', 'store');
-            Route::get('/{studentId}/previous-admissions', 'previousAdmissions');
             Route::put('/{studentId}', 'update');
             Route::delete('/{studentId}', 'destroy');
         });
