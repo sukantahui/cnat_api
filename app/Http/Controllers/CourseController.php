@@ -137,7 +137,7 @@ class CourseController extends Controller
 
     public function students(Course $course)
     {
-        $result =  $course->load('students');
-        return new CourseWithStudentsResource($result);
+        $result = $course->load('students');
+        return ResponseHelper::success("Course students retrieved successfully", new CourseWithStudentsResource($result));
     }
 }

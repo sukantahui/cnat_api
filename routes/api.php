@@ -58,9 +58,10 @@ use App\Http\Controllers\BackupController;            // Database backup managem
  * Authenticate a user and return a Sanctum Bearer token.
  * Body: { email, password }
  * Response: { token, user }
+ * Security: Throttled to 6 requests per minute per IP to prevent brute-force attacks.
  */
 Route::controller(AuthController::class)->group(function () {
-    Route::post('login', 'login')->name('login');
+    Route::post('login', 'login')->middleware('throttle:6,1')->name('login');
 });
 
 
@@ -438,53 +439,55 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 //
 // Base prefix: /api/dev
 // =============================================================================
-Route::group(['prefix' => 'dev'], function () {
+if (app()->environment('local')) {
+    Route::group(['prefix' => 'dev'], function () {
 
-    // Guests — open CRUD for dev/testing
-    Route::controller(GuestController::class)->prefix('guests')->group(function () {
-        Route::get('/', 'index');
-        Route::get('/{guest}', 'show');
-        Route::post('/', 'store');
-        Route::put('/{guest}', 'update');
-        Route::delete('/{guest}', 'destroy');
-    });
+        // Guests — open CRUD for dev/testing
+        Route::controller(GuestController::class)->prefix('guests')->group(function () {
+            Route::get('/', 'index');
+            Route::get('/{guest}', 'show');
+            Route::post('/', 'store');
+            Route::put('/{guest}', 'update');
+            Route::delete('/{guest}', 'destroy');
+        });
 
-    // Students — open CRUD for dev/testing
-    Route::controller(StudentController::class)->prefix('students')->group(function () {
-        Route::get('/', 'index');
-        Route::post('/', 'store');
-        Route::put('/{studentId}', 'update');
-        Route::delete('/{studentId}', 'destroy');
-    });
+        // Students — open CRUD for dev/testing
+        Route::controller(StudentController::class)->prefix('students')->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::put('/{studentId}', 'update');
+            Route::delete('/{studentId}', 'destroy');
+        });
 
-    // Admissions — open CRUD for dev/testing
-    Route::controller(AdmissionController::class)->prefix('admissions')->group(function () {
-        Route::get('/', 'index');
-        Route::post('/', 'store');
-        Route::put('/{admissionId}', 'update');
-        Route::delete('/{admissionId}', 'destroy');
-    });
+        // Admissions — open CRUD for dev/testing
+        Route::controller(AdmissionController::class)->prefix('admissions')->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::put('/{admissionId}', 'update');
+            Route::delete('/{admissionId}', 'destroy');
+        });
 
-    // Certificate Lookup — fetch by certificate number (public lookup, dev only)
-    Route::controller(CertificateController::class)->prefix('certificates')->group(function () {
-        /** GET /api/dev/certificates/{certificate_number}  →  index()  Fetch certificate details */
-        Route::get('/{certificate_number}', 'index');
-    });
+        // Certificate Lookup — fetch by certificate number (public lookup, dev only)
+        Route::controller(CertificateController::class)->prefix('certificates')->group(function () {
+            /** GET /api/dev/certificates/{certificate_number}  →  index()  Fetch certificate details */
+            Route::get('/{certificate_number}', 'index');
+        });
 
-    // Visitors — open POST for dev/testing (throttle still applied)
-    Route::controller(VisitorController::class)->prefix('visitors')->group(function () {
-        Route::post('/', 'store')->middleware('throttle:3,1');
-    });
+        // Visitors — open POST for dev/testing (throttle still applied)
+        Route::controller(VisitorController::class)->prefix('visitors')->group(function () {
+            Route::post('/', 'store')->middleware('throttle:3,1');
+        });
 
-    // Backups - open backup endpoints for dev/testing
-    Route::controller(BackupController::class)->prefix('backups')->group(function () {
-        Route::get('/', 'index');
-        Route::post('/', 'create');
-        Route::get('/{filename}', 'download');
-        Route::delete('/{filename}', 'destroy');
-        Route::delete('/', 'destroyAll');
+        // Backups - open backup endpoints for dev/testing
+        Route::controller(BackupController::class)->prefix('backups')->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'create');
+            Route::get('/{filename}', 'download');
+            Route::delete('/{filename}', 'destroy');
+            Route::delete('/', 'destroyAll');
+        });
     });
-});
+}
 
 
 

@@ -18,8 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(\Illuminate\Http\Middleware\HandleCors::class);
         
         $middleware->validateCsrfTokens(except: [
-            'http://localhost/solid_gold/solid_gold_api/public/api/*',
-            'api/*'
+            'api/*',
         ]);
 
         $middleware->alias([

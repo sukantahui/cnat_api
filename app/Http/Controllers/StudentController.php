@@ -140,18 +140,21 @@ class StudentController extends Controller
 
     public function admissions(Student $student)
     {
-        return $student->load([
+        $data = $student->load([
             'courses',
             'admissions.course',
             'admissions.courseStatus'
         ]);
+
+        return ResponseHelper::success("Student admissions retrieved successfully", $data);
     }
+
     public function studentsWithoutAdmission()
     {
         $students = Student::whereDoesntHave('admissions')
             ->orderBy('student_name')
             ->get();
 
-        return StudentResource::collection($students);
+        return ResponseHelper::success("Students without admission retrieved successfully", StudentResource::collection($students));
     }
 }

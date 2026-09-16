@@ -21,12 +21,15 @@ class AdmissionController extends Controller
      */
     public function index()
     {
-        return AdmissionResource::collection(
-            Admission::with([
-                'student',
-                'course',
-                'courseStatus'
-            ])->get()
+        $admissions = Admission::with([
+            'student',
+            'course',
+            'courseStatus',
+        ])->get();
+
+        return ResponseHelper::success(
+            "Admissions retrieved successfully",
+            AdmissionResource::collection($admissions)
         );
     }
 

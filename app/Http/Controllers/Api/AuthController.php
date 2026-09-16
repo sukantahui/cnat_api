@@ -59,15 +59,16 @@ class AuthController extends Controller
         }
     }
 
-    public function login(LoginRequest $request){
-        //to check database connection is active or not
+    public function login(LoginRequest $request)
+    {
+        // To check if database connection is active
         try {
             DB::connection()->getPdo();
         } catch (\Exception $e) {
-            return ResponseHelper::error($e->getMessage(),null,503);;
+            return ResponseHelper::error($e->getMessage(), null, 503);
         }
 
-        try{
+        try {
             // Attempt to authenticate the user
             if (!Auth::attempt($request->only('email', 'password'))) {
                 return ResponseHelper::error('Invalid credentials', null, 401);
@@ -78,36 +79,36 @@ class AuthController extends Controller
 
             // Generate a new token for API authentication (Using Laravel Sanctum)
             $token = $user->createToken('auth_token')->plainTextToken;
-            $userResource = new UserResource($user);
-            // return ResponseHelper::success('success','login successfully',array('user'=>$userResource,'token'=>$token),200);
-            return ResponseHelper::success('login successfully',array('user'=>new UserResource($user),'token'=>$token),200);
-        }catch(Exception $e){
-            return ResponseHelper::error($e->getMessage(),null);
+
+            return ResponseHelper::success('login successfully', [
+                'user'  => new UserResource($user),
+                'token' => $token,
+            ], 200);
+        } catch (Exception $e) {
+            return ResponseHelper::error($e->getMessage(), null);
         }
     }
 
-    function getCurrentUser(){
+    public function getCurrentUser()
+    {
+        $user = auth()->user();
 
-        $user=auth()->user();;
-        
-        if(!$user){
-                return ResponseHelper::error('token expired',401);
-        }else{
-                
-                return ResponseHelper::success('User fetched',new UserResource($user),200);
+        if (!$user) {
+            return ResponseHelper::error('token expired', null, 401);
         }
+
+        return ResponseHelper::success('User fetched', new UserResource($user), 200);
     }
 
-    function getCurrentUser2(){
+    public function getCurrentUser2()
+    {
+        $user = auth()->user();
 
-        $user=auth()->user();
-        
-        if(!$user){
-                return ResponseHelper::error('token expired',401);
-        }else{
-                
-                return $user;
+        if (!$user) {
+            return ResponseHelper::error('token expired', null, 401);
         }
+
+        return ResponseHelper::success('User fetched', $user, 200);
     }
 
     public function logout()

@@ -54,10 +54,7 @@ class VisitorController extends Controller
                 'time' => now(),
             ]);
 
-            return response()->json([
-                'status' => false,
-                'message' => 'Invalid submission detected.',
-            ], 403);
+            return ResponseHelper::error('Invalid submission detected.', null, 403);
         }
 
         // ✅ Step 1: Validate input from StoreVisitorRequest
@@ -74,11 +71,7 @@ class VisitorController extends Controller
         $visitor = Visitor::create($data);
 
         // ✅ Step 4: Send response back to frontend
-        return response()->json([
-            'status' => true,
-            'message' => 'Your inquiry has been submitted successfully.',
-            'data' => $visitor,
-        ]);
+        return ResponseHelper::success('Your inquiry has been submitted successfully.', $visitor, 201);
     }
 
     /**

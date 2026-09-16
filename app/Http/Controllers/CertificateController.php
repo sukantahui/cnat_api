@@ -6,6 +6,7 @@ use App\Models\Certificate;
 use App\Http\Requests\StoreCertificateRequest;
 use App\Http\Requests\UpdateCertificateRequest;
 use App\Http\Resources\CertificateResource;
+use App\Helper\ResponseHelper;
 
 class CertificateController extends Controller
 {
@@ -23,7 +24,8 @@ class CertificateController extends Controller
         ])
         ->where('certificate_number', $certificate_number)
         ->firstOrFail();
-        return new CertificateResource($certificate);
+
+        return ResponseHelper::success("Certificate retrieved successfully", new CertificateResource($certificate));
     }
     /**
      * Store a newly created resource in storage.
