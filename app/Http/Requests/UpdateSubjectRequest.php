@@ -11,10 +11,23 @@ class UpdateSubjectRequest extends BaseRequest
         return true;
     }
 
+    protected function prepareForValidation(): void
+    {
+        parent::prepareForValidation();
+
+        // Alias 'name' to 'subject_name' if provided
+        if ($this->has('name') && !$this->has('subject_name')) {
+            $this->merge([
+                'subject_name' => $this->input('name'),
+            ]);
+        }
+    }
+
     public function rules(): array
     {
         return [
             'subject_name' => [
+                'sometimes',
                 'required',
                 'string',
                 'max:100',
@@ -24,6 +37,7 @@ class UpdateSubjectRequest extends BaseRequest
             ],
 
             'subject_code' => [
+                'sometimes',
                 'required',
                 'string',
                 'max:100',

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\QuestionLevel;
-use App\Http\Requests\StoreQuestionLevelRequest;
-use App\Http\Requests\UpdateQuestionLevelRequest;
+use App\Http\Resources\QuestionLevelResource;
+use App\Helper\ResponseHelper;
 
 class QuestionLevelController extends Controller
 {
@@ -13,54 +13,12 @@ class QuestionLevelController extends Controller
      */
     public function index()
     {
-        //
+        $levels = QuestionLevel::all();
+        return ResponseHelper::success("Question levels fetched successfully", QuestionLevelResource::collection($levels));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreQuestionLevelRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(QuestionLevel $questionLevel)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(QuestionLevel $questionLevel)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateQuestionLevelRequest $request, QuestionLevel $questionLevel)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(QuestionLevel $questionLevel)
-    {
-        //
+        return ResponseHelper::success("Question level fetched successfully", new QuestionLevelResource($questionLevel));
     }
 }

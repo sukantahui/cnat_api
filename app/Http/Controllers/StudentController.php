@@ -118,6 +118,16 @@ class StudentController extends Controller
         // Outside transaction: only reached if commit succeeded
         return ResponseHelper::success("Student created successfully", $student);
     }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Student $student)
+    {
+        $student->load(['gender', 'district.state', 'admissions.course', 'admissions.courseStatus']);
+        return ResponseHelper::success("Student retrieved successfully", new StudentResource($student));
+    }
+
     public function edit(Student $student)
     {
         //

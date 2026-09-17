@@ -480,7 +480,7 @@
           <input type="checkbox" class="custom-checkbox" onchange="toggleTask('task_1_1')" />
           <div class="task-meta">
             <h3 class="task-title">1.1 Configure Sanctum Token Expiration</h3>
-            <a href="file:///e:/cnat_api/config/sanctum.php#L49" class="task-file-link"><i data-lucide="external-link"></i> config/sanctum.php:49</a>
+            <a href="file:///e:/wamp64/www/cnat_api/config/sanctum.php#L49" class="task-file-link"><i data-lucide="external-link"></i> config/sanctum.php:49</a>
             <p class="task-desc">
               Tokens currently never expire (<code style="color:var(--accent-amber)">'expiration' => null</code>). Set a default 30-day token lifetime via environment variables.
             </p>
@@ -501,7 +501,7 @@
           <input type="checkbox" class="custom-checkbox" onchange="toggleTask('task_1_2')" />
           <div class="task-meta">
             <h3 class="task-title">1.2 Dynamic CORS Whitelist from .env</h3>
-            <a href="file:///e:/cnat_api/config/cors.php#L9" class="task-file-link"><i data-lucide="external-link"></i> config/cors.php:9</a>
+            <a href="file:///e:/wamp64/www/cnat_api/config/cors.php#L9" class="task-file-link"><i data-lucide="external-link"></i> config/cors.php:9</a>
             <p class="task-desc">
               Prevent CORS blocks in staging and production by reading allowed origins dynamically from <code style="color:var(--accent-cyan)">.env</code>.
             </p>
@@ -522,7 +522,7 @@
           <input type="checkbox" class="custom-checkbox" onchange="toggleTask('task_1_3')" />
           <div class="task-meta">
             <h3 class="task-title">1.3 Add Rate Limiting to Sensitive Submission Routes</h3>
-            <a href="file:///e:/cnat_api/routes/api.php" class="task-file-link"><i data-lucide="external-link"></i> routes/api.php</a>
+            <a href="file:///e:/wamp64/www/cnat_api/routes/api.php" class="task-file-link"><i data-lucide="external-link"></i> routes/api.php</a>
             <p class="task-desc">
               Apply <code style="color:var(--accent-cyan)">throttle:10,1</code> to student admissions and user registration to prevent automated spamming.
             </p>
@@ -544,7 +544,7 @@ Route::post('/', 'register')->middleware('throttle:10,1');</code></pre>
           <input type="checkbox" class="custom-checkbox" onchange="toggleTask('task_1_4')" />
           <div class="task-meta">
             <h3 class="task-title">1.4 Enforce Hidden Attributes & Mass Assignment Protection</h3>
-            <a href="file:///e:/cnat_api/app/Models/User.php" class="task-file-link"><i data-lucide="external-link"></i> app/Models/User.php</a>
+            <a href="file:///e:/wamp64/www/cnat_api/app/Models/User.php" class="task-file-link"><i data-lucide="external-link"></i> app/Models/User.php</a>
             <p class="task-desc">
               Ensure passwords and tokens never leak into JSON outputs and all Eloquent models use explicit <code style="color:var(--accent-cyan)">$fillable</code> arrays.
             </p>
@@ -558,7 +558,7 @@ Route::post('/', 'register')->middleware('throttle:10,1');</code></pre>
           <input type="checkbox" class="custom-checkbox" onchange="toggleTask('task_1_5')" />
           <div class="task-meta">
             <h3 class="task-title">1.5 Unified JSON Exception Handling</h3>
-            <a href="file:///e:/cnat_api/bootstrap/app.php#L29" class="task-file-link"><i data-lucide="external-link"></i> bootstrap/app.php:29</a>
+            <a href="file:///e:/wamp64/www/cnat_api/bootstrap/app.php#L29" class="task-file-link"><i data-lucide="external-link"></i> bootstrap/app.php:29</a>
             <p class="task-desc">
               Add explicit renderers for <code style="color:var(--accent-cyan)">AuthenticationException</code> and <code style="color:var(--accent-cyan)">ValidationException</code> to guarantee JSON error formatting.
             </p>
@@ -585,7 +585,7 @@ Route::post('/', 'register')->middleware('throttle:10,1');</code></pre>
           <input type="checkbox" class="custom-checkbox" onchange="toggleTask('task_2_1')" />
           <div class="task-meta">
             <h3 class="task-title">2.1 Clean up 28 Dead / Stubbed Policy Classes</h3>
-            <a href="file:///e:/cnat_api/app/Policies" class="task-file-link"><i data-lucide="external-link"></i> app/Policies/</a>
+            <a href="file:///e:/wamp64/www/cnat_api/app/Policies" class="task-file-link"><i data-lucide="external-link"></i> app/Policies/</a>
             <p class="task-desc">
               Remove unused policy stubs returning <code style="color:var(--accent-rose)">return false;</code> to prevent accidental permission locks, or implement real role authorization.
             </p>
@@ -599,7 +599,7 @@ Route::post('/', 'register')->middleware('throttle:10,1');</code></pre>
           <input type="checkbox" class="custom-checkbox" onchange="toggleTask('task_2_2')" />
           <div class="task-meta">
             <h3 class="task-title">2.2 Consolidate Response Helpers</h3>
-            <a href="file:///e:/cnat_api/app/Helper/ResponseHelper.php" class="task-file-link"><i data-lucide="external-link"></i> app/Helper/ResponseHelper.php</a>
+            <a href="file:///e:/wamp64/www/cnat_api/app/Helper/ResponseHelper.php" class="task-file-link"><i data-lucide="external-link"></i> app/Helper/ResponseHelper.php</a>
             <p class="task-desc">
               Unify all API responses through <code style="color:var(--accent-cyan)">ResponseHelper</code> as the single source of truth.
             </p>
@@ -613,7 +613,7 @@ Route::post('/', 'register')->middleware('throttle:10,1');</code></pre>
           <input type="checkbox" class="custom-checkbox" onchange="toggleTask('task_2_3')" />
           <div class="task-meta">
             <h3 class="task-title">2.3 Remove Stray Backup Files & Update .gitignore</h3>
-            <a href="file:///e:/cnat_api/.gitignore" class="task-file-link"><i data-lucide="external-link"></i> .gitignore</a>
+            <a href="file:///e:/wamp64/www/cnat_api/.gitignore" class="task-file-link"><i data-lucide="external-link"></i> .gitignore</a>
             <p class="task-desc">
               Add <code style="color:var(--accent-cyan)">*.bak</code> and <code style="color:var(--accent-cyan)">*.hui</code> to <code style="color:var(--accent-cyan)">.gitignore</code> and delete orphaned backup files.
             </p>
@@ -627,7 +627,7 @@ Route::post('/', 'register')->middleware('throttle:10,1');</code></pre>
           <input type="checkbox" class="custom-checkbox" onchange="toggleTask('task_2_4')" />
           <div class="task-meta">
             <h3 class="task-title">2.4 Clean Controller Docblocks & Code Comments</h3>
-            <a href="file:///e:/cnat_api/app/Http/Controllers/Api/AuthController.php#L19" class="task-file-link"><i data-lucide="external-link"></i> AuthController.php:19</a>
+            <a href="file:///e:/wamp64/www/cnat_api/app/Http/Controllers/Api/AuthController.php#L19" class="task-file-link"><i data-lucide="external-link"></i> AuthController.php:19</a>
             <p class="task-desc">
               Remove duplicate docblock comment openers and unneeded comments in controllers.
             </p>
@@ -654,7 +654,7 @@ Route::post('/', 'register')->middleware('throttle:10,1');</code></pre>
           <input type="checkbox" class="custom-checkbox" onchange="toggleTask('task_3_1')" />
           <div class="task-meta">
             <h3 class="task-title">3.1 Fix Migration Year Prefix Typo</h3>
-            <a href="file:///e:/cnat_api/database/migrations" class="task-file-link"><i data-lucide="external-link"></i> database/migrations/</a>
+            <a href="file:///e:/wamp64/www/cnat_api/database/migrations" class="task-file-link"><i data-lucide="external-link"></i> database/migrations/</a>
             <p class="task-desc">
               Rename <code style="color:var(--accent-amber)">025_08_25_...</code> to <code style="color:var(--accent-emerald)">2025_08_25_...</code> for chronological migration order.
             </p>
@@ -668,7 +668,7 @@ Route::post('/', 'register')->middleware('throttle:10,1');</code></pre>
           <input type="checkbox" class="custom-checkbox" onchange="toggleTask('task_3_2')" />
           <div class="task-meta">
             <h3 class="task-title">3.2 Add Search Indexes for High-Traffic Queries</h3>
-            <a href="file:///e:/cnat_api/database/migrations" class="task-file-link"><i data-lucide="external-link"></i> database/migrations/</a>
+            <a href="file:///e:/wamp64/www/cnat_api/database/migrations" class="task-file-link"><i data-lucide="external-link"></i> database/migrations/</a>
             <p class="task-desc">
               Index <code style="color:var(--accent-cyan)">registration_number</code>, <code style="color:var(--accent-cyan)">admission_number</code>, <code style="color:var(--accent-cyan)">receipt_no</code>, and <code style="color:var(--accent-cyan)">certificate_number</code> for instant lookups.
             </p>
@@ -760,7 +760,7 @@ Route::post('/', 'register')->middleware('throttle:10,1');</code></pre>
           <input type="checkbox" class="custom-checkbox" onchange="toggleTask('task_4_4')" />
           <div class="task-meta">
             <h3 class="task-title">4.4 Add Test Script to composer.json</h3>
-            <a href="file:///e:/cnat_api/composer.json#L41" class="task-file-link"><i data-lucide="external-link"></i> composer.json</a>
+            <a href="file:///e:/wamp64/www/cnat_api/composer.json#L41" class="task-file-link"><i data-lucide="external-link"></i> composer.json</a>
             <p class="task-desc">
               Add <code style="color:var(--accent-cyan)">"test": "pest --colors=always"</code> script.
             </p>
@@ -787,7 +787,7 @@ Route::post('/', 'register')->middleware('throttle:10,1');</code></pre>
           <input type="checkbox" class="custom-checkbox" onchange="toggleTask('task_5_1')" />
           <div class="task-meta">
             <h3 class="task-title">5.1 Schedule Automated Daily Database Backups</h3>
-            <a href="file:///e:/cnat_api/routes/console.php" class="task-file-link"><i data-lucide="external-link"></i> routes/console.php</a>
+            <a href="file:///e:/wamp64/www/cnat_api/routes/console.php" class="task-file-link"><i data-lucide="external-link"></i> routes/console.php</a>
             <p class="task-desc">
               Schedule <code style="color:var(--accent-cyan)">php artisan db:backup</code> to run daily at 02:00 AM automatically.
             </p>
@@ -842,12 +842,21 @@ Route::post('/', 'register')->middleware('throttle:10,1');</code></pre>
 
     function initProgress() {
       const saved = JSON.parse(localStorage.getItem('cnat_audit_progress') || '{}');
-      let completedCount = 0;
+      const isFirstLoad = Object.keys(saved).length === 0 && !localStorage.getItem('cnat_audit_initialized');
 
+      if (isFirstLoad) {
+        document.querySelectorAll('.task-card').forEach(card => {
+          saved[card.id] = true;
+        });
+        localStorage.setItem('cnat_audit_progress', JSON.stringify(saved));
+        localStorage.setItem('cnat_audit_initialized', 'true');
+      }
+
+      let completedCount = 0;
       document.querySelectorAll('.task-card').forEach(card => {
         const id = card.id;
         const checkbox = card.querySelector('.custom-checkbox');
-        if (saved[id]) {
+        if (saved[id] || isFirstLoad) {
           checkbox.checked = true;
           card.classList.add('completed');
           completedCount++;

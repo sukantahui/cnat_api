@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\QuestionType;
-use App\Http\Requests\StoreQuestionTypeRequest;
-use App\Http\Requests\UpdateQuestionTypeRequest;
+use App\Http\Resources\QuestionTypeResource;
+use App\Helper\ResponseHelper;
 
 class QuestionTypeController extends Controller
 {
@@ -13,54 +13,12 @@ class QuestionTypeController extends Controller
      */
     public function index()
     {
-        //
+        $types = QuestionType::all();
+        return ResponseHelper::success("Question types fetched successfully", QuestionTypeResource::collection($types));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreQuestionTypeRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(QuestionType $questionType)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(QuestionType $questionType)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateQuestionTypeRequest $request, QuestionType $questionType)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(QuestionType $questionType)
-    {
-        //
+        return ResponseHelper::success("Question type fetched successfully", new QuestionTypeResource($questionType));
     }
 }

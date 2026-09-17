@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreQuestionRequest extends BaseRequest
 {
@@ -22,7 +22,7 @@ class StoreQuestionRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'question_text' => ['required', 'string','unique:questions,question_text'],
+            'question_text' => ['required', 'string'],
             'question_code' => ['nullable', 'string'],
             'question_image' => ['nullable', 'string'],
 
@@ -36,9 +36,17 @@ class StoreQuestionRequest extends BaseRequest
             'applicable_to' => ['nullable', 'array'],
             'applicable_to.*' => ['string'],
 
-            'inforce' => ['nullable', 'boolean']
+            'inforce' => ['nullable', 'boolean'],
+
+            'options' => ['nullable', 'array'],
+            'options.*.option_text' => ['required_with:options', 'string'],
+            'options.*.option_code' => ['nullable', 'string'],
+            'options.*.option_image' => ['nullable', 'string'],
+            'options.*.is_correct' => ['nullable', 'boolean'],
+            'options.*.inforce' => ['nullable'],
         ];
     }
+
     public function messages(): array
     {
         return [

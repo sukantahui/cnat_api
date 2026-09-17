@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\DB;
 class AuthController extends Controller
 {
     /**
-    /**
      * Display a listing of all users (Admin only).
      */
     public function index()

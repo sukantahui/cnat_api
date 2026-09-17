@@ -146,6 +146,15 @@ class AdmissionController extends Controller
 
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Admission $admission)
+    {
+        $admission->load(['student.gender', 'course', 'courseStatus']);
+        return ResponseHelper::success("Admission retrieved successfully", AdmissionResource::make($admission));
+    }
+
+    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateAdmissionRequest $request, $admissionId)

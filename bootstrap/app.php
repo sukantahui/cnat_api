@@ -4,6 +4,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Str;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -26,23 +30,58 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->renderable(function (NotFoundHttpException $e, $request) {
-            // Function to extract model name from exception message
-            $extractModelName = function ($exception) {
-                $message = $exception->getMessage();
-                // Corrected regex with double backslashes
-                if (preg_match('/No query results for model \[App\\\\Models\\\\(.+?)\]/', $message, $matches)) {
-                    return $matches[1]; // Return model name, e.g., 'Employee'
-                }
-                return 'Resource'; // Default fallback
-            };
+        // 401 Unauthenticated
+        $exceptions->renderable(function (AuthenticationException $e, $request) {
+            if ($request->is('api/*') || $request->expectsJson()) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Unauthenticated. Please provide a valid Bearer token.',
+                    'data'    => null,
+                ], 401);
+            }
+        });
 
-            $modelName = $extractModelName($e);
-            return response()->json([
-                'status' => false,
-                'message' => "this {$modelName} not found.",
-                'data' => null,
-            ], 404);
+        // 403 Forbidden / Unauthorized
+        $exceptions->renderable(function (AuthorizationException|AccessDeniedHttpException $e, $request) {
+            if ($request->is('api/*') || $request->expectsJson()) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Unauthorized action. You do not have permission to access this resource.',
+                    'data'    => null,
+                ], 403);
+            }
+        });
+
+        // 404 Not Found
+        $exceptions->renderable(function (NotFoundHttpException $e, $request) {
+            if ($request->is('api/*') || $request->expectsJson()) {
+                // Function to extract model name from exception message
+                $extractModelName = function ($exception) {
+                    $message = $exception->getMessage();
+                    if (preg_match('/No query results for model \[App\\\\Models\\\\(.+?)\]/', $message, $matches)) {
+                        return $matches[1]; // Return model name, e.g., 'Employee'
+                    }
+                    return 'Resource'; // Default fallback
+                };
+
+                $modelName = $extractModelName($e);
+                return response()->json([
+                    'status'  => false,
+                    'message' => "Requested {$modelName} or endpoint was not found.",
+                    'data'    => null,
+                ], 404);
+            }
+        });
+
+        // 405 Method Not Allowed
+        $exceptions->renderable(function (MethodNotAllowedHttpException $e, $request) {
+            if ($request->is('api/*') || $request->expectsJson()) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'HTTP method not allowed for this endpoint.',
+                    'data'    => null,
+                ], 405);
+            }
         });
     })
     ->create();

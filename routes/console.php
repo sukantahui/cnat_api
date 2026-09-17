@@ -2,11 +2,11 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
-
 
 Artisan::command('db:backup', function () {
     $this->info('Starting database backup...');
@@ -36,4 +36,9 @@ Artisan::command('db:restore {file? : Optional path to the SQL backup file}', fu
     }
     return $this->call('db:seed', ['--class' => 'DatabaseRestoreSeeder']);
 })->purpose('Restore the MySQL database from an SQL backup file');
+
+// ── Automated Schedules ───────────────────────────────────────────────────────
+Schedule::command('db:backup')
+    ->dailyAt('02:00')
+    ->appendOutputTo(storage_path('logs/backup.log'));
 

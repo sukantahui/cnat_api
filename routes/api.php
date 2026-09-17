@@ -34,7 +34,9 @@ use App\Http\Controllers\EmployeeController;          // Staff/employee CRUD
 use App\Http\Controllers\Api\AuthController;          // Auth: login, logout, user info, registration
 use App\Http\Controllers\CertificateController;       // Certificate lookup by number
 use App\Http\Controllers\QuestionController;          // Question bank (MCQ / etc.)
-use App\Http\Controllers\OptionController;            // Answer options for questions
+use App\Http\Controllers\OptionController;
+use App\Http\Controllers\QuestionLevelController;
+use App\Http\Controllers\QuestionTypeController;            // Answer options for questions
 use App\Http\Controllers\ResultController;            // Exam results
 use App\Http\Controllers\StateController;             // Indian states / geo reference data
 use App\Http\Controllers\StudentController;           // Student CRUD + related queries
@@ -132,7 +134,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::get('/', 'index');
 
             /** POST /api/users  → register() Register a new user account */
-            Route::post('/', 'register');
+            Route::post('/', 'register')->middleware('throttle:10,1');
         });
 
         /**
@@ -181,7 +183,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::get('/', 'index');
 
             /** POST   /api/backups              → create()     Run mysqldump, save .sql file */
-            Route::post('/', 'create');
+            Route::post('/', 'create')->middleware('throttle:3,1');
 
             /** GET    /api/backups/{filename}   → download()   Stream backup file as download */
             Route::get('/{filename}', 'download');
@@ -211,7 +213,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
              * Also sets the initial course fees for the admission.
              * Body: { student: {...}, admission: {...}, fees: {...} }
              */
-            Route::post('/admissionWithStudent', 'storeStudentWithAdmission');
+            Route::post('/admissionWithStudent', 'storeStudentWithAdmission')->middleware('throttle:10,1');
         });
 
 
@@ -327,6 +329,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
         // ── Question Bank ─────────────────────────────────────────────────────
         // Standard REST: GET/POST/PUT/PATCH/DELETE /api/questions{/{question}}
+        Route::get('question-levels', [QuestionLevelController::class, 'index']);
+        Route::get('question-types', [QuestionTypeController::class, 'index']);
         Route::apiResource('questions', QuestionController::class);
 
         // Answer Options for Questions  (base: /api/options)
