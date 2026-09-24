@@ -64,6 +64,8 @@ use App\Http\Controllers\BackupController;            // Database backup managem
  */
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login')->middleware('throttle:6,1')->name('login');
+    Route::post('reset-password', 'publicResetPassword')->middleware('throttle:6,1');
+    Route::post('forgot-password', 'publicResetPassword')->middleware('throttle:6,1');
 });
 
 
@@ -89,6 +91,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
         /** GET  /api/revokeAll  → revoke_all()      Revoke ALL tokens (sign out everywhere) */
         Route::get('revokeAll', 'revoke_all');
+        Route::post('change-password', 'changePassword');
+        Route::put('change-password', 'changePassword');
     });
 
     // =========================================================================
@@ -135,6 +139,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
             /** POST /api/users  → register() Register a new user account */
             Route::post('/', 'register')->middleware('throttle:10,1');
+            Route::post('/{id}/reset-password', 'adminResetPassword');
+            Route::put('/{id}/password', 'adminResetPassword');
+            Route::post('/reset-password', 'adminResetPassword');
         });
 
         /**
